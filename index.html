@@ -1304,6 +1304,92 @@ svg.mascot-svg { width: 1.25em; height: 1.25em; vertical-align: middle; overflow
 .b-face[data-mood="sleep"] .bf-sleep path:last-child { animation: zzz 1.8s ease-in-out infinite; transform-box: fill-box; }
 @keyframes zzz { 0%, 100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(-3px); opacity: 1; } }
 
+/* ================================================================
+   Face Mirror bonus round: copy the emoji face, a live match meter, stars and snapshots
+   ================================================================ */
+.fm { position: fixed; inset: 0; z-index: 96; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 16px 28px; text-align: center; --m: 0; --best: 0;
+  background: radial-gradient(circle at 50% -10%, #fff 0, var(--w-bg1) 45%, var(--w-bg2) 100%); animation: fmIn .45s cubic-bezier(.2,1.4,.4,1) both; }
+body.fm-open { overflow: hidden; }
+.fm-top { width: min(980px, 100%); display: flex; justify-content: space-between; align-items: center; }
+.fm-badge { background: var(--char); color: #fff; border-radius: 999px; padding: .45em 1em; font-weight: 700; font-size: .85rem; display: inline-flex; gap: 6px; align-items: center; letter-spacing: .5px; text-transform: uppercase; }
+.fm-badge .i { color: #FFC93C; --dab: rgba(255,201,60,.3); }
+.fm-skip { font-weight: 700; }
+.fm-title { font-family: var(--font-h); font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin: 2px 0 0; color: var(--w-accent); text-shadow: 0 4px 0 rgba(0,0,0,.08); animation: fmWobble 2.4s ease-in-out infinite; }
+.fm-sub { margin: 0 0 4px; color: var(--ink-2); font-weight: 600; }
+.fm-stage { position: relative; width: min(980px, 100%); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; margin-top: 8px; }
+.fm-target, .fm-you { position: relative; background: #fff; border-radius: 32px; padding: 22px; min-height: 340px; box-shadow: 0 18px 40px rgba(0,0,0,.12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+.fm-emoji { font-size: clamp(7rem, 17vw, 11rem); line-height: 1; filter: drop-shadow(0 12px 16px rgba(0,0,0,.18)); }
+.fm-emoji.pop { animation: fmPop .7s cubic-bezier(.2,1.8,.4,1) both, fmBob 2.2s .7s ease-in-out infinite; }
+.fm-name { font-family: var(--font-h); font-size: 1.6rem; color: var(--char); }
+.fm-count { position: absolute; inset: 0; display: grid; place-items: center; border-radius: inherit; font-family: var(--font-h); font-size: 7rem; font-weight: 800; color: #fff; background: color-mix(in srgb, var(--w-accent) 80%, transparent); text-shadow: 0 6px 0 rgba(0,0,0,.15); }
+.fm-count[hidden] { display: none; }
+.fm-count.beat { animation: fmBeat .5s cubic-bezier(.2,1.8,.4,1); }
+.fm-vs { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-h); font-weight: 800; font-size: 1.5rem; color: #fff; background: var(--char); box-shadow: 0 0 0 6px #fff, 0 10px 20px rgba(0,0,0,.2); animation: fmBob 1.6s ease-in-out infinite; z-index: 2; }
+.fm-cam { --left: 1; position: relative; width: clamp(180px, 25vw, 250px); aspect-ratio: 1; border-radius: 50%; background: conic-gradient(var(--w-accent) calc(var(--m) * 1%), #EEE7DD 0); transition: box-shadow .3s; }
+.fm-cam::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; background: conic-gradient(var(--char) calc(var(--left) * 360deg), transparent 0); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 0); mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 0); opacity: .35; }
+.fm-hole { position: absolute; inset: 13px; border-radius: 50%; overflow: hidden; background: #2b2b2b; }
+.fm-hole video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.fm-hole canvas { display: none; }
+.fm-hint { position: absolute; left: 50%; bottom: 14%; transform: translateX(-50%); z-index: 2; background: rgba(0,0,0,.72); color: #fff; padding: .35em .85em; border-radius: 999px; font-weight: 700; font-size: .85rem; white-space: nowrap; }
+.fm-hint[hidden] { display: none; }
+.fm.hot .fm-cam { box-shadow: 0 0 0 6px #FFD43B, 0 0 46px #FFD43B; animation: fmBeat .6s cubic-bezier(.2,1.8,.4,1); }
+.fm-pct { font-family: var(--font-h); font-weight: 800; font-size: 1.5rem; color: var(--char); line-height: 1; }
+.fm-pct b { font-size: 3.2rem; color: var(--w-accent); }
+.fm-bar { position: relative; width: 100%; max-width: 280px; height: 16px; border-radius: 999px; background: #EEE7DD; }
+.fm-bar i { position: absolute; inset: 0 auto 0 0; width: calc(var(--m) * 1%); border-radius: inherit; background: linear-gradient(90deg, #FFC93C, var(--w-accent)); transition: width .12s; }
+.fm-bar::after { content: ''; position: absolute; top: -6px; bottom: -6px; left: calc(var(--best) * 1%); width: 5px; margin-left: -2.5px; border-radius: 3px; background: var(--char); }
+.fm-result { position: absolute; left: 50%; top: 50%; z-index: 3; min-width: 230px; translate: -50% -50%; background: #fff; border-radius: 28px; padding: 18px 30px 20px; box-shadow: 0 24px 60px rgba(0,0,0,.28), 0 0 0 6px var(--w-accent); animation: fmPop .6s cubic-bezier(.2,1.8,.4,1) both; }
+.fm-rp { font-family: var(--font-h); font-size: 4.4rem; font-weight: 800; line-height: 1; color: var(--w-accent); }
+.fm-rs { margin: 6px 0; }
+.fm-rs span { display: inline-block; animation: starIn .5s cubic-bezier(.2,1.8,.4,1) both; }
+.fm-rs .i { width: 2.8rem; height: 2.8rem; color: #C9C2B8; --dab: #EEE7DD; }
+.fm-rs .got .i, .fm-pola figcaption i.got .i { color: #B7791F; --dab: #FFD43B; }
+.fm-result > b { font-family: var(--font-h); font-size: 1.35rem; color: var(--char); }
+.fm-dots { display: flex; gap: 14px; margin-top: 16px; }
+.fm-dot { font-size: 1.9rem; opacity: .35; filter: grayscale(1); transition: all .3s; }
+.fm-dot.on { opacity: 1; filter: none; transform: scale(1.3); }
+.fm-sum { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 14px; }
+.fm-polas { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; padding: 10px; }
+.fm-pola { position: relative; margin: 0; background: #fff; padding: 10px 10px 12px; border-radius: 6px; box-shadow: 0 14px 30px rgba(0,0,0,.18); transform: rotate(var(--r)); animation: fmPop .6s cubic-bezier(.2,1.6,.4,1) both; }
+.fm-pola canvas, .fm-snap.empty { display: block; width: clamp(120px, 20vw, 180px); height: auto; aspect-ratio: 1; border-radius: 4px; background: #EEE7DD; }
+.fm-snap.empty { display: grid; place-items: center; font-size: 2.6rem; color: #A39B90; }
+.fm-sticker { position: absolute; right: -16px; top: -16px; font-size: 3.2rem; line-height: 1; filter: drop-shadow(0 4px 6px rgba(0,0,0,.25)); animation: fmBob 2s ease-in-out infinite; }
+.fm-pola figcaption { margin-top: 6px; font-family: var(--font-h); }
+.fm-pola figcaption b { font-size: 1.5rem; color: var(--w-accent); }
+.fm-pola figcaption i { font-style: normal; }
+.fm-pola figcaption i .i { color: #C9C2B8; --dab: #EEE7DD; }
+.fm-sum h3 { font-family: var(--font-h); font-size: clamp(1.8rem, 5vw, 2.4rem); margin: 6px 0 0; color: var(--char); }
+.fm-sum p { margin: 0; font-weight: 600; color: var(--ink-2); }
+.fm-note { color: var(--muted); }
+.fm-rep { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.fm-rep small { color: var(--muted); }
+.fm-rep div { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+@keyframes fmIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes fmPop { from { opacity: 0; scale: .3; } to { opacity: 1; scale: 1; } }
+@keyframes fmBob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+@keyframes fmBeat { from { scale: 1.25; } to { scale: 1; } }
+@keyframes fmWobble { 0%, 100% { rotate: -2deg; } 50% { rotate: 2deg; } }
+@media (max-width: 700px) {
+  .fm { padding: 12px 12px 22px; }
+  .fm-sub { font-size: .9rem; }
+  .fm-stage { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fm-vs { position: absolute; left: 50%; top: 38%; translate: -50% -50%; width: 44px; height: 44px; font-size: 1rem; box-shadow: 0 0 0 4px #fff; }
+  .fm-target, .fm-you { min-height: 250px; padding: 14px 8px; border-radius: 24px; }
+  .fm-emoji { font-size: 5.4rem; }
+  .fm-name { font-size: 1.15rem; }
+  .fm-count { font-size: 4.6rem; }
+  .fm-cam { width: 100%; max-width: 150px; }
+  .fm-hole { inset: 9px; }
+  .fm-pct b { font-size: 2.2rem; }
+  .fm-hint { font-size: .7rem; }
+  .fm-result { min-width: 200px; padding: 14px 20px; }
+  .fm-rp { font-size: 3.4rem; }
+  .fm-rs .i { width: 2.2rem; height: 2.2rem; }
+  .fm-polas { gap: 14px; }
+  .fm-pola canvas, .fm-snap.empty { width: 96px; }
+  .fm-sticker { font-size: 2.3rem; right: -12px; top: -12px; }
+}
+
 </style>
 </head>
 <body>
@@ -1393,6 +1479,8 @@ svg.mascot-svg { width: 1.25em; height: 1.25em; vertical-align: middle; overflow
 <symbol id="w-kingdom" viewBox="0 0 64 64"><g fill="none" stroke="#414042" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="28" width="12" height="30" fill="var(--wb, #FFD8A8)"/><rect x="44" y="28" width="12" height="30" fill="var(--wb, #FFD8A8)"/><path d="M18 34v-3.5h3.5V34M23 34v-3.5h3V34M38 34v-3.5h3V34M42.5 34v-3.5H46V34" fill="var(--wb, #FFD8A8)"/><rect x="18" y="34" width="28" height="24" fill="var(--wb, #FFD8A8)"/><rect x="26" y="20" width="12" height="14" fill="var(--wb, #FFD8A8)"/><path d="M6.5 28L14 14l7.5 14z" fill="var(--wa, #F7941D)"/><path d="M42.5 28L50 14l7.5 14z" fill="var(--wa, #F7941D)"/><path d="M24 20l8-11 8 11z" fill="var(--wa, #F7941D)"/><path d="M32 9V2.5"/><path d="M32 3l7 2.5-7 2.5z" fill="var(--wa, #F7941D)"/><path d="M27 58v-9a5 5 0 0 1 10 0v9z" fill="#414042"/><path d="M12.5 39v-2.5a1.5 1.5 0 0 1 3 0V39zM48.5 39v-2.5a1.5 1.5 0 0 1 3 0V39z" fill="#414042" stroke-width="1.5"/><circle cx="32" cy="26.5" r="2.3" fill="#fff" stroke-width="2"/><path d="M3.5 58h57"/><path d="M10 25l2.5-5M44 25l2.5-5" stroke="#fff" stroke-width="2"/></g></symbol>
 <symbol id="w-cyber" viewBox="0 0 64 64"><g fill="none" stroke="#414042" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 14V7.5"/><circle cx="32" cy="5.5" r="3" fill="var(--wb, #FFD8A8)"/><path d="M39 3.5c1.3 1 2 2.3 2 3.8M25 3.5c-1.3 1-2 2.3-2 3.8" stroke-width="2"/><rect x="24" y="50" width="16" height="9" rx="2" fill="var(--wb, #FFD8A8)"/><rect x="5.5" y="26" width="7" height="15" rx="3" fill="var(--wb, #FFD8A8)"/><rect x="51.5" y="26" width="7" height="15" rx="3" fill="var(--wb, #FFD8A8)"/><rect x="11" y="14" width="42" height="38" rx="11" fill="var(--wa, #F7941D)"/><rect x="17" y="21" width="30" height="20" rx="7" fill="#414042"/><ellipse cx="26" cy="30" rx="3" ry="3.8" fill="#fff" stroke="none"/><ellipse cx="38" cy="30" rx="3" ry="3.8" fill="#fff" stroke="none"/><path d="M28.5 35.5c2.2 1.8 4.8 1.8 7 0" stroke="#fff" stroke-width="2"/><circle cx="25" cy="46.5" r="1.7" fill="#fff" stroke-width="1.8"/><circle cx="32" cy="46.5" r="1.7" fill="var(--wb, #FFD8A8)" stroke-width="1.8"/><circle cx="39" cy="46.5" r="1.7" fill="#fff" stroke-width="1.8"/><path d="M15.5 30v-6a4 4 0 0 1 2-3" stroke="#fff" stroke-width="2"/></g></symbol>
 <symbol id="m-guide" viewBox="0 0 64 64"><g fill="none" stroke="#414042" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="57" rx="5.5" ry="3.2" fill="var(--wa, #F7941D)"/><ellipse cx="40" cy="57" rx="5.5" ry="3.2" fill="var(--wa, #F7941D)"/><path d="M32 14V8.5"/><circle cx="32" cy="6" r="3.2" fill="var(--wb, #FFD8A8)"/><ellipse cx="9.5" cy="39" rx="3.5" ry="5" transform="rotate(20 9.5 39)" fill="var(--wa, #F7941D)"/><path d="M51 30c3-2.5 5-5.5 5.5-9"/><circle cx="56.5" cy="19.5" r="3.3" fill="var(--wa, #F7941D)"/><path d="M32 13c13 0 22 9 22 21 0 13-9 22-22 22S10 47 10 34c0-12 9-21 22-21z" fill="var(--wa, #F7941D)"/><ellipse cx="32" cy="35" rx="15" ry="12" fill="#fff"/><ellipse cx="26" cy="33" rx="2.8" ry="4" fill="#414042" stroke="none"/><ellipse cx="38" cy="33" rx="2.8" ry="4" fill="#414042" stroke="none"/><ellipse cx="21.5" cy="39.5" rx="2.8" ry="1.8" fill="#FF8FA3" stroke="none"/><ellipse cx="42.5" cy="39.5" rx="2.8" ry="1.8" fill="#FF8FA3" stroke="none"/><path d="M28.5 40c2 2.3 5 2.3 7 0"/><path d="M16 25a18 18 0 0 1 7-7" stroke="#fff"/></g></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><rect fill="var(--dab, none)" stroke="none" x="6.5" y="6.5" width="14" height="14" rx="3"/><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9"/><path d="M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9"/><path d="M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15"/></g></symbol>
+<symbol id="i-shrink" viewBox="0 0 24 24"><rect fill="var(--dab, none)" stroke="none" x="7.5" y="7.5" width="12" height="12" rx="3"/><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v3.5A1.5 1.5 0 0 1 7.5 9H4"/><path d="M20 9h-3.5A1.5 1.5 0 0 1 15 7.5V4"/><path d="M15 20v-3.5a1.5 1.5 0 0 1 1.5-1.5H20"/><path d="M4 15h3.5A1.5 1.5 0 0 1 9 16.5V20"/></g></symbol>
 </defs></svg>
 <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
@@ -1410,6 +1498,7 @@ svg.mascot-svg { width: 1.25em; height: 1.25em; vertical-align: middle; overflow
     <button class="btn btn-primary btn-sm" data-action="start">Start Adventure <svg class="i" aria-hidden="true" focusable="false"><use href="#i-rocket"/></svg></button>
   </nav>
   <div class="session-bar" id="sessionBar" hidden>
+    <button class="icon-btn" id="fsToggle" title="Full screen" aria-label="Full screen on or off" hidden><svg class="i" aria-hidden="true" focusable="false"><use href="#i-expand"/></svg></button>
     <button class="icon-btn" id="soundToggle" title="Sound on / off" aria-label="Sound on or off"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-sound"/></svg></button>
     <span class="star-chip" id="starChip" title="Stars collected"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><b id="starNum">0</b></span>
     <div class="player-chip"><span class="pc-avatar" id="pcAvatar">🦊</span><span><b id="pcName">Explorer</b><small id="pcGrade">Grade 4</small></span></div>
@@ -3829,7 +3918,7 @@ const V = {
   },
   stop() { if (this.stream) this.stream.getTracks().forEach(t => t.stop()); this.stream = null; this.live.face = false; if (this.video) this.video.srcObject = null; },
   mount(container, mode) {
-    this.mode = mode; const v = $('#camVideo'), c = $('#camOverlay');
+    this.mode = mode; const v = this._v = $('#camVideo') || this._v, c = this._c = $('#camOverlay') || this._c;   // kept even if a container holding them was removed
     if (v.parentElement !== container) { container.prepend(c); container.prepend(v); }
     v.hidden = !this.on; c.hidden = !this.on; if (this.on) v.play().catch(() => {});
   },
@@ -5737,6 +5826,163 @@ $('#micSkipBtn').addEventListener('click', () => {
 });
 
 /* ================================================================
+   Face Mirror: a bonus break between missions. An emoji face appears, the child
+   copies it to the camera and the face reader shows live how close the copy is,
+   then a score, stars and a snapshot of their best moment (kept on screen only).
+   Also: full screen when the game starts.
+   ================================================================ */
+const MIRROR_AT = [5, 15, 25, 35, 45];   // shown before these missions (middle of each zone)
+const blend = k => (Expr.lastB && Expr.lastB[k]) || 0;
+const emoP = k => (V.live.emo && V.live.emo[k]) || 0;
+/* the silly faces are measured against this child's own resting face (some faces rest with pursed lips),
+   learnt during the break; that is why a silly face never comes first */
+const SILLY = { pucker: () => blend('mouthPucker'), puff: () => blend('cheekPuff'), wink: () => Math.abs(blend('eyeBlinkLeft') - blend('eyeBlinkRight')), jaw: () => blend('jawOpen'), wide: () => (blend('eyeWideLeft') + blend('eyeWideRight')) / 2 + blend('browInnerUp') };
+const lift = k => Math.max(0, SILLY[k]() - FaceMirror.rest(k));
+/* each face scores 0..1 from the face reader: the four feelings use its expression read-out,
+   the silly faces read single face movements (they need the MediaPipe tracker) */
+const MIRROR_FACES = [
+  { k: 'happy', e: '😄', name: 'Big smile', say: 'a big happy smile', score: () => emoP('happy') / .7 },
+  { k: 'surprised', e: '😮', name: 'Surprised', say: 'a surprised face, eyebrows up and mouth open', score: () => emoP('surprised') / .6 },
+  { k: 'angry', e: '😠', name: 'Grumpy', say: 'a grumpy face, pull your eyebrows down', score: () => emoP('angry') / .55 },
+  { k: 'sad', e: '😢', name: 'Sad', say: 'a sad face', score: () => emoP('sad') / .55 },
+  { k: 'wink', e: '😉', name: 'Wink', say: 'a wink, close just one eye', mp: true, score: () => (lift('wink') - .15) / .45 },
+  { k: 'kiss', e: '😗', name: 'Kissy face', say: 'a kissy face, push your lips out', mp: true, score: () => (lift('pucker') - .08) / .4 },
+  { k: 'puff', e: '🐡', name: 'Pufferfish', say: 'puffed-up cheeks like a pufferfish', mp: true, score: () => (lift('puff') - .04) / .3 },
+  { k: 'scream', e: '😱', name: 'Scream', say: 'a giant scream face, mouth wide open', mp: true, score: () => .65 * (lift('jaw') - .05) / .45 + .35 * lift('wide') / .6 }
+];
+const FM_LINES = [["Hmm, the camera missed that one", "Let's try the next face!"], ['Nice try, silly face!', 'Getting there!'], ['Great copy!', 'So close!'], ['Mirror master!', 'Perfect twins!', 'Spot on!']];
+const FaceMirror = {
+  node: null, timers: [], raf: 0, active: false, done: null, seen: {}, sampler: 0,
+  rest(k) { const a = this.seen[k]; if (!a || a.length < 5) return 0; return a.slice().sort((x, y) => x - y)[Math.floor(a.length * .25)]; },
+  wanted(i) {
+    if (!S || !V.on || !V.aiReady || !S.cam.enabled || !MIRROR_AT.includes(i)) return false;
+    S.mirror = S.mirror || { done: [], tries: [] };
+    return !S.mirror.done.includes(i);
+  },
+  later(fn, ms) { const t = setTimeout(fn, ms); this.timers.push(t); return t; },
+  /* pick 3 faces for this break: two feelings and one silly face, different each break */
+  pick(i) {
+    const r = mulberry32((S.seed || 1) * 31 + i), feel = shuffle(MIRROR_FACES.filter(f => !f.mp), r), silly = shuffle(MIRROR_FACES.filter(f => f.mp), r);
+    return V.mp ? [feel[0], silly[0], feel[1]] : feel.slice(0, 3);
+  },
+  run(i, onDone) {
+    this.stop(); this.active = true; this.done = onDone; S.mirror = S.mirror || { done: [], tries: [] };
+    const faces = this.pick(i), results = [];
+    this.node = el('div', { class: 'fm', role: 'dialog', 'aria-label': 'Face Mirror bonus round' },
+      el('div', { class: 'fm-top' }, el('span', { class: 'fm-badge' }, ico('sparkle') + ' Bonus round'), el('button', { class: 'link-btn fm-skip', type: 'button', onclick: () => this.finish(i, results, true) }, 'Skip')),
+      el('h2', { class: 'fm-title' }, 'Face Mirror!'), el('p', { class: 'fm-sub' }, 'Copy each face. The magic camera checks how close you get.'),
+      el('div', { class: 'fm-stage' }, el('div', { class: 'fm-target' }, el('div', { class: 'fm-emoji' }), el('b', { class: 'fm-name' }), el('div', { class: 'fm-count', hidden: true })),
+        el('div', { class: 'fm-vs' }, 'VS'),
+        el('div', { class: 'fm-you' }, el('div', { class: 'fm-cam' }, el('div', { class: 'fm-hole' }), el('div', { class: 'fm-hint', hidden: true }, 'Show me your face!')), el('div', { class: 'fm-pct' }, el('b', {}, '0'), '%'), el('div', { class: 'fm-bar' }, el('i')))),
+      el('div', { class: 'fm-dots' }, ...faces.map(f => el('span', { class: 'fm-dot' }, f.e))));
+    document.body.append(this.node); document.body.classList.add('fm-open');
+    this.seen = {}; this.sampler = setInterval(() => { if (!V.fresh() || !Expr.lastB) return; for (const k in SILLY) { const a = this.seen[k] || (this.seen[k] = []); a.push(SILLY[k]()); if (a.length > 300) a.shift(); } }, 150);
+    V.mount(this.node.querySelector('.fm-hole'), 'mirror');
+    sfx.whoosh(); this.later(() => this.round(i, faces, 0, results), calm() ? 200 : 900);
+  },
+  round(i, faces, n, results) {
+    if (!this.active) return; if (n >= faces.length) return this.finish(i, results, false);
+    const f = faces[n], N = this.node, emo = N.querySelector('.fm-emoji'), cnt = N.querySelector('.fm-count'), cam = N.querySelector('.fm-cam');
+    N.querySelectorAll('.fm-dot').forEach((d, k) => d.classList.toggle('on', k === n));
+    N.classList.remove('scored', 'hot'); N.querySelector('.fm-result')?.remove();
+    emo.textContent = f.e; emo.classList.remove('pop'); void emo.offsetWidth; emo.classList.add('pop'); N.querySelector('.fm-name').textContent = f.name;
+    this.meter(0, 0); speak(`Copy this face! Make ${f.say}.`);
+    // 3, 2, 1, then five seconds to copy it (longer while the face is out of view)
+    let k = 3; cnt.hidden = false; cnt.textContent = k; tone(520, .12, 'sine', .12);
+    const tick = () => { if (!this.active) return; k--; if (k > 0) { cnt.textContent = k; cnt.classList.remove('beat'); void cnt.offsetWidth; cnt.classList.add('beat'); tone(520, .12, 'sine', .12); this.later(tick, 700); } else { cnt.textContent = 'Go!'; tone(880, .2, 'triangle', .14); this.later(() => { cnt.hidden = true; }, 600); capture(); } };
+    this.later(tick, 1400);
+    const capture = () => {
+      const t0 = performance.now(), win = [], snap = el('canvas', { class: 'fm-snap', width: 240, height: 240 });
+      let best = 0, lost = 0, last = t0, end = t0 + 5000, flashed = false;
+      const step = () => {
+        this.raf = 0; if (!this.active) return; const now = performance.now(), dt = now - last; last = now;
+        const seen = V.fresh(); if (!seen) { lost += dt; if (end - now < 1500 && lost < 3000) end += dt; }
+        N.querySelector('.fm-hint').hidden = seen;
+        win.push(seen ? clamp(f.score(), 0, 1) : 0); if (win.length > 4) win.shift();
+        const m = win.reduce((a, b) => a + b, 0) / win.length;
+        if (m > best) { best = m; if (seen) this.snap(snap); }
+        this.meter(m, best); cam.style.setProperty('--left', clamp((end - now) / 5000, 0, 1).toFixed(3));
+        if (m >= .8 && !flashed) { flashed = true; N.classList.add('hot'); sfx.pop(); const r = cam.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + r.height / 2, { n: 16, chars: ['star', 'sparkle', 'heart'] }); }
+        if (now < end) this.raf = requestAnimationFrame(step); else score(best, snap);
+      };
+      this.raf = requestAnimationFrame(step);
+    };
+    const score = (best, snap) => {
+      const pct = Math.round(100 * Math.pow(best, .75)), stars = pct >= 80 ? 3 : pct >= 55 ? 2 : pct >= 25 ? 1 : 0;
+      results.push({ k: f.k, e: f.e, pct, stars, snap: best > 0 ? snap : null });
+      S.mirror.tries.push({ i, k: f.k, pct }); save();
+      N.classList.add('scored'); if (stars >= 2) { sfx.good(); Confetti.burst(stars === 3 ? 120 : 60); } else sfx.soft();
+      const card = el('div', { class: 'fm-result' }, el('div', { class: 'fm-rp' }, `${pct}%`), el('div', { class: 'fm-rs' }, ...[0, 1, 2].map(s => el('span', { class: s < stars ? 'got' : '', style: `animation-delay:${.2 + s * .15}s` }, ico('star')))), el('b', {}, pick(Math.random, FM_LINES[stars])));
+      N.querySelector('.fm-stage').append(card);
+      this.later(() => this.round(i, faces, n + 1, results), 2600);
+    };
+  },
+  /* live match meter: a ring around the camera, a big number and a bar with the best mark */
+  meter(m, best) {
+    const N = this.node; if (!N) return; const p = Math.round(100 * Math.pow(m, .75));
+    N.style.setProperty('--m', p); N.style.setProperty('--best', Math.round(100 * Math.pow(best, .75)));
+    N.querySelector('.fm-pct b').textContent = p;
+  },
+  /* the best moment, mirrored like the camera view; it lives only in this canvas and is never saved */
+  snap(c) {
+    const v = $('#camVideo'); if (!v || !v.videoWidth) return; const x = c.getContext('2d'), s = Math.min(v.videoWidth, v.videoHeight);
+    let sx = (v.videoWidth - s) / 2, sy = (v.videoHeight - s) / 2, ss = s;
+    if (V.live.box) { const [bx, by, bw, bh] = V.live.box; ss = Math.min(s, Math.max(bw * v.videoWidth, bh * v.videoHeight) * 1.6); sx = clamp((bx + bw / 2) * v.videoWidth - ss / 2, 0, v.videoWidth - ss); sy = clamp((by + bh / 2) * v.videoHeight - ss / 2, 0, v.videoHeight - ss); }
+    x.save(); x.translate(240, 0); x.scale(-1, 1); x.drawImage(v, sx, sy, ss, ss, 0, 0, 240, 240); x.restore();
+  },
+  finish(i, results, skipped) {
+    if (!this.active) return; this.clearTimers(); S.mirror.done.push(i); save();
+    if (skipped || !results.length) return this.close();
+    const N = this.node, total = results.reduce((a, r) => a + r.stars, 0), avg = Math.round(results.reduce((a, r) => a + r.pct, 0) / results.length);
+    N.classList.remove('scored', 'hot'); N.classList.add('summary'); speak(total >= 7 ? 'Wow, you are a face mirror master!' : 'Great faces! Back to the adventure!');
+    const go = el('button', { class: 'btn btn-world btn-lg', type: 'button', onclick: () => this.close() }, 'Back to the adventure ' + ico('rocket'));
+    V.mount($('#cdView'), 'dock');   // the camera leaves the overlay before its stage is replaced
+    N.querySelector('.fm-stage').replaceWith(el('div', { class: 'fm-sum' },
+      el('div', { class: 'fm-polas' }, ...results.map((r, k) => el('figure', { class: 'fm-pola', style: `--r:${[-5, 3, -2][k % 3]}deg;animation-delay:${k * .15}s` },
+        r.snap || el('div', { class: 'fm-snap empty' }, ico('camera')), el('span', { class: 'fm-sticker' }, r.e), el('figcaption', {}, el('b', {}, `${r.pct}%`), ' ', ...[0, 1, 2].map(s => el('i', { class: s < r.stars ? 'got' : '' }, ico('star'))))))),
+      el('h3', {}, total >= 7 ? 'Face Mirror master!' : total >= 4 ? 'Brilliant faces!' : 'Fun faces!'), el('p', {}, `Average match ${avg}%. You earned ${total} bonus star${total === 1 ? '' : 's'}!`),
+      el('small', { class: 'fm-note' }, ico('lock') + ' These snapshots stay on this screen and are not saved.'), go));
+    N.querySelector('.fm-sub').hidden = true; N.querySelector('.fm-dots').hidden = true;
+    S.stars = (S.stars || 0) + total; save(); refreshStars(true); sfx.win(); Confetti.burst(160, .5, .4);
+    this.later(() => go.focus(), 300);
+  },
+  clearTimers() { this.timers.forEach(clearTimeout); this.timers = []; cancelAnimationFrame(this.raf); this.raf = 0; clearInterval(this.sampler); },
+  close() {
+    const cb = this.done; this.stop(); if (cb && S) cb();
+  },
+  stop() {
+    this.clearTimers(); this.active = false; this.done = null; stopSpeech();
+    if (this.node) { V.mount($('#cdView'), 'dock'); this.node.remove(); this.node = null; document.body.classList.remove('fm-open'); }   // the camera video goes back to the dock before the overlay is removed
+  }
+};
+const _startLevelFM = startLevel;
+startLevel = function (i) { if (FaceMirror.active) return; if (FaceMirror.wanted(i)) return FaceMirror.run(i, () => _startLevelFM(i)); _startLevelFM(i); };
+const _finishSessionFM = finishSession;
+finishSession = function () { FaceMirror.stop(); _finishSessionFM(); };
+
+/* ---------- full screen: the game takes over the screen when the child starts playing ---------- */
+const FS = {
+  optOut: false,
+  can: () => !!(document.fullscreenEnabled || document.webkitFullscreenEnabled),
+  on: () => !!(document.fullscreenElement || document.webkitFullscreenElement),
+  enter() {
+    if (!this.can() || this.on()) return; const r = document.documentElement;
+    try { const p = r.requestFullscreen ? r.requestFullscreen({ navigationUI: 'hide' }) : r.webkitRequestFullscreen(); if (p && p.catch) p.catch(() => {}); } catch (e) { /* refused: keep playing in the window */ }
+  },
+  exit() { try { const p = document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen(); if (p && p.catch) p.catch(() => {}); } catch (e) { /* ignore */ } },
+  sync() { const b = $('#fsToggle'); if (!b) return; b.hidden = !this.can(); b.innerHTML = ico(this.on() ? 'shrink' : 'expand'); b.title = this.on() ? 'Leave full screen' : 'Full screen'; }
+};
+// buttons that start the game (re-entering after an accidental Esc); a grown-up can switch it off with the toolbar button
+document.addEventListener('click', e => {
+  if (FS.optOut || FS.on()) return;
+  const starts = e.target.closest('#micGoBtn, #playBtn, .map-node.current, [data-action=start]') || (currentView === 'mic' && e.target.closest('#modal .btn-primary'));
+  if (starts) FS.enter();
+}, true);
+$('#fsToggle').addEventListener('click', () => { if (FS.on()) { FS.optOut = true; FS.exit(); } else { FS.optOut = false; FS.enter(); } });
+['fullscreenchange', 'webkitfullscreenchange'].forEach(t => document.addEventListener(t, () => FS.sync()));
+FS.sync();
+
+/* ================================================================
    Psychometric report
    Thinking skills: CHC broad abilities (Q-matrix in MEASURES).
    Personality: Big Five, 25 situational items (5 per trait).
@@ -5848,6 +6094,7 @@ function showReport(mode) {
       <div class="b5-scale"><span>${t.lo}</span><div class="b5-track">${b ? `<i style="left:${b.v}%"></i>` : ''}</div><span>${t.hi}</span></div></div>`;
   }).join('');
   const eiHTML = R.ei ? [[ico('search'), 'Understanding feelings', R.ei.u, 'Reading what a character really feels (Mayer–Salovey branch 3)'], [ico('shield'), 'Managing feelings', R.ei.m, 'Choosing a helpful way to handle a feeling (branch 4)']].map(([i, l, v, tip]) => barRow(i, l, v, '#E64980', tip)).join('').replace(/>(\d+)%<\/span><\/div>/g, '>$1</span></div>') : '<p class="rc-sub">Play the Feelings Detective mission to see this.</p>';
+  const mt = (S.mirror && S.mirror.tries) || [], mirrorHTML = mt.length ? `<div class="fm-rep"><b>Face Mirror bonus</b> <small>(copying faces for fun, not part of any score)</small><div>${mt.map(t => `<span class="chip">${(MIRROR_FACES.find(f => f.k === t.k) || {}).e || ''} ${t.pct}%</span>`).join('')}</div></div>` : '';
   const emoHTML = R.hasCam ? EMOTIONS.map(k => barRow(EMO_META[k].e, EMO_META[k].label, pct(R.emo[k]), EMO_META[k].c, `${EMO_META[k].label}: ${pct(R.emo[k])}% of the time`)).join('') : '<p class="rc-sub">No camera data for this session.</p>';
   const gz = R.gaze, cell = (k, x, y) => { const v = pct(gz[k]); const base = k === 'center' ? '22,163,74' : '59,130,246'; return `<div class="gc-cell" data-tip="${GAZE_META[k].label}: ${v}%" style="left:${x}px;top:${y}px;background:rgba(${base},${(0.1 + gz[k] * 0.9).toFixed(2)});${gz[k] > .5 ? 'color:#fff' : ''}">${GAZE_META[k].e}<br>${v}%</div>`; };
   const gazeHTML = R.hasCam ? `<div class="gaze-wrap"><div class="gaze-compass">${cell('up', 57, 0)}${cell('left', 0, 57)}${cell('center', 57, 57)}${cell('right', 114, 57)}${cell('down', 57, 114)}</div><div class="bars">${['center', 'left', 'right', 'up', 'down', 'away'].map(k => barRow(GAZE_META[k].e, GAZE_META[k].label, pct(gz[k]), k === 'center' ? '#16A34A' : k === 'away' ? '#94A3B8' : '#3B82F6', '')).join('')}</div></div>` : '<p class="rc-sub">No camera data for this session.</p>';
@@ -5898,7 +6145,7 @@ function showReport(mode) {
       </div>
       ${skills || talkHTML ? `<div class="rp-card"><h4>${ico('headphones')} Listening, reading & voice</h4><p class="rc-sub">From the audio-only stories, reading passages, Picture Talk, Say It!, Fastest Finger and Finger Math missions</p><div class="sk-list">${skills}</div>${talkHTML ? `<h5 class="talk-h">What ${esc(P.name)} said about the pictures</h5>${talkHTML}<p class="rc-sub">Recordings play only during this visit and are never uploaded by MindQuest.</p>` : ''}</div>` : ''}
       <div class="rp-grid">
-        <div class="rp-card"><h4>${ico('smile')} Feelings while playing</h4><p class="rc-sub">Share of time each facial expression was seen${R.blinkRate ? ` · Blink rate ${Math.round(R.blinkRate)}/min` : ''}</p><div class="bars">${emoHTML}</div></div>
+        <div class="rp-card"><h4>${ico('smile')} Feelings while playing</h4><p class="rc-sub">Share of time each facial expression was seen${R.blinkRate ? ` · Blink rate ${Math.round(R.blinkRate)}/min` : ''}</p><div class="bars">${emoHTML}</div>${mirrorHTML}</div>
         <div class="rp-card"><h4>${ico('eye')} Where the eyes looked</h4><p class="rc-sub">Gaze and head direction during the missions</p>${gazeHTML}</div>
       </div>
       <div class="rp-card"><h4>${ico('map')} Mission-by-mission expressions</h4><p class="rc-sub">Main expression seen during each mission (hover for details)</p><div class="timeline">${tl}</div></div>
