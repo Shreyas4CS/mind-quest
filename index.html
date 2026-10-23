@@ -1390,6 +1390,157 @@ body.fm-open { overflow: hidden; }
   .fm-sticker { font-size: 2.3rem; right: -12px; top: -12px; }
 }
 
+/* ---------- report: child summary at a glance ---------- */
+.rp-summary { background: linear-gradient(135deg, #FFF6EC, #FFFFFF 70%); box-shadow: inset 0 0 0 2px var(--brand); border-left: 8px solid var(--brand); }
+.rp-summary h4 { font-size: 1.3rem; }
+.rp-summary p { font-size: 1.04rem; line-height: 1.7; color: var(--ink); margin: 6px 0 0; }
+.rp-summary p b { color: var(--char-d); background: linear-gradient(transparent 62%, #FFD8A8 62%); }
+.sum-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.sum-tag { display: grid; grid-template-columns: auto 1fr; column-gap: 9px; align-items: center; padding: 9px 14px 9px 10px; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 2px var(--line); min-width: 150px; }
+.sum-tag > svg { grid-row: span 2; width: 30px; height: 30px; }
+.sum-tag small { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+.sum-tag b { font-size: .95rem; }
+.sum-tag.ok { box-shadow: inset 0 0 0 2px #BFE8CC; } .sum-tag.ok b { color: var(--ok); }
+.sum-tag.mid { box-shadow: inset 0 0 0 2px #FFD8A8; } .sum-tag.mid b { color: var(--brand-d); }
+.sum-tag.bad { box-shadow: inset 0 0 0 2px #F8C4C5; background: #FFF5F5; } .sum-tag.bad b { color: var(--bad); }
+.sum-tag.na b { color: var(--muted); }
+.sum-note { font-size: .78rem !important; color: var(--muted) !important; margin-top: 12px !important; line-height: 1.4 !important; }
+@media (max-width: 640px) { .rp-summary p { font-size: .97rem; } .sum-tag { min-width: 0; flex: 1 1 140px; } }
+
+/* ---------- heart sensor box (above the camera) ---------- */
+.bio-box { position: fixed; right: 18px; bottom: 18px; z-index: 61; width: 236px; background: #fff; border-radius: 18px; box-shadow: 0 0 0 1px var(--line), var(--shadow-lg); overflow: hidden; transition: bottom .25s, top .25s, right .25s, width .3s cubic-bezier(.3,1.3,.5,1); }
+.bb-head { display: flex; align-items: center; gap: 7px; padding: 8px 8px 8px 10px; background: var(--char); color: #fff; font-weight: 600; font-size: .82rem; }
+.bb-head .cd-btn { width: 28px; height: 28px; border-radius: 9px; border: 0; background: rgba(255,255,255,.14); color: #fff; cursor: pointer; font-weight: 900; flex: none; display: grid; place-items: center; }
+.bb-heart { color: #FF6B6B; display: grid; place-items: center; --dab: rgba(255,107,107,.35); }
+.bb-heart svg { width: 20px; height: 20px; }
+.bb-heart.beat { animation: bbBeat .35s ease-out; }
+@keyframes bbBeat { 0% { transform: scale(1); } 30% { transform: scale(1.45); } 100% { transform: scale(1); } }
+.bb-t { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bb-mini-hr { display: none; font-size: .78rem; opacity: .85; white-space: nowrap; } .bb-mini-hr b { font-size: 1rem; font-variant-numeric: tabular-nums; }
+.bb-dot { width: 9px; height: 9px; border-radius: 50%; background: #8E8D94; flex: none; }
+.bb-state { display: flex; align-items: center; gap: 6px; font-size: .74rem; font-weight: 700; color: var(--ink-2); margin-bottom: 9px; }
+.bb-state i { width: 9px; height: 9px; border-radius: 50%; background: #8E8D94; flex: none; }
+.bb-state small { margin-left: auto; font-weight: 500; color: var(--muted); font-size: .66rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bio-box[data-state="on"] .bb-state i, .bio-box[data-state="on"] .bb-dot { background: #4ADE80; box-shadow: 0 0 0 3px rgba(74,222,128,.25); }
+.bio-box[data-state="on"] .bb-state span { color: var(--ok); }
+.bio-box[data-state="connecting"] :is(.bb-state i, .bb-dot) { background: var(--sun); animation: bbBlink 1s infinite; }
+.bio-box[data-state="lost"] :is(.bb-state i, .bb-dot) { background: var(--coral); animation: bbBlink 1s infinite; }
+.bio-box[data-state="lost"] .bb-state span { color: var(--bad); }
+@keyframes bbBlink { 50% { opacity: .25; } }
+.bb-body { padding: 10px 12px 12px; }
+.bb-off p { margin: -4px 0 8px; font-size: .76rem; color: var(--muted); line-height: 1.4; }
+.bio-box[data-state="off"] .bb-state { margin-bottom: 2px; }
+.bb-off .btn { width: 100%; justify-content: center; }
+.bb-off small { display: block; margin-top: 6px; font-size: .7rem; color: var(--bad); }
+@media (max-width: 700px) { .bio-kpi b { font-size: 1.35rem; } .bio-kpi { padding: 10px; } }
+.bb-main { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 6px; align-items: end; }
+.bb-hr b { font-family: var(--font-h); font-size: 2.2rem; line-height: 1; color: #E5484D; font-variant-numeric: tabular-nums; }
+.bb-hr span { font-weight: 700; font-size: .75rem; color: var(--ink-2); margin-left: 3px; }
+.bb-hr small { display: block; font-size: .64rem; color: var(--muted); margin-top: 2px; }
+.bb-k { background: var(--soft); border-radius: 10px; padding: 5px 6px; text-align: center; }
+.bb-k small { display: block; font-size: .6rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; }
+.bb-k b { font-size: .9rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bb-k b span { font: inherit; }
+#bbWave { width: 100%; height: 48px; display: block; margin: 8px 0 6px; background: #FFFBF6; border-radius: 10px; }
+.bb-stress { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; font-size: .74rem; }
+.bb-stress small { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; font-size: .62rem; }
+.bb-meter { height: 8px; border-radius: 999px; background: linear-gradient(90deg, #BFE8CC, #FFD8A8, #F8C4C5); overflow: hidden; }
+.bb-meter i { display: block; height: 100%; width: 0; background: rgba(0,0,0,.18); border-right: 3px solid var(--char); transition: width .6s; }
+.bb-stress[data-lv="ok"] b { color: var(--ok); } .bb-stress[data-lv="mid"] b { color: var(--brand-d); } .bb-stress[data-lv="bad"] b { color: var(--bad); }
+.bb-chips { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+.bb-chips span { display: inline-flex; align-items: center; gap: 4px; font-size: .68rem; font-weight: 600; padding: .25em .6em; border-radius: 999px; background: var(--soft); color: var(--muted); }
+.bb-chips span svg { width: 13px; height: 13px; }
+.bb-chips .ok { background: #EAFBEF; color: var(--ok); } .bb-chips .warn { background: #FFF1DF; color: var(--brand-d); } .bb-chips .bad { background: #FDECEC; color: var(--bad); }
+.bb-disc { margin-top: 9px; width: 100%; border: 0; background: none; color: var(--ink-2); font: 600 .75rem var(--font-b); padding: 6px; border-radius: 9px; cursor: pointer; box-shadow: inset 0 0 0 1.5px var(--line); }
+.bb-disc:hover { color: var(--bad); box-shadow: inset 0 0 0 1.5px #F8C4C5; }
+.bio-box.mini { width: auto; min-width: 150px; border-radius: 999px; }
+.bio-box.mini .bb-body, .bio-box.mini .bb-t { display: none; }
+.bio-box.mini .bb-head { cursor: pointer; padding: 6px 6px 6px 12px; }
+.bio-box.mini[data-state="on"] .bb-mini-hr { display: inline; }
+@media (max-width: 700px) { .bio-box:not(.mini) { width: 214px; } .bb-hr b { font-size: 1.8rem; } .bb-k b { font-size: .8rem; } }
+/* report card */
+.bio-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 10px; }
+.bio-kpi { background: #FFF5F5; border-radius: 16px; padding: 12px 14px; }
+.bio-kpi small { display: block; font-weight: 700; color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .5px; }
+.bio-kpi b { display: block; font-family: var(--font-h); font-size: 1.7rem; line-height: 1.15; color: #C0262D; margin-top: 3px; }
+.bio-kpi b small { display: inline; font-size: .8rem; color: var(--ink-2); text-transform: none; letter-spacing: 0; }
+.bio-kpi span { font-size: .78rem; color: var(--ink-2); font-weight: 600; }
+.bio-h { font-size: .95rem; margin: 18px 0 8px; }
+.bio-chart { width: 100%; height: 150px; display: block; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.bio-legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .76rem; color: var(--ink-2); margin-top: 6px; font-weight: 600; }
+.bio-legend i { display: inline-block; width: 14px; height: 6px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.bio-legend i.dash { background: repeating-linear-gradient(90deg, #16A34A 0 4px, transparent 4px 7px); }
+.bio-legend i.dot { width: 9px; height: 9px; border-radius: 50%; background: #E5484D; }
+.bio-split { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
+.bio-row { display: grid; grid-template-columns: 26px 140px 1fr 64px; align-items: center; gap: 10px; font-weight: 600; font-size: .88rem; }
+.bio-row .br-l small { display: block; font-size: .7rem; color: var(--muted); font-weight: 500; }
+.bio-row .br-v { text-align: right; font-weight: 700; } .bio-row .br-v small { font-size: .7rem; color: var(--muted); }
+.bio-react { font-size: .9rem; line-height: 1.8; margin: 0; } .bio-react b.up { color: var(--bad); }
+.bio-top { margin: 0; padding-left: 20px; font-size: .88rem; line-height: 1.8; } .bio-top b { color: #C0262D; }
+.bio-strip h5 { font-size: .95rem; margin: 18px 0 8px; display: flex; align-items: center; gap: 6px; }
+.bio-strip > svg { width: 100%; height: 90px; display: block; border-radius: 10px; background-color: #FFF8EF; background-image: linear-gradient(rgba(247,148,29,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(247,148,29,.16) 1px, transparent 1px); background-size: 12px 12px; }
+.bio-note { margin: 16px 0 0 !important; }
+@media (max-width: 760px) { .bio-split { grid-template-columns: 1fr; gap: 4px; } .bio-row { grid-template-columns: 22px 1fr 1fr 56px; } }
+@media print { .bio-box { display: none !important; } }
+
+/* ---------- Bluetooth button in the top bar (heart sensor) ---------- */
+.bt-nav { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 15px 0 6px; border: 0; border-radius: 999px; cursor: pointer;
+  font: 600 .88rem var(--font-b); color: var(--char); background: #fff; box-shadow: inset 0 0 0 2px var(--brand); white-space: nowrap; flex: none;
+  font-variant-numeric: tabular-nums; transition: background .2s, box-shadow .2s, transform .18s; }
+.bt-nav:hover { background: var(--brand-l); transform: translateY(-1px); }
+.bt-nav:active { transform: scale(.97); }
+.bt-nav .bt-ic { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--brand); color: #fff; --dab: rgba(255,255,255,.3); flex: none; }
+.bt-nav .bt-ic svg.i { width: 18px; height: 18px; vertical-align: 0; }
+.bt-nav .bt-ic-hr { display: none; background: #FFE3E3; color: #E5484D; --dab: rgba(229,72,77,.25); }
+.bt-nav .bt-ic-hr.beat { animation: bbBeat .35s ease-out; }
+.bt-nav .bt-dot { display: none; width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.bt-nav .bt-u { display: none; margin-left: -4px; font-size: .8em; }
+.bt-nav.has-hr .bt-u { display: inline; }
+.bt-nav[data-state="off"]::after { content: ''; position: absolute; inset: -4px; border-radius: inherit; border: 2px solid var(--brand); opacity: 0; pointer-events: none; animation: btRing 2.6s ease-out infinite; }
+@keyframes btRing { 0% { opacity: .6; transform: scale(.97); } 70%, 100% { opacity: 0; transform: scale(1.1); } }
+.bt-nav[data-state="connecting"], .bt-nav[data-state="lost"] { box-shadow: inset 0 0 0 2px var(--sun); background: #FFFBEB; }
+.bt-nav[data-state="lost"] { box-shadow: inset 0 0 0 2px var(--coral); background: #FFF5F5; }
+.bt-nav[data-state="connecting"] .bt-ic, .bt-nav[data-state="lost"] .bt-ic { background: var(--sun); color: var(--char); animation: bbBlink 1s infinite; }
+.bt-nav[data-state="on"] { background: #EAFBEF; box-shadow: inset 0 0 0 2px #86E0A5; color: #166534; padding-right: 13px; }
+.bt-nav[data-state="on"]:hover { background: #DCF7E5; }
+.bt-nav[data-state="on"] .bt-ic-bt { display: none; }
+.bt-nav[data-state="on"] .bt-ic-hr { display: grid; }
+.bt-nav[data-state="on"] .bt-dot { display: block; background: #22C55E; box-shadow: 0 0 0 3px rgba(34,197,94,.22); }
+.bt-nav.no-bt[data-state="off"] { box-shadow: inset 0 0 0 2px var(--line); color: var(--muted); }
+.bt-nav.no-bt .bt-ic { background: var(--soft); color: var(--muted); }
+.bt-nav.no-bt::after { display: none; }
+.nav .bt-nav { margin-right: 8px; }
+.bt-menu { position: fixed; z-index: 80; width: 252px; padding: 8px; background: #fff; border-radius: 16px; box-shadow: 0 0 0 1px var(--line), var(--shadow-lg); animation: btMenuIn .16s ease-out; }
+@keyframes btMenuIn { from { opacity: 0; transform: translateY(-6px); } }
+.btm-head { display: flex; align-items: center; gap: 10px; padding: 8px 10px 11px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+.btm-head .bt-dot { width: 10px; height: 10px; border-radius: 50%; background: #22C55E; box-shadow: 0 0 0 3px rgba(34,197,94,.22); flex: none; }
+.btm-head b { display: block; font-size: .9rem; } .btm-head small { display: block; color: var(--muted); font-size: .75rem; }
+.bt-menu button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px; border: 0; border-radius: 10px; background: none; font: 600 .86rem var(--font-b); color: var(--ink); text-align: left; cursor: pointer; }
+.bt-menu button[hidden] { display: none; }
+.bt-menu button:hover { background: var(--soft); }
+.bt-menu button svg.i { color: #E5484D; --dab: rgba(229,72,77,.2); }
+.bt-menu .btm-danger, .bt-menu .btm-danger svg.i { color: #C92A2A; }
+.bt-menu .btm-danger:hover { background: #FFF5F5; }
+@media (max-width: 640px) {
+  .bt-nav { height: 38px; padding: 0 4px; gap: 6px; }
+  .bt-nav .bt-ic { width: 30px; height: 30px; }
+  .bt-nav[data-state="off"] .bt-t, .bt-nav[data-state="connecting"] .bt-t, .bt-nav[data-state="lost"] .bt-t, .bt-nav[data-state="on"]:not(.has-hr) .bt-t { display: none; }
+  .bt-nav[data-state="on"] { padding: 0 10px 0 4px; font-size: .8rem; }
+  .bt-nav[data-state="on"]:not(.has-hr) { padding: 0 4px; }
+  .bt-nav[data-state="on"] .bt-dot, .bt-nav .bt-u, .bt-nav.has-hr .bt-u { display: none; }
+  .session-bar { gap: 6px; }
+  .session-bar .icon-btn { width: 36px; height: 36px; font-size: 1rem; }
+  .btn-end .es-x { display: none; }
+  .topbar:has(#sessionBar:not([hidden])) .brand { display: none; }
+  .topbar:has(#sessionBar:not([hidden])) .session-bar { margin-left: auto; }
+}
+@media (max-width: 380px) {
+  .session-bar { gap: 4px; }
+  .bt-nav .bt-ic { width: 26px; height: 26px; }
+  .bt-nav[data-state="on"] { padding-right: 8px; }
+}
+@media print { .bt-nav, .bt-menu { display: none !important; } }
+
 </style>
 </head>
 <body>
@@ -1479,6 +1630,7 @@ body.fm-open { overflow: hidden; }
 <symbol id="w-kingdom" viewBox="0 0 64 64"><g fill="none" stroke="#414042" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="28" width="12" height="30" fill="var(--wb, #FFD8A8)"/><rect x="44" y="28" width="12" height="30" fill="var(--wb, #FFD8A8)"/><path d="M18 34v-3.5h3.5V34M23 34v-3.5h3V34M38 34v-3.5h3V34M42.5 34v-3.5H46V34" fill="var(--wb, #FFD8A8)"/><rect x="18" y="34" width="28" height="24" fill="var(--wb, #FFD8A8)"/><rect x="26" y="20" width="12" height="14" fill="var(--wb, #FFD8A8)"/><path d="M6.5 28L14 14l7.5 14z" fill="var(--wa, #F7941D)"/><path d="M42.5 28L50 14l7.5 14z" fill="var(--wa, #F7941D)"/><path d="M24 20l8-11 8 11z" fill="var(--wa, #F7941D)"/><path d="M32 9V2.5"/><path d="M32 3l7 2.5-7 2.5z" fill="var(--wa, #F7941D)"/><path d="M27 58v-9a5 5 0 0 1 10 0v9z" fill="#414042"/><path d="M12.5 39v-2.5a1.5 1.5 0 0 1 3 0V39zM48.5 39v-2.5a1.5 1.5 0 0 1 3 0V39z" fill="#414042" stroke-width="1.5"/><circle cx="32" cy="26.5" r="2.3" fill="#fff" stroke-width="2"/><path d="M3.5 58h57"/><path d="M10 25l2.5-5M44 25l2.5-5" stroke="#fff" stroke-width="2"/></g></symbol>
 <symbol id="w-cyber" viewBox="0 0 64 64"><g fill="none" stroke="#414042" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 14V7.5"/><circle cx="32" cy="5.5" r="3" fill="var(--wb, #FFD8A8)"/><path d="M39 3.5c1.3 1 2 2.3 2 3.8M25 3.5c-1.3 1-2 2.3-2 3.8" stroke-width="2"/><rect x="24" y="50" width="16" height="9" rx="2" fill="var(--wb, #FFD8A8)"/><rect x="5.5" y="26" width="7" height="15" rx="3" fill="var(--wb, #FFD8A8)"/><rect x="51.5" y="26" width="7" height="15" rx="3" fill="var(--wb, #FFD8A8)"/><rect x="11" y="14" width="42" height="38" rx="11" fill="var(--wa, #F7941D)"/><rect x="17" y="21" width="30" height="20" rx="7" fill="#414042"/><ellipse cx="26" cy="30" rx="3" ry="3.8" fill="#fff" stroke="none"/><ellipse cx="38" cy="30" rx="3" ry="3.8" fill="#fff" stroke="none"/><path d="M28.5 35.5c2.2 1.8 4.8 1.8 7 0" stroke="#fff" stroke-width="2"/><circle cx="25" cy="46.5" r="1.7" fill="#fff" stroke-width="1.8"/><circle cx="32" cy="46.5" r="1.7" fill="var(--wb, #FFD8A8)" stroke-width="1.8"/><circle cx="39" cy="46.5" r="1.7" fill="#fff" stroke-width="1.8"/><path d="M15.5 30v-6a4 4 0 0 1 2-3" stroke="#fff" stroke-width="2"/></g></symbol>
 <symbol id="m-guide" viewBox="0 0 64 64"><g fill="none" stroke="#414042" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="57" rx="5.5" ry="3.2" fill="var(--wa, #F7941D)"/><ellipse cx="40" cy="57" rx="5.5" ry="3.2" fill="var(--wa, #F7941D)"/><path d="M32 14V8.5"/><circle cx="32" cy="6" r="3.2" fill="var(--wb, #FFD8A8)"/><ellipse cx="9.5" cy="39" rx="3.5" ry="5" transform="rotate(20 9.5 39)" fill="var(--wa, #F7941D)"/><path d="M51 30c3-2.5 5-5.5 5.5-9"/><circle cx="56.5" cy="19.5" r="3.3" fill="var(--wa, #F7941D)"/><path d="M32 13c13 0 22 9 22 21 0 13-9 22-22 22S10 47 10 34c0-12 9-21 22-21z" fill="var(--wa, #F7941D)"/><ellipse cx="32" cy="35" rx="15" ry="12" fill="#fff"/><ellipse cx="26" cy="33" rx="2.8" ry="4" fill="#414042" stroke="none"/><ellipse cx="38" cy="33" rx="2.8" ry="4" fill="#414042" stroke="none"/><ellipse cx="21.5" cy="39.5" rx="2.8" ry="1.8" fill="#FF8FA3" stroke="none"/><ellipse cx="42.5" cy="39.5" rx="2.8" ry="1.8" fill="#FF8FA3" stroke="none"/><path d="M28.5 40c2 2.3 5 2.3 7 0"/><path d="M16 25a18 18 0 0 1 7-7" stroke="#fff"/></g></symbol>
+<symbol id="i-bt" viewBox="0 0 24 24"><circle fill="var(--dab, none)" stroke="none" cx="13.5" cy="13.5" r="8"/><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7.5l10 9-5 4.5V3l5 4.5-10 9"/></g></symbol>
 <symbol id="i-expand" viewBox="0 0 24 24"><rect fill="var(--dab, none)" stroke="none" x="6.5" y="6.5" width="14" height="14" rx="3"/><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9"/><path d="M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9"/><path d="M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15"/></g></symbol>
 <symbol id="i-shrink" viewBox="0 0 24 24"><rect fill="var(--dab, none)" stroke="none" x="7.5" y="7.5" width="12" height="12" rx="3"/><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v3.5A1.5 1.5 0 0 1 7.5 9H4"/><path d="M20 9h-3.5A1.5 1.5 0 0 1 15 7.5V4"/><path d="M15 20v-3.5a1.5 1.5 0 0 1 1.5-1.5H20"/><path d="M4 15h3.5A1.5 1.5 0 0 1 9 16.5V20"/></g></symbol>
 </defs></svg>
@@ -1495,16 +1647,23 @@ body.fm-open { overflow: hidden; }
     <a href="#how">How it works</a>
     <a href="#discover">For parents</a>
     <a href="#privacy">Privacy</a>
+    <button class="bt-nav" type="button" data-bt-nav data-state="off" title="Connect the heart sensor over Bluetooth" aria-haspopup="menu"><span class="bt-ic bt-ic-bt"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-bt"/></svg></span><span class="bt-ic bt-ic-hr"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg></span><span class="bt-t">Connect sensor</span><span class="bt-u">bpm</span><i class="bt-dot" aria-hidden="true"></i></button>
     <button class="btn btn-primary btn-sm" data-action="start">Start Adventure <svg class="i" aria-hidden="true" focusable="false"><use href="#i-rocket"/></svg></button>
   </nav>
   <div class="session-bar" id="sessionBar" hidden>
+    <button class="bt-nav" type="button" data-bt-nav data-state="off" title="Connect the heart sensor over Bluetooth" aria-haspopup="menu"><span class="bt-ic bt-ic-bt"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-bt"/></svg></span><span class="bt-ic bt-ic-hr"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg></span><span class="bt-t">Connect sensor</span><span class="bt-u">bpm</span><i class="bt-dot" aria-hidden="true"></i></button>
     <button class="icon-btn" id="fsToggle" title="Full screen" aria-label="Full screen on or off" hidden><svg class="i" aria-hidden="true" focusable="false"><use href="#i-expand"/></svg></button>
     <button class="icon-btn" id="soundToggle" title="Sound on / off" aria-label="Sound on or off"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-sound"/></svg></button>
     <span class="star-chip" id="starChip" title="Stars collected"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><b id="starNum">0</b></span>
     <div class="player-chip"><span class="pc-avatar" id="pcAvatar">🦊</span><span><b id="pcName">Explorer</b><small id="pcGrade">Grade 4</small></span></div>
-    <button class="btn btn-end" id="endSessionBtn"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-stop"/></svg> End Session</button>
+    <button class="btn btn-end" id="endSessionBtn" aria-label="End Session"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-stop"/></svg> End<span class="es-x">&nbsp;Session</span></button>
   </div>
 </header>
+<div class="bt-menu" id="btMenu" role="menu" hidden>
+  <div class="btm-head"><i class="bt-dot" aria-hidden="true"></i><span><b id="btmName">Heart sensor</b><small id="btmInfo">Connected</small></span></div>
+  <button type="button" role="menuitem" id="btmShow"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg> Show live readings</button>
+  <button type="button" role="menuitem" id="btmDisc" class="btm-danger"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-stop"/></svg> Disconnect</button>
+</div>
 
 <main>
   <!-- ================= LANDING ================= -->
@@ -1818,6 +1977,31 @@ body.fm-open { overflow: hidden; }
   </div>
 </footer>
 
+<div class="bio-box" id="bioBox" data-state="off" hidden>
+  <div class="bb-head" id="bbHead">
+    <span class="bb-heart" id="bbHeart"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg></span>
+    <span class="bb-t">Heart sensor</span>
+    <span class="bb-mini-hr"><b id="bbMiniHr">--</b> bpm</span>
+    <span class="bb-dot" aria-hidden="true"></span>
+    <button class="cd-btn" id="bbMin" title="Minimise heart sensor" aria-label="Minimise or show heart sensor">—</button>
+  </div>
+  <div class="bb-body">
+    <div class="bb-state" id="bbStatus"><i></i><span id="bbStatusT">Not connected</span><small id="bbDev"></small></div>
+    <div class="bb-off" id="bbOff">
+      <p>Live heartbeat and blood oxygen from a fingertip, for the report.</p>
+      <button class="btn btn-primary btn-sm" id="bbConnect"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-bt"/></svg> Connect sensor</button>
+      <small id="bbNoBt" hidden>Needs Chrome or Edge with Bluetooth.</small>
+    </div>
+    <div class="bb-on" id="bbOn" hidden>
+      <div class="bb-main"><div class="bb-hr"><b id="bbHr">--</b><span>bpm</span><small id="bbHrSrc">waiting for a heartbeat</small></div>
+        <div class="bb-k"><small>Oxygen</small><b><span id="bbSpo2">--</span>%</b></div><div class="bb-k"><small>HRV</small><b><span id="bbHrv">--</span> ms</b></div></div>
+      <canvas id="bbWave" width="440" height="96" aria-label="Live pulse wave from the fingertip"></canvas>
+      <div class="bb-stress" id="bbStressRow"><small>Stress</small><div class="bb-meter"><i id="bbMeter"></i></div><b id="bbStress">Learning…</b></div>
+      <div class="bb-chips"><span id="bbFinger">Finger</span><span id="bbSignal">Pulse</span></div>
+      <button class="bb-disc" id="bbDisc">Disconnect</button>
+    </div>
+  </div>
+</div>
 <div class="cam-dock" id="camDock" hidden>
   <div class="cd-head" id="cdHead">
     <span class="cd-t"><span class="rec-dot" id="cdDot"></span><span id="cdTitle">Magic camera</span></span>
@@ -5983,6 +6167,333 @@ $('#fsToggle').addEventListener('click', () => { if (FS.on()) { FS.optOut = true
 FS.sync();
 
 /* ================================================================
+   Heart sensor: Arduino UNO R4 WiFi over Bluetooth (Web Bluetooth, Chrome/Edge)
+   HW-605 finger sensor (MAX30102, or a MAX30100): the board finds each heartbeat and works out
+   the heart rate, the beat-to-beat gaps and the blood oxygen; this page records and shows them.
+   Board sketch: arduino/MindQuestSensors/MindQuestSensors.ino (UUIDs and packets must match).
+   Readings stay on this device with the rest of the session and are cleared with it.
+   ================================================================ */
+const BIO_UUID = { svc: '6d710000-4d51-4b8e-9c3a-2f5c0a1b7e01', vit: '6d710001-4d51-4b8e-9c3a-2f5c0a1b7e01', wave: '6d710002-4d51-4b8e-9c3a-2f5c0a1b7e01', beat: '6d710003-4d51-4b8e-9c3a-2f5c0a1b7e01', cmd: '6d710004-4d51-4b8e-9c3a-2f5c0a1b7e01' };
+// what the child was doing each second: the report compares heart rate across these
+const BIO_ACT = { w: ['Writing', 'keyboard'], s: ['Speaking', 'mic'], r: ['Reading', 'scroll'], l: ['Listening', 'headphones'], t: ['Thinking puzzles', 'puzzle'], f: ['Fast games', 'bolt'], h: ['Finger Math', 'hand'], e: ['Feelings stories', 'heart'], c: ['Choices & mood', 'compass'], m: ['Face Mirror', 'smile'], b: ['Between missions', 'map'] };
+const BIO_TYPE = { reading: 'r', audio: 'l', listenPick: 'l', story: 'l', beeps: 'l', quick: 'f', catch: 'f', tapOrder: 'f', fingers: 'h', emotion: 'e', path: 'c', mood: 'c' };
+const BIO_CMD = { mission: 1, right: 2, wrong: 3, mirror: 4, end: 5, calm: 6, text: 7, view: 8, hello: 9 };
+const mean = a => a.length ? a.reduce((s, v) => s + v, 0) / a.length : null;
+function rmssd(rr) {   // beat-to-beat variability; pairs with a jump over 20% are a moving finger, not the heart
+  const d = []; for (let k = 1; k < rr.length; k++) { const [t0, a] = rr[k - 1], [t1, b] = rr[k]; if (t1 - t0 < 2.6 && Math.abs(b - a) < .2 * a) d.push((b - a) ** 2); }
+  return d.length >= 15 ? Math.round(Math.sqrt(mean(d))) : null;
+}
+
+const Bio = {
+  dev: null, ch: {}, state: 'off', userOff: false, tries: 0, rt: 0, q: Promise.resolve(),
+  live: { hr: 0, spo2: 0, pi: 0, light: 0, sensor: false, finger: false, found: false, oxOk: false, chip: '', t: 0 },
+  wave: new Uint8Array(300).fill(128), wi: 0, waveAt: 0, snip: [], oldWarned: false, rrLive: [], typedAt: -1e9, beatAt: 0, lastQ: null, wasFM: false, calmAt: -1e9, highFor: 0, lastSave: 0, mini: null,
+  get can() { return !!(navigator.bluetooth && navigator.bluetooth.requestDevice); },
+  data() { if (!S) return null; if (!S.bio) S.bio = { v: 2, t0: Date.now(), s: [], rr: [], ev: [], strip: null }; return S.bio; },
+  rel() { const d = this.data(); return d ? Math.round((Date.now() - d.t0) / 100) / 10 : 0; },
+  mi() { return G.active && G.q ? G.q.i : -1; },
+  act() {
+    if (typeof FaceMirror !== 'undefined' && FaceMirror.active) return 'm';
+    if (!(G.active && G.q)) return 'b';
+    if (performance.now() - this.typedAt < 2500) return 'w';
+    if (Mic.active) return 's';
+    return BIO_TYPE[G.q.type] || 't';
+  },
+
+  /* ---------- connection ---------- */
+  async connect() {
+    if (!this.can) return toast(ico('info') + ' This browser cannot use Bluetooth. Open MindQuest in Chrome or Edge on a laptop or an Android tablet.', 5000);
+    this.userOff = false; clearTimeout(this.rt);
+    try {
+      this.set('connecting');
+      const dev = await navigator.bluetooth.requestDevice({ filters: [{ services: [BIO_UUID.svc] }, { namePrefix: 'MindQuest' }], optionalServices: [BIO_UUID.svc] });
+      if (dev !== this.dev) { this.dev = dev; dev.addEventListener('gattserverdisconnected', () => this.lost()); }
+      await this.link();
+    } catch (e) {
+      this.set('off');
+      if (e && e.name !== 'NotFoundError') { console.warn('sensor connect failed', e); toast(ico('info') + ' Could not connect to the sensor board. Check it is powered on and close to this computer.', 4500); }
+    }
+  },
+  async link() {
+    this.set('connecting');
+    const server = await this.dev.gatt.connect(), svc = await server.getPrimaryService(BIO_UUID.svc);
+    for (const k of ['vit', 'wave', 'beat', 'cmd']) this.ch[k] = await svc.getCharacteristic(BIO_UUID[k]);
+    const on = (k, fn) => { const c = this.ch[k], h = this['_' + k] || (this['_' + k] = e => fn.call(this, e.target.value)); c.removeEventListener('characteristicvaluechanged', h); c.addEventListener('characteristicvaluechanged', h); return c.startNotifications(); };
+    await on('vit', this.onVit); await on('beat', this.onBeat); await on('wave', this.onWave);
+    this.tries = 0; this.set('on');
+    const nm = S ? S.profile.name.toUpperCase().replace(/[^A-Z0-9 ]/g, '').slice(0, 12) : '';
+    this.send([BIO_CMD.hello]); if (nm) setTimeout(() => this.text('HI ' + nm), 1000);
+    toast(ico('heart') + ' Heart sensor connected', 2500);
+  },
+  lost() {
+    this.ch = {}; this.live.hr = 0;
+    if (this.userOff) return this.set('off');
+    this.set('lost'); this.retry();
+  },
+  retry() {
+    if (this.userOff || !this.dev || this.tries >= 6) return this.set('off');
+    const wait = [1, 2, 3, 5, 8, 8][this.tries++] * 1000; clearTimeout(this.rt);
+    this.rt = setTimeout(() => this.link().catch(() => this.retry()), wait);
+  },
+  disconnect() {
+    this.userOff = true; clearTimeout(this.rt);
+    try { if (this.dev && this.dev.gatt.connected) this.dev.gatt.disconnect(); } catch (e) { /* already gone */ }
+    this.ch = {}; this.live.hr = 0; this.set('off'); toast(ico('heart') + ' Heart sensor disconnected', 2200);
+  },
+  send(bytes) {   // writes go one at a time, or Chrome rejects them
+    const c = this.ch.cmd; if (!c || this.state !== 'on') return;
+    const d = new Uint8Array(bytes);
+    this.q = this.q.then(() => c.writeValueWithoutResponse ? c.writeValueWithoutResponse(d) : c.writeValue(d)).catch(() => {});
+  },
+  text(t) { this.send([BIO_CMD.text, ...[...t.slice(0, 18)].map(c => c.charCodeAt(0) & 127)]); },
+
+  /* ---------- incoming data ---------- */
+  onVit(dv) {   // [2, flags, bpm, oxygen %, seq, beats, gap lo, hi, pulse strength (0.01 %) lo, hi, light / 4 lo, hi]
+    const L = this.live;
+    if (dv.getUint8(0) !== 2) {   // a board still running the ECG / pulse-sensor sketch
+      if (!this.oldWarned) { this.oldWarned = true; toast(ico('info') + ' The sensor board runs an older sketch. Upload the new MindQuestSensors.ino to it.', 6000); }
+      return;
+    }
+    const f = dv.getUint8(1), hr = dv.getUint8(2), ox = dv.getUint8(3);   // flags: 1 sensor found, 2 finger on, 4 heartbeat found, 8 MAX30102, 16 oxygen ready
+    L.sensor = !!(f & 1); L.finger = !!(f & 2); L.found = !!(f & 4); L.oxOk = !!(f & 16); L.chip = f & 8 ? 'max30102' : 'max30100';
+    L.hr = L.found && hr >= 40 && hr <= 210 ? hr : 0; L.spo2 = L.oxOk && ox >= 70 && ox <= 100 ? ox : 0;
+    L.pi = dv.getUint16(8, true) / 100; L.light = dv.getUint16(10, true) * 4;
+    const d = this.data(); if (d && L.sensor) d.ppg = L.chip;
+    L.t = performance.now(); this.paint();
+  },
+  onBeat(dv) {   // [2, seq, gap since the last beat (ms) lo, hi, bpm, oxygen %]
+    const rr = dv.getUint16(2, true);
+    this.beatAt = performance.now();
+    for (const h of $$('#bbHeart, .bt-nav[data-state="on"] .bt-ic-hr')) { h.classList.remove('beat'); void h.offsetWidth; h.classList.add('beat'); }
+    if (rr < 300 || rr > 1500) return;
+    this.rrLive.push([performance.now() / 1000, rr]); if (this.rrLive.length > 40) this.rrLive.shift();
+    const d = this.data(); if (d) d.rr.push([this.rel(), rr, this.mi(), this.act()]);
+  },
+  onWave(dv) {   // [seq, 2, 18 pulse-wave points]: 100 points a second while a finger is on the sensor
+    const now = performance.now();
+    if (now - this.waveAt > 400) { this.wave.fill(128); this.snip = []; }   // the finger was lifted: start a fresh line
+    this.waveAt = now;
+    for (let k = 2; k < dv.byteLength; k++) { const v = dv.getUint8(k); this.wave[this.wi] = v; this.wi = (this.wi + 1) % this.wave.length; this.snip.push(v); }
+    if (this.snip.length >= 500) {   // keep one clean 5-second pulse strip for the report, refreshed each minute
+      const d = this.data(), lo = Math.min(...this.snip), hi = Math.max(...this.snip);
+      if (d && this.live.found && hi - lo > 60 && lo > 4 && hi < 251 && (!d.strip || this.rel() - d.strip.t > 60)) d.strip = { t: this.rel(), v: this.snip.slice(0, 500) };
+      this.snip = [];
+    }
+  },
+
+  /* ---------- once a second: record, react, coach ---------- */
+  tick() {
+    if (this.state !== 'on' || !S) return;
+    const d = this.data(), L = this.live, fresh = performance.now() - L.t < 2500, hr = fresh ? L.hr : 0;
+    d.s.push([Math.round(this.rel()), hr, hr && L.spo2 ? L.spo2 : 0, this.mi(), this.act()]);
+    // breathing guide on the LED matrix if the heart stays far above this child's calm level during a mission
+    const calm = this.calm();
+    if (hr && calm && G.active && hr - calm >= 25) this.highFor++; else this.highFor = 0;
+    if (this.highFor >= 30 && performance.now() - this.calmAt > 180000) { this.calmAt = performance.now(); this.highFor = 0; this.send([BIO_CMD.calm, 20]); }
+    if (Date.now() - this.lastSave > 30000) { this.lastSave = Date.now(); save(); }
+  },
+  calm() {   // this child's own calm level: the 20th percentile of their heart rate so far
+    const d = S && S.bio; if (!d) return null;
+    if (this._calmN !== d.s.length && d.s.length % 10 === 0) { const h = d.s.map(x => x[1]).filter(Boolean).sort((a, b) => a - b); this._calm = h.length >= 60 ? h[Math.floor(h.length * .2)] : null; this._calmN = d.s.length; }
+    return this._calm;
+  },
+  watch() {   // LED matrix follows the game: mission number, Face Mirror
+    if (this.state !== 'on') { this.lastQ = G.q; return; }
+    if (G.q && G.q !== this.lastQ && G.active) { this.lastQ = G.q; this.send([BIO_CMD.mission, G.q.i + 1]); }
+    const fm = typeof FaceMirror !== 'undefined' && FaceMirror.active;
+    if (fm && !this.wasFM) this.send([BIO_CMD.mirror]); this.wasFM = fm;
+  },
+
+  /* ---------- the box above the camera ---------- */
+  set(st) { this.state = st; this.paint(); if (st !== 'on' && st !== 'lost') this.menu(false); },
+  paintNav(fresh) {   // the Bluetooth button in the top bar
+    const L = this.live, st = this.state, hr = fresh && L.hr ? L.hr : 0;
+    const txt = { off: 'Connect sensor', connecting: 'Connecting…', lost: 'Reconnecting…', on: hr ? String(hr) : 'Connected' }[st];
+    const tip = { off: this.can ? 'Connect the heart sensor over Bluetooth' : 'Bluetooth needs Chrome or Edge', connecting: 'Connecting to the heart sensor…', lost: 'Lost the heart sensor, trying again', on: 'Heart sensor connected: click for options' }[st];
+    for (const b of $$('[data-bt-nav]')) {
+      if (b.dataset.state !== st) b.dataset.state = st;
+      b.classList.toggle('no-bt', !this.can); b.classList.toggle('has-hr', st === 'on' && !!hr);
+      const t = b.querySelector('.bt-t'); if (t.textContent !== txt) t.textContent = txt;
+      b.title = tip; b.setAttribute('aria-label', tip);
+    }
+    const m = $('#btMenu');
+    if (m && !m.hidden) {
+      $('#btmName').textContent = this.dev && this.dev.name || 'Heart sensor';
+      $('#btmInfo').textContent = st === 'lost' ? 'Reconnecting…' : hr ? `${hr} bpm${L.spo2 ? ` · oxygen ${L.spo2}%` : ''}` : this.hint(fresh);
+      $('#btmShow').hidden = st !== 'on' || $('#bioBox').hidden;
+    }
+  },
+  menu(open, btn) {
+    const m = $('#btMenu'); if (!m) return;
+    if (open === undefined) open = m.hidden;
+    m.hidden = !open; for (const b of $$('[data-bt-nav]')) b.setAttribute('aria-expanded', open && b === btn ? 'true' : 'false');
+    if (!open) return;
+    const r = btn.getBoundingClientRect(), w = m.offsetWidth;
+    m.style.top = Math.round(r.bottom + 8) + 'px'; m.style.left = Math.round(Math.max(8, Math.min(innerWidth - w - 8, r.right - w))) + 'px';
+    this.paintNav(this.state === 'on' && performance.now() - this.live.t < 2500);
+  },
+  hint(fresh) {   // what the child or teacher should do next, in a few words
+    const L = this.live;
+    return !fresh ? 'Connected, waiting for the board' : !L.sensor ? 'Sensor not found: check its 4 wires' : !L.finger ? 'Place a fingertip on the sensor' : 'Finding the heartbeat, keep still';
+  },
+  paint() {
+    const box = $('#bioBox'), L = this.live, on = this.state === 'on', fresh = on && performance.now() - L.t < 2500;
+    this.paintNav(fresh);
+    if (!box) return;
+    box.dataset.state = this.state;
+    const label = { off: 'Not connected', connecting: 'Connecting…', on: 'Connected', lost: 'Reconnecting…' }[this.state];
+    $('#bbStatusT').textContent = label; $('#bbDev').textContent = this.dev && this.state !== 'off' ? this.dev.name || '' : ''; $('#bbHead').title = 'Heart sensor: ' + label;
+    $('#bbOff').hidden = on; $('#bbOn').hidden = !on;
+    $('#bbConnect').hidden = this.state === 'connecting' || this.state === 'lost';
+    $('#bbConnect').disabled = !this.can; $('#bbNoBt').hidden = this.can;
+    $('#bbMiniHr').textContent = fresh && L.hr ? L.hr : '--';
+    if (!on) return;
+    $('#bbHr').textContent = fresh && L.hr ? L.hr : '--';
+    $('#bbHrSrc').textContent = fresh && L.hr ? 'from the fingertip' : !fresh ? 'waiting for the board' : !L.sensor ? 'sensor not found' : !L.finger ? 'place a fingertip' : 'finding the heartbeat';
+    $('#bbSpo2').textContent = fresh && L.spo2 ? L.spo2 : '--';
+    const hrv = rmssd(this.rrLive); $('#bbHrv').textContent = hrv != null ? hrv : '--';
+    const calm = this.calm(), rise = fresh && L.hr && calm ? L.hr - calm : null;
+    const lv = rise == null ? null : rise < 8 ? ['Low', 'ok', 25] : rise < 18 ? ['Medium', 'mid', 60] : ['High', 'bad', 92];
+    $('#bbStress').textContent = lv ? lv[0] : calm ? '--' : 'Learning…'; $('#bbStressRow').dataset.lv = lv ? lv[1] : '';
+    $('#bbMeter').style.width = (lv ? lv[2] : 0) + '%';
+    const fc = !fresh ? ['na', 'info', 'Waiting'] : !L.sensor ? ['bad', 'info', 'Sensor not found'] : L.finger ? ['ok', 'check', 'Finger on'] : ['warn', 'hand', 'Place finger'];
+    const sc = !(fresh && L.finger) ? ['na', 'heart', 'No pulse yet'] : !L.found ? ['warn', 'info', 'Keep still'] : L.pi >= .3 ? ['ok', 'heart', 'Strong pulse'] : ['warn', 'heart', 'Weak pulse'];
+    $('#bbFinger').className = fc[0]; setRich($('#bbFinger'), `${ico(fc[1])} ${fc[2]}`);
+    $('#bbFinger').title = !fresh ? '' : !L.sensor ? 'The board cannot find the HW-605: check VIN, GND, SDA, SCL and the 3V3 jumper' : `Light level ${L.light.toLocaleString()}`;
+    $('#bbSignal').className = sc[0]; setRich($('#bbSignal'), `${ico(sc[1])} ${sc[2]}`);
+    $('#bbSignal').title = fresh && L.found ? `Pulse strength ${L.pi.toFixed(2)}% of the light${L.pi < .3 ? ': warm the hand, or press a little more gently' : ''}` : '';
+  },
+  draw() {   // live pulse wave from the fingertip
+    const c = $('#bbWave'); if (!c || this.state !== 'on' || $('#bioBox').hidden || $('#bioBox').classList.contains('mini')) return;
+    const x = c.getContext('2d'), w = c.width, h = c.height, n = this.wave.length, L = this.live;
+    x.clearRect(0, 0, w, h); x.strokeStyle = 'rgba(247,148,29,.18)'; x.lineWidth = 1;
+    for (let gx = 0; gx < w; gx += 11) { x.beginPath(); x.moveTo(gx + .5, 0); x.lineTo(gx + .5, h); x.stroke(); }
+    const live = performance.now() - this.waveAt < 1500, fresh = performance.now() - L.t < 2500;
+    x.font = '600 22px Poppins, sans-serif'; x.textAlign = 'center';
+    if (!live) { x.fillStyle = fresh && !L.sensor ? '#C0262D' : '#8E8D94'; x.fillText(fresh && !L.sensor ? 'Sensor not found: check the 4 wires' : 'Place a fingertip on the sensor', w / 2, h / 2 + 8); return; }
+    let lo = 255, hi = 0; for (let k = 0; k < n; k++) { lo = Math.min(lo, this.wave[k]); hi = Math.max(hi, this.wave[k]); }
+    const span = Math.max(hi - lo, 30); x.strokeStyle = '#F7941D'; x.lineWidth = 3; x.lineJoin = 'round'; x.beginPath();
+    for (let k = 0; k < n; k++) { const v = this.wave[(this.wi + k) % n], px = k / (n - 1) * w, py = h - 4 - (v - lo) / span * (h - 8); k ? x.lineTo(px, py) : x.moveTo(px, py); }
+    x.stroke();
+    x.font = '700 18px Poppins, sans-serif'; x.textAlign = 'left'; x.fillStyle = '#D9730A'; x.fillText('PULSE', 8, 22);
+  },
+  vis() {
+    const box = $('#bioBox'); if (!box) return;
+    const want = !!S && ['camera', 'mic', 'map', 'game'].includes(currentView);
+    if (box.hidden === want) { box.hidden = !want; if (want && this.mini === null) { this.mini = innerWidth < 700; box.classList.toggle('mini', this.mini); } }
+    if (want) this.place();
+  },
+  place() {   // sits just above the camera box, or below it when the camera box was dragged to the top
+    const box = $('#bioBox'), dock = $('#camDock'), r = dock.hidden ? null : dock.getBoundingClientRect(), h = box.offsetHeight, gap = 10, edge = innerWidth < 700 ? 10 : 18;
+    let st;
+    if (!r) st = { right: edge, bottom: edge, top: 'auto' };
+    else if (r.top - h - gap >= 6) st = { right: Math.max(6, innerWidth - r.right), bottom: innerHeight - r.top + gap, top: 'auto' };
+    else st = { right: Math.max(6, innerWidth - r.right), top: r.bottom + gap, bottom: 'auto' };
+    for (const k in st) box.style[k] = typeof st[k] === 'number' ? st[k] + 'px' : st[k];
+  },
+
+  /* ---------- report ---------- */
+  report(A) {
+    const d = S && S.bio; if (!d) return null;
+    const s = d.s.filter(x => x[1]); if (s.length < 20) return null;
+    const hrs = s.map(x => x[1]).sort((a, b) => a - b), calm = hrs[Math.floor(hrs.length * .2)];
+    const play = s.filter(x => x[3] >= 0), avgPlay = play.length ? Math.round(mean(play.map(x => x[1]))) : null;
+    const group = (list, key) => { const g = {}; list.forEach(x => (g[x[key]] = g[x[key]] || []).push(x)); return g; };
+    const byAct = group(s, 4), rrAct = group(d.rr, 3);
+    const acts = Object.entries(byAct).filter(([, l]) => l.length >= 8).map(([k, l]) => ({ k, n: l.length, hr: Math.round(mean(l.map(x => x[1]))), hrv: rmssd(rrAct[k] || []) })).sort((a, b) => b.hr - a.hr);
+    const missions = {}; Object.entries(group(play, 3)).forEach(([i, l]) => { if (l.length >= 4) missions[i] = Math.round(mean(l.map(x => x[1]))); });
+    const top = Object.entries(missions).map(([i, hr]) => ({ i: +i, hr, game: (A.find(a => a.i === +i) || {}).game })).filter(m => m.game).sort((a, b) => b.hr - a.hr).slice(0, 3);
+    const ox = s.map(x => x[2]).filter(v => v >= 80).sort((a, b) => a - b);
+    const at = (t0, t1) => { const l = s.filter(x => x[0] >= t0 && x[0] <= t1).map(x => x[1]); return l.length >= 2 ? mean(l) : null; };
+    const reacts = { 0: [], 1: [] };
+    d.ev.forEach(([t, , ok]) => { if (ok < 0) return; const pre = at(t - 6, t), post = at(t + 1, t + 10); if (pre != null && post != null) reacts[ok].push(post - pre); });
+    const playRR = d.rr.filter(x => x[2] >= 0), restRR = d.rr.filter(x => x[2] < 0);
+    const dur = d.s.length ? d.s[d.s.length - 1][0] - d.s[0][0] + 1 : 0;
+    const rise = avgPlay != null ? avgPlay - calm : 0;
+    return {
+      calm, avgPlay, rise, level: rise < 6 ? 'steady' : rise < 15 ? 'raised' : 'high', acts, missions, top,
+      spo2: ox.length >= 10 ? { avg: Math.round(mean(ox)), low: ox[Math.floor(ox.length * .05)] } : null,
+      hrv: { all: rmssd(d.rr), play: rmssd(playRR), rest: rmssd(restRR) },
+      react: { wrong: reacts[0].length >= 2 ? Math.round(mean(reacts[0])) : null, right: reacts[1].length >= 2 ? Math.round(mean(reacts[1])) : null, nW: reacts[0].length, nR: reacts[1].length },
+      minutes: Math.max(1, Math.round(dur / 60)), coverage: d.s.length ? s.length / d.s.length : 0,
+      peak: hrs[hrs.length - 1], strip: d.strip, series: s, ev: d.ev, ppg: d.ppg || 'max30102'
+    };
+  },
+  insights(B, name) {
+    const out = [], A = Object.fromEntries(B.acts.map(a => [a.k, a]));
+    if (A.w && A.w.n >= 15) out.push([ico('keyboard'), `<b>While writing</b>, ${name}'s heart rate averaged ${A.w.hr} bpm (${A.w.hr - B.calm >= 0 ? '+' : ''}${A.w.hr - B.calm} over the calm level)${A.t ? `, compared with ${A.t.hr} bpm on thinking puzzles` : ''}.`]);
+    const hi = B.acts.filter(a => a.k !== 'b' && a.k !== 'w')[0];
+    if (hi && hi.hr - B.calm >= 10) out.push([ico('heart'), `Heart rate was <b>highest during ${BIO_ACT[hi.k][0].toLowerCase()}</b> (${hi.hr} bpm, +${hi.hr - B.calm} over the calm level of ${B.calm}).`]);
+    if (B.react.wrong != null && B.react.wrong >= 5) out.push([ico('heart'), `After a wrong answer the heart rate <b>rose by about ${B.react.wrong} bpm</b>${B.react.right != null ? ` (after right answers: ${B.react.right >= 0 ? '+' : ''}${B.react.right})` : ''}. Mistakes may feel stressful for ${name}.`]);
+    if (B.hrv.play != null && B.hrv.rest != null && B.hrv.play < B.hrv.rest * .7) out.push([ico('heart'), `Heart rate variability dropped during missions (${B.hrv.play} ms vs ${B.hrv.rest} ms between them), a common sign of mental effort or stress.`]);
+    return out;
+  },
+  card(R, name) {
+    const B = R.bio; if (!B) return '';
+    const kpi = (l, v, sub) => `<div class="bio-kpi"><small>${l}</small><b>${v}</b><span>${sub}</span></div>`;
+    const hrvTxt = B.hrv.all == null ? 'Needs a still finger' : B.hrv.all >= 50 ? 'Relaxed range' : B.hrv.all >= 25 ? 'Moderate' : 'Low: effort or stress';
+    const max = Math.max(...B.acts.map(a => a.hr), B.calm + 10), min = Math.min(B.calm - 10, ...B.acts.map(a => a.hr));
+    const rows = B.acts.map(a => `<div class="bio-row"><span>${ico(BIO_ACT[a.k][1])}</span><span class="br-l">${BIO_ACT[a.k][0]}<small>${Math.round(a.n / 60 * 10) / 10} min${a.hrv != null ? ` · HRV ${a.hrv} ms` : ''}</small></span><div class="bar-track"><i style="width:${Math.round(8 + (a.hr - min) / (max - min) * 92)}%;background:${a.hr - B.calm >= 15 ? '#E5484D' : a.hr - B.calm >= 6 ? '#F7941D' : '#16A34A'}"></i></div><span class="br-v">${a.hr}<small> bpm</small></span></div>`).join('');
+    // heart rate across the session, with missions shaded and wrong answers marked
+    const S0 = B.series, t0 = S0[0][0], t1 = S0[S0.length - 1][0], W = 640, H = 150, lo = Math.min(...S0.map(x => x[1])) - 5, hi = Math.max(...S0.map(x => x[1])) + 5;
+    const X = t => ((t - t0) / Math.max(1, t1 - t0) * W).toFixed(1), Y = v => (H - 14 - (v - lo) / Math.max(1, hi - lo) * (H - 24)).toFixed(1);
+    const step = Math.max(1, Math.floor(S0.length / 500)), pts = S0.filter((_, k) => k % step === 0).map(x => `${X(x[0])},${Y(x[1])}`).join(' ');
+    const zones = []; let z = null; S0.forEach(x => { if (x[3] >= 0 && (!z || z.i !== x[3])) { z = { i: x[3], a: x[0], b: x[0] }; zones.push(z); } else if (z && x[3] === z.i) z.b = x[0]; else if (x[3] < 0) z = null; });
+    const dots = B.ev.filter(e => e[2] === 0 && e[0] >= t0 && e[0] <= t1).map(e => { const near = S0.reduce((m, x) => Math.abs(x[0] - e[0]) < Math.abs(m[0] - e[0]) ? x : m, S0[0]); return `<circle cx="${X(e[0])}" cy="${Y(near[1])}" r="4.5" fill="#E5484D" stroke="#fff" stroke-width="1.5"><title>Wrong answer, mission ${e[1] + 1}</title></circle>`; }).join('');
+    const chart = `<svg class="bio-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Heart rate during the session">${zones.map((q, k) => `<rect x="${X(q.a)}" y="0" width="${Math.max(1, X(q.b) - X(q.a))}" height="${H}" fill="${k % 2 ? '#FFF1DF' : '#FFF8EF'}"><title>Mission ${q.i + 1}${B.missions[q.i] ? ': ' + B.missions[q.i] + ' bpm' : ''}</title></rect>`).join('')}<line x1="0" x2="${W}" y1="${Y(B.calm)}" y2="${Y(B.calm)}" stroke="#16A34A" stroke-dasharray="5 5" stroke-width="1.5"/><polyline points="${pts}" fill="none" stroke="#E5484D" stroke-width="2.2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${dots}</svg>`;
+    const strip = B.strip ? (() => { const v = B.strip.v, l2 = Math.min(...v), h2 = Math.max(...v); return `<div class="bio-strip"><h5>${ico('heart')} Pulse wave (5 seconds)</h5><svg viewBox="0 0 500 90" preserveAspectRatio="none" role="img" aria-label="Five seconds of ${esc(name)}'s pulse wave"><polyline points="${v.map((y, k) => `${k},${(84 - (y - l2) / Math.max(1, h2 - l2) * 78).toFixed(1)}`).join(' ')}" fill="none" stroke="#D9730A" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>`; })() : '';
+    return `<div class="rp-card bio-card"><h4>${ico('heart')} Heart & body signals</h4><p class="rc-sub">From the fingertip sensor (${B.ppg === 'max30100' ? 'MAX30100' : 'HW-605, MAX30102'}) · ${B.minutes} min recorded · heartbeat found ${pct(B.coverage)}% of the time</p>
+      <div class="bio-kpis">${kpi('Calm level', B.calm + '<small> bpm</small>', `${esc(name)}'s own resting rate in this session`)}${kpi('While playing', B.avgPlay != null ? B.avgPlay + '<small> bpm</small>' : '—', B.avgPlay != null ? `${B.rise >= 0 ? '+' : ''}${B.rise} over calm · ${B.level}` : 'No missions recorded')}${kpi('Busiest mission', B.top[0] ? B.top[0].hr + '<small> bpm</small>' : '—', B.top[0] ? `#${B.top[0].i + 1} ${esc(B.top[0].game)}` : '—')}${kpi('Heart rate variability', B.hrv.all != null ? B.hrv.all + '<small> ms</small>' : '—', hrvTxt)}${B.spo2 ? kpi('Blood oxygen', B.spo2.avg + '<small>%</small>', `lowest ${B.spo2.low}%`) : kpi('Highest', B.peak + '<small> bpm</small>', 'peak heart rate this session')}</div>
+      <h5 class="bio-h">Heart rate through the session</h5>${chart}<div class="bio-legend"><span><i style="background:#E5484D"></i>Heart rate</span><span><i class="dash"></i>Calm level ${B.calm} bpm</span><span><i style="background:#FFE2C4"></i>Missions</span>${B.ev.some(e => e[2] === 0) ? '<span><i class="dot"></i>Wrong answer</span>' : ''}</div>
+      <div class="bio-split"><div><h5 class="bio-h">Heart rate by activity</h5><div class="bars">${rows}</div></div>
+      <div><h5 class="bio-h">Reaction to answers</h5><p class="bio-react">${B.react.wrong != null ? `After a <b>wrong</b> answer: <b class="${B.react.wrong >= 5 ? 'up' : ''}">${B.react.wrong >= 0 ? '+' : ''}${B.react.wrong} bpm</b> (${B.react.nW} times)<br>` : ''}${B.react.right != null ? `After a <b>right</b> answer: <b>${B.react.right >= 0 ? '+' : ''}${B.react.right} bpm</b> (${B.react.nR} times)` : ''}${B.react.wrong == null && B.react.right == null ? 'Not enough answers with a heart signal yet.' : ''}</p>
+      ${B.top.length > 1 ? `<h5 class="bio-h">Highest heart rate</h5><ol class="bio-top">${B.top.map(m => `<li>#${m.i + 1} ${esc(m.game)} <b>${m.hr} bpm</b></li>`).join('')}</ol>` : ''}${strip}</div></div>
+      <p class="rc-sub bio-note">Heart rate rises with excitement as well as with stress, so read it together with the expressions and mood answers. Variability (HRV) is the RMSSD of beat-to-beat intervals. Blood oxygen from a fingertip is a rough guide: a cold hand or a moving finger can lower it. This is a classroom sensor, not a medical device.</p></div>`;
+  }
+};
+
+/* ---------- wiring into the game ---------- */
+(function bioInit() {
+  for (const b of $$('[data-bt-nav]')) b.addEventListener('click', e => {
+    e.stopPropagation();
+    if (Bio.state === 'off') { Bio.menu(false); Bio.connect(); } else if (Bio.state !== 'connecting') Bio.menu(undefined, b);
+  });
+  const m = $('#btMenu');
+  if (m) {
+    $('#btmDisc').addEventListener('click', () => { Bio.menu(false); Bio.disconnect(); });
+    $('#btmShow').addEventListener('click', () => { Bio.menu(false); const bx = $('#bioBox'); if (bx && bx.classList.contains('mini')) $('#bbMin').click(); });
+    document.addEventListener('click', e => { if (!m.hidden && !m.contains(e.target)) Bio.menu(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !m.hidden) Bio.menu(false); });
+    addEventListener('resize', () => Bio.menu(false)); addEventListener('scroll', () => Bio.menu(false), { passive: true });
+  }
+  const box = $('#bioBox'); if (!box) return;
+  $('#bbConnect').addEventListener('click', () => Bio.connect());
+  $('#bbDisc').addEventListener('click', () => Bio.disconnect());
+  $('#bbMin').addEventListener('click', e => { e.stopPropagation(); Bio.mini = box.classList.toggle('mini'); $('#bbMin').title = Bio.mini ? 'Show heart sensor' : 'Minimise heart sensor'; setRich($('#bbMin'), Bio.mini ? ico('expand') : '—'); Bio.place(); Bio.draw(); });
+  $('#bbHead').addEventListener('click', e => { if (box.classList.contains('mini') && !e.target.closest('button')) $('#bbMin').click(); });
+  const typed = e => { if (e.target && e.target.matches && e.target.matches('input, textarea, [contenteditable="true"]')) Bio.typedAt = performance.now(); };
+  document.addEventListener('keydown', typed, true); document.addEventListener('input', typed, true);
+  setInterval(() => { Bio.vis(); Bio.watch(); }, 250);
+  setInterval(() => Bio.tick(), 1000);
+  setInterval(() => { if (Bio.state === 'on') Bio.paint(); }, 1000);
+  (function loop() { Bio.draw(); requestAnimationFrame(loop); })();
+  addEventListener('resize', () => Bio.place());
+  Bio.paint();
+})();
+const _finishLevelBio = finishLevel;
+finishLevel = function (res) {
+  const fresh = !G.done && S, q = G.q; _finishLevelBio(res);
+  if (!fresh || !q) return;
+  const ok = res && res.correct === true ? 1 : res && res.correct === false ? 0 : -1, d = Bio.state === 'on' && Bio.data();
+  if (d) d.ev.push([Bio.rel(), q.i, ok]);
+  if (ok >= 0) Bio.send([ok ? BIO_CMD.right : BIO_CMD.wrong]);
+};
+const _showReportBio = showReport;
+showReport = function (mode) { if (mode === 'end') Bio.send([BIO_CMD.end]); return _showReportBio(mode); };
+const _finishSessionBio = finishSession;
+finishSession = function () { _finishSessionBio(); Bio.rrLive = []; Bio.snip = []; Bio._calm = null; Bio._calmN = -1; Bio.highFor = 0; Bio.mini = null; Bio.send([BIO_CMD.view, 0]); Bio.vis(); };
+
+/* ================================================================
    Psychometric report
    Thinking skills: CHC broad abilities (Q-matrix in MEASURES).
    Personality: Big Five, 25 situational items (5 per trait).
@@ -6071,16 +6582,98 @@ function computeReport() {
     }
     if (blinkRate && blinkRate > 28) ins.push([ico('eye'), `Blink rate was fairly high (${Math.round(blinkRate)} per minute), which can be a sign of tiredness or strong mental effort.`]);
   } else ins.push([ico('camera'), 'The camera was off or no face was detected, so feelings and attention insights are not included.']);
+  const bio = typeof Bio !== 'undefined' ? Bio.report(A) : null;
+  if (bio) ins.push(...Bio.insights(bio, name));
   const ms = S.mood.start, me = S.mood.end, mm = S.mood.mid;
   if (ms && mm && me && mm < ms && me < mm) ins.push([faceSvg('sleepy'), 'Mood went down step by step across the session, which can be a sign of tiredness. Shorter sittings may suit this child.']);
   else if (ms && me) { const a = MOODS[ms - 1], b = MOODS[me - 1]; ins.push(me > ms ? [ico('balloon'), `Mood went <b>up</b> from ${a.e} ${a.l} to ${b.e} ${b.l} during the adventure.`] : me < ms ? [ico('cloud'), `Mood dipped from ${a.e} ${a.l} to ${b.e} ${b.l}. The session may have felt long or challenging.`] : [ico('mood'), `Mood stayed steady at ${a.e} ${a.l} from start to finish.`]); }
-  return { A, scored, correctN, abil, b5, ei, emo, gaze, focus, blinkRate, avgRt, hasCam, ins, listen, reading, talk, say, fingers, quick, replays };
+  return { A, scored, correctN, abil, b5, ei, emo, gaze, focus, blinkRate, avgRt, hasCam, ins, listen, reading, talk, say, fingers, quick, replays, offDir, bio };
+}
+
+/* Short plain-language summary for parents and teachers, shown at the top of the report.
+   Every sentence is hedged ("seemed", "signs of"): there are no age norms behind these readings. */
+function childSummary(R) {
+  const name = esc(S.profile.name), n = R.A.length, M = S.mood, mo = v => v ? `"${MOODS[v - 1].l}"` : '';
+  const list = a => a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+  const low = t => t.toLowerCase(), dir = { left: 'to the left', right: 'to the right', up: 'up', down: 'down', away: 'away from the camera' }[R.offDir];
+  if (!n) return { html: `<p><b>${name}</b> has not finished any games yet, so there is nothing to summarise. Play a few missions and the summary will appear here.</p>`, text: `${S.profile.name} has not finished any games yet.`, tags: [] };
+  const out = [n === TOTAL ? `Here is what we learned about <b>${name}</b> from all ${TOTAL} activities.` : `Here is what we learned about <b>${name}</b> from the <b>${n} game${n > 1 ? 's' : ''} played</b> so far (out of ${TOTAL}).${n < 8 ? ' This is an early picture, and more games will make it clearer.' : ''}`];
+
+  // feelings and stress: camera, the child's own mood check-ins and the Emotional Stability choices
+  const stress = [], calm = []; let w = 0;
+  const neg = R.hasCam ? NEG.reduce((s, k) => s + R.emo[k], 0) : 0, S5 = R.b5.S;
+  if (R.hasCam && neg >= .18) { stress.push(`a worried, sad or frustrated face ${pct(neg)}% of the time`); w += neg >= .3 ? 1.5 : 1; }
+  const lastMood = M.end || M.mid || M.start, when = M.end ? 'last' : M.mid ? 'halfway' : 'first';
+  if (lastMood && lastMood <= 2) { stress.push(`${mo(lastMood)} in the ${when} mood check`); w += 1; }
+  else if (M.start && lastMood && M.start - lastMood >= 2) { stress.push(`a mood that went from ${mo(M.start)} to ${mo(lastMood)}`); w += 1; }
+  const wrongE = R.scored.filter(a => !a.correct && a.ansEmo);
+  if (wrongE.length >= 2 && wrongE.filter(a => NEG.includes(a.ansEmo)).length / wrongE.length >= .5) { stress.push('an upset face when answers went wrong'); w += 1; }
+  const faced = R.A.filter(a => a.agg && a.agg.face > 2), half = Math.floor(faced.length / 2);
+  if (half >= 3) {
+    const negOf = l => { const f = l.reduce((s, a) => s + a.agg.face, 0); return f ? l.reduce((s, a) => s + NEG.reduce((t, k) => t + a.agg.emo[k], 0), 0) / f : 0; };
+    if (negOf(faced.slice(half)) - negOf(faced.slice(0, half)) >= .12) { stress.push('more tension as the session went on'); w += 1; }
+  }
+  if (S5 && S5.v <= 33) { stress.push('story choices that point to strong worries'); w += 1; }
+  if (R.blinkRate && R.blinkRate > 28 && stress.length) { stress.push('a lot of blinking, which can mean tiredness or strain'); w += .5; }
+  const B = R.bio;   // fingertip heart sensor, when a board was connected
+  if (B && B.avgPlay != null && B.rise >= 15) { stress.push(`a heart rate well above the calm level while playing (+${B.rise} bpm)`); w += 1; }
+  if (B && B.react.wrong != null && B.react.wrong >= 6) { stress.push(`a faster heartbeat after mistakes (+${B.react.wrong} bpm)`); w += 1; }
+  const happy = R.hasCam && R.emo.happy >= .3;
+  if (happy) calm.push(`lots of smiles (happy ${pct(R.emo.happy)}% of the time)`);
+  else if (R.hasCam && R.emo.neutral >= .55 && neg < .12) calm.push('a calm, settled face most of the time');
+  if (lastMood && lastMood >= 4) calm.push(`${mo(lastMood)} in the ${when} mood check`);
+  if (S5 && S5.v >= 67) calm.push('story choices that point to staying calm under pressure');
+  if (B && B.avgPlay != null && B.rise < 6) calm.push('a steady heart rate close to the calm level');
+  const known = R.hasCam || lastMood || S5 || B, level = !known ? 'unknown' : w >= 2 ? 'high' : w >= 1 ? 'some' : 'low';
+  if (level === 'high') out.push(`${name} showed <b>several signs of stress or worry</b>: ${list(stress.slice(0, 3))}.`);
+  else if (level === 'some') out.push(`${name} seemed <b>mostly calm</b>${calm.length ? ` (${calm[0]})` : ''}, but showed <b>a few signs of worry</b>: ${list(stress.slice(0, 2))}.`);
+  else if (level === 'low') out.push(calm.length ? `${name} seemed <b>${happy ? 'happy and relaxed' : 'calm and at ease'}</b>, with no clear signs of stress: ${list(calm.slice(0, 2))}.` : `${name} showed <b>no clear signs of stress</b> during the games.`);
+  else out.push(`The camera was off and no mood check was reached, so we <b>could not judge feelings</b> this time.`);
+
+  // attention and how the puzzles went
+  const acc = R.scored.length ? R.correctN / R.scored.length : null;
+  const solved = acc == null ? '' : acc >= .75 ? `solved most of the puzzles (${R.correctN} of ${R.scored.length})` : acc >= .5 ? `solved more than half of the puzzles (${R.correctN} of ${R.scored.length})` : `found many puzzles hard (${R.correctN} of ${R.scored.length} solved)`;
+  if (R.hasCam && R.focus != null) {
+    const f = pct(R.focus);
+    out.push(R.focus >= .8 ? `Attention was <b>strong</b>, with eyes on the screen ${f}% of the time${solved ? `, and ${name} ${solved}` : ''}.`
+      : R.focus >= .6 ? `${name} was <b>mostly focused</b> (eyes on the screen ${f}% of the time, sometimes looking ${dir})${solved ? ` and ${solved}` : ''}.`
+      : `Attention <b>drifted often</b> (eyes on the screen only ${f}% of the time, mostly looking ${dir})${solved ? `, and ${name} ${solved}` : ''}.`);
+  } else if (solved) out.push(`${name} ${solved}.`);
+  if (B && B.avgPlay != null) { const hi = B.acts.filter(a => a.k !== 'b' && a.n >= 15)[0]; out.push(`The heart sensor showed about <b>${B.avgPlay} bpm</b> while playing (calm level ${B.calm})${hi && hi.hr - B.calm >= 8 ? `, highest while <b>${BIO_ACT[hi.k][0].toLowerCase()}</b> (${hi.hr} bpm)` : ''}.`); }
+
+  // strengths and personality
+  const abList = Object.entries(R.abil).filter(([, v]) => v).sort((a, b) => b[1].v - a[1].v);
+  const best = abList[0] && abList[0][1].v >= 60 ? ABILITIES[abList[0][0]] : null;
+  const traits = Object.entries(R.b5).filter(([k, v]) => v && k !== 'S' && (v.v >= 67 || v.v <= 33)).sort((a, b) => Math.abs(b[1].v - 50) - Math.abs(a[1].v - 50)).slice(0, 2).map(([k, v]) => low(traitBand(k, v.v)));
+  const eiGood = R.ei && R.ei.u + R.ei.m >= 150;
+  if (best) out.push(`A clear strength is <b>${best.desc}</b>.`);
+  if (traits.length) out.push(`The story choices describe someone who is <b>${traits.join('</b> and <b>')}</b>${eiGood ? `, and ${name} read other people's feelings well` : ''}.`);
+  else if (eiGood) out.push(`${name} read other people's feelings well.`);
+
+  // the one thing most worth watching
+  const worst = abList.length >= 2 ? abList[abList.length - 1] : null, tired = M.start && M.mid && M.end && M.mid < M.start && M.end < M.mid;
+  out.push(level === 'high' ? `<b>The main thing to watch is stress.</b> A calm chat about how the games felt, and praise for effort rather than right answers, can help.`
+    : R.hasCam && R.focus != null && R.focus < .6 ? `<b>The main thing to watch is attention.</b> Shorter sessions with small breaks may help.`
+    : tired ? `<b>${name} seemed to tire as the session went on</b>, so shorter sittings may suit better.`
+    : level === 'some' ? `Nothing serious stood out, but it is worth <b>noticing how ${name} handles mistakes</b> and praising effort.`
+    : worst && worst[1].v < 50 && abList[0][1].v - worst[1].v >= 15 ? `<b>${ABILITIES[worst[0]].label}</b> was the hardest area, and short, playful practice can help.`
+    : R.ei && R.ei.u + R.ei.m < 100 ? `Naming feelings together in everyday moments would <b>help with understanding emotions</b>.`
+    : `<b>No big concerns</b> showed up in these games.`);
+
+  const fTag = { high: ['Signs of stress', 'bad', faceSvg('fearful')], some: ['Mostly calm', 'mid', faceSvg('neutral')], low: [happy ? 'Happy & relaxed' : 'Calm', 'ok', faceSvg('happy')], unknown: ['Not measured', 'na', faceSvg('neutral')] }[level];
+  const tags = [['Feelings', ...fTag],
+    ['Focus', ...(R.hasCam && R.focus != null ? R.focus >= .8 ? ['Very focused', 'ok'] : R.focus >= .6 ? ['Mostly focused', 'mid'] : ['Easily distracted', 'bad'] : ['Not measured', 'na']), ico('target')],
+    ['Mood', ...(M.start && (M.end || M.mid) ? lastMood > M.start ? ['Went up', 'ok'] : lastMood < M.start ? ['Dipped', lastMood <= 2 ? 'bad' : 'mid'] : [`Steady (${MOODS[lastMood - 1].l})`, lastMood >= 3 ? 'ok' : 'mid'] : M.start ? [MOODS[M.start - 1].l + ' at start', M.start >= 3 ? 'ok' : 'mid'] : ['Not asked yet', 'na']), ico('mood')]];
+  if (B) tags.push(['Heart', ...{ steady: ['Steady', 'ok'], raised: ['Raised', 'mid'], high: ['High', 'bad'] }[B.level], ico('heart')]);
+  if (best) tags.push(['Strength', ABILITIES[abList[0][0]].label, 'ok', ico('star')]);
+  const html = `<p>${out.join(' ')}</p>`;
+  return { html, text: html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>'), tags };
 }
 function barRow(icon, label, v, color, tip) {
   return `<div class="bar-row"${tip ? ` data-tip="${esc(tip)}"` : ''}><span>${icon}</span><span class="br-l">${esc(label)}</span><div class="bar-track"><i style="width:${clamp(v, 0, 100)}%;background:${color}"></i></div><span class="br-v">${v == null ? '—' : v + (typeof v === 'number' ? '%' : '')}</span></div>`;
 }
 function showReport(mode) {
-  if (!S) return; const R = computeReport(), T = THEMES[S.profile.grade], P = S.profile;
+  if (!S) return; const R = computeReport(), Sm = childSummary(R), T = THEMES[S.profile.grade], P = S.profile;
   const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' });
   const kpi = (l, v, s) => `<div class="kpi"><small>${l}</small><b>${v}</b><span>${s}</span></div>`;
   const abilHTML = Object.entries(ABILITIES).map(([k, d]) => {
@@ -6101,14 +6694,14 @@ function showReport(mode) {
   const tl = Array.from({ length: TOTAL }, (_, i) => {
     const a = R.A.find(x => x.i === i); if (!a) return `<div class="tl"><i style="background:#F4EFE8;color:#C9C2B8">·</i>${i + 1}</div>`;
     const e = a.emo || null, res = a.correct === true ? '✓ correct' : a.correct === false ? '✗ not yet' : 'choice';
-    return `<div class="tl" data-tip="${esc(`#${i + 1} ${a.game} · ${res} · ${fmtSec(a.rt)}${e ? ' · mostly ' + EMO_META[e].label : ''}`)}"><i style="background:${e ? EMO_META[e].c + '2E' : '#F4EFE8'}">${e ? EMO_META[e].e : (a.correct === true ? '✓' : a.correct === false ? '✗' : '•')}</i>${i + 1}</div>`;
+    return `<div class="tl" data-tip="${esc(`#${i + 1} ${a.game} · ${res} · ${fmtSec(a.rt)}${e ? ' · mostly ' + EMO_META[e].label : ''}${R.bio && R.bio.missions[i] ? ` · ${R.bio.missions[i]} bpm` : ''}`)}"><i style="background:${e ? EMO_META[e].c + '2E' : '#F4EFE8'}">${e ? EMO_META[e].e : (a.correct === true ? '✓' : a.correct === false ? '✗' : '•')}</i>${i + 1}</div>`;
   }).join('');
   const rows = R.A.map(a => {
     const res = a.type === 'path' ? `<td>${ico('compass')} ${(a.big5 || []).map(x => BIG5[x.t].icon + ' ' + ['Low', 'Mid-low', 'Mid-high', 'High'][x.v]).join(' · ')}</td>` : a.type === 'mood' ? `<td>${(MOODS[a.mood - 1]?.e || '') + ' ' + esc(a.choice || '')}</td>`
       : ['describe', 'speak', 'quick', 'fingers', 'reading', 'audio'].includes(a.type) && a.choice ? `<td class="${a.correct ? 'res-ok' : 'res-no'}">${a.correct ? '✓' : '✗'} ${esc(a.choice)}${a.type === 'audio' && a.extra && a.extra.plays ? ` · ${a.extra.plays} listen${a.extra.plays > 1 ? 's' : ''}` : ''}${a.extra && a.extra.mode ? ` · ${a.extra.mode === 'voice' ? ico('mic') : ico('keyboard')}` : ''}</td>`
       : a.type === 'emotion' && a.ei ? `<td class="${a.correct ? 'res-ok' : 'res-no'}">${a.ei.u ? '✓' : '✗'} understand · ${a.ei.m ? '✓' : '✗'} manage</td>`
       : a.correct === true ? `<td class="res-ok">✓ Correct${a.score != null && a.score < 1 ? ` (${pct(a.score)})` : ''}</td>` : `<td class="res-no">✗ Not yet${a.score ? ` (${pct(a.score)})` : ''}</td>`;
-    return `<tr><td>${a.i + 1}</td><td>${GAME_INFO[a.type].icon} ${esc(a.game)}</td><td class="q-meas">${esc(measureTxt(a.type, a.key))}${a.extra && a.extra.replays ? ` <small>(replayed ${a.extra.replays}×)</small>` : ''}</td>${res}<td>${fmtSec(a.rt)}</td><td>${a.emo ? EMO_META[a.emo].e + ' ' + EMO_META[a.emo].label : '—'}</td><td>${a.gaze ? GAZE_META[a.gaze].e + ' ' + GAZE_META[a.gaze].label : '—'}</td></tr>`;
+    return `<tr><td>${a.i + 1}</td><td>${GAME_INFO[a.type].icon} ${esc(a.game)}</td><td class="q-meas">${esc(measureTxt(a.type, a.key))}${a.extra && a.extra.replays ? ` <small>(replayed ${a.extra.replays}×)</small>` : ''}</td>${res}<td>${fmtSec(a.rt)}</td><td>${a.emo ? EMO_META[a.emo].e + ' ' + EMO_META[a.emo].label : '—'}</td><td>${a.gaze ? GAZE_META[a.gaze].e + ' ' + GAZE_META[a.gaze].label : '—'}</td>${R.bio ? `<td>${R.bio.missions[a.i] ? R.bio.missions[a.i] + ' bpm' : '—'}</td>` : ''}</tr>`;
   }).join('');
   const mj = (v, l) => `<div class="mj"><span>${v ? MOODS[v - 1].e : ico('dots')}</span>${l}${v ? ': ' + MOODS[v - 1].l : ' (not reached)'}</div>`;
   const moodHTML = `<div class="mood-journey">${mj(S.mood.start, 'Start')}<div class="arrow">➜</div>${mj(S.mood.mid, 'Halfway')}<div class="arrow">➜</div>${mj(S.mood.end, 'End')}</div>`;
@@ -6128,6 +6721,7 @@ function showReport(mode) {
   root.innerHTML = `
     <div class="rp-head"><div class="rp-av">${P.avatar}</div><div><h2>${esc(P.name)}'s MindQuest Report</h2><div class="rp-meta">Grade ${P.grade} · ${T.emoji} ${T.name} · Age ${P.age} · ${date}${R.A.length < TOTAL ? ' · <b>Partial session</b>' : ''}</div></div><img class="rp-logo" src="${$('.brand-logo').src}" alt="CognoSpace"></div>
     <div class="rp-body">
+      <div class="rp-card rp-summary"><h4>${ico('sparkle')} ${esc(P.name)} at a glance</h4>${Sm.html}${Sm.tags.length ? `<div class="sum-tags">${Sm.tags.map(([l, v, c, i]) => `<span class="sum-tag ${c}">${i}<small>${l}</small><b>${esc(v)}</b></span>`).join('')}</div>` : ''}<p class="sum-note">Based on the games, the story choices, ${esc(P.name)}'s own mood check-ins${R.hasCam ? ', facial expressions and eye movements' : ''}${R.bio ? ', and the heart sensors' : ''}. A screening picture, not a diagnosis.</p></div>
       <div class="rp-kpis">
         ${kpi('Missions', `${R.A.length}<span style="font-size:1rem;color:var(--muted)">/${TOTAL}</span>`, R.A.length === TOTAL ? `World complete ${ico('trophy')} · ${ico('star')} ${S.stars || 0}` : `Missions played · ${ico('star')} ${S.stars || 0}`)}
         ${kpi('Thinking skills', abVals.length ? Math.round(avg(abVals)) : '—', 'Average across abilities, out of 100')}
@@ -6148,8 +6742,9 @@ function showReport(mode) {
         <div class="rp-card"><h4>${ico('smile')} Feelings while playing</h4><p class="rc-sub">Share of time each facial expression was seen${R.blinkRate ? ` · Blink rate ${Math.round(R.blinkRate)}/min` : ''}</p><div class="bars">${emoHTML}</div>${mirrorHTML}</div>
         <div class="rp-card"><h4>${ico('eye')} Where the eyes looked</h4><p class="rc-sub">Gaze and head direction during the missions</p>${gazeHTML}</div>
       </div>
+      ${typeof Bio !== 'undefined' ? Bio.card(R, P.name) : ''}
       <div class="rp-card"><h4>${ico('map')} Mission-by-mission expressions</h4><p class="rc-sub">Main expression seen during each mission (hover for details)</p><div class="timeline">${tl}</div></div>
-      <div class="rp-card"><h4>${ico('cards')} Mission details</h4><p class="rc-sub">What each mission measures, the result, timing, expression and gaze</p><div class="qtable-wrap"><table class="qtable"><thead><tr><th>#</th><th>Game</th><th>Measures</th><th>Result</th><th>Time</th><th>Expression</th><th>Gaze</th></tr></thead><tbody>${rows || '<tr><td colspan="7">No missions played yet.</td></tr>'}</tbody></table></div></div>
+      <div class="rp-card"><h4>${ico('cards')} Mission details</h4><p class="rc-sub">What each mission measures, the result, timing, expression and gaze</p><div class="qtable-wrap"><table class="qtable"><thead><tr><th>#</th><th>Game</th><th>Measures</th><th>Result</th><th>Time</th><th>Expression</th><th>Gaze</th>${R.bio ? '<th>Heart</th>' : ''}</tr></thead><tbody>${rows || '<tr><td colspan="8">No missions played yet.</td></tr>'}</tbody></table></div></div>
       <div class="rp-card about"><h4>${ico('info')} How MindQuest measures</h4><p><b>Thinking skills</b> follow the Cattell–Horn–Carroll (CHC) model used by tests such as WISC-V. Each game is linked to one main ability and sometimes a supporting one, and each ability is measured by at least two games. <b>Personality</b> uses the Big Five model with five situational choices per trait, scored from low to high on that trait. <b>Emotional intelligence</b> follows the Mayer–Salovey model (understanding and managing feelings). <b>Reading</b> (Grw) uses short passages with literal, inference and vocabulary questions, timed for reading speed. <b>Listening keenness</b> uses audio-only stories that can be heard at most twice: the score, the number of listens and how steadily the eyes stayed on the screen are all recorded. <b>Idea fluency</b> (Gr) counts the words and details given in Picture Talk and Say It!, transcribed by the browser's speech service. <b>Finger Math</b> counts raised fingers with an on-device hand tracker. <b>Expressions</b> are read on the device from facial muscle movements (FACS action units) combined with a neural-network classifier, measured against the child's own relaxed face.</p></div>
       <div class="disclaimer">${ico('info')} MindQuest is a playful screening tool, not a clinical diagnosis. Scores compare the child with the difficulty of their grade's missions, not with national age norms, and personality answers are self-reported choices. Expression, gaze and finger readings are estimates and can be affected by lighting, glasses or camera position. Spoken answers are turned into text by the browser's own speech service (in Chrome this sends audio to Google), so accents and background noise can lower voice scores. Please discuss any concerns with a qualified counsellor or psychologist.</div>
     </div>
@@ -6174,7 +6769,8 @@ function downloadData(R) {
     listening: R.listen, reading: R.reading && { accuracy: R.reading.acc, passages: R.reading.n, wordsPerMinute: R.reading.wpm, lookBacks: R.reading.looks },
     pictureTalk: R.talk && { pictures: R.talk.n, avgWords: R.talk.words, avgDetails: R.talk.hits, spoken: R.talk.voice },
     fastestFinger: R.quick, fingerMath: R.fingers, stars: S.stars || 0,
-    insights: R.ins.map(([, t]) => strip(t)), answers: R.A.map(({ agg, ...a }) => ({ ...a, measures: measureTxt(a.type, a.key), samples: agg })) };
+    heart: R.bio && { calmLevelBpm: R.bio.calm, avgWhilePlayingBpm: R.bio.avgPlay, riseBpm: R.bio.rise, hrvRmssdMs: R.bio.hrv, spo2: R.bio.spo2, afterAnswers: R.bio.react, byActivity: R.bio.acts.map(a => ({ activity: BIO_ACT[a.k][0], seconds: a.n, bpm: a.hr, hrvMs: a.hrv })), perMissionBpm: R.bio.missions, perSecond: { columns: ['secondsFromStart', 'bpm', 'spo2', 'mission', 'activity'], rows: S.bio.s }, beats: { columns: ['secondsFromStart', 'rrMs', 'mission', 'activity'], rows: S.bio.rr.map(r => r.slice(0, 4)) }, sensor: S.bio.ppg || null },
+    summary: childSummary(R).text, insights: R.ins.map(([, t]) => strip(t)), answers: R.A.map(({ agg, ...a }) => ({ ...a, measures: measureTxt(a.type, a.key), samples: agg })) };
   const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })), download: `MindQuest_${S.profile.name}_${new Date().toISOString().slice(0, 10)}.json` });
   document.body.append(a); a.click(); a.remove();
 }
