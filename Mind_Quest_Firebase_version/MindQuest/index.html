@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7941D">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/landing.css">
+<title>MindQuest · Weekly well-being adventures by CognoSpace</title>
+<meta name="description" content="MindQuest by CognoSpace: weekly game-based well-being quests for Grades 4 to 9, with clear dashboards and caring guidance for teachers and parents.">
+</head>
+<body class="page-landing">
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+<header class="lp-top">
+  <a class="lp-brand" href="index.html" aria-label="MindQuest by CognoSpace, home">
+    <img src="assets/logo.png" alt="CognoSpace Experiential Learning"><span class="lp-sep"></span><span class="lp-app">Mind<b>Quest</b></span>
+  </a>
+  <nav class="lp-nav" aria-label="Main">
+    <a href="#how">How it works</a><a href="#quests">Weekly quests</a><a href="#grownups">For teachers &amp; parents</a><a href="#privacy">Privacy</a>
+  </nav>
+  <div class="lp-acts" id="lpActs">
+    <a class="btn btn-ghost btn-sm" href="login.html">Log in</a>
+    <a class="btn btn-primary btn-sm" href="login.html#signup">Create account <span data-i="arrow"></span></a>
+  </div>
+</header>
+
+<main>
+  <section class="lp-hero lp-wrap">
+    <div class="lp-hero-grid">
+      <div>
+        <span class="lp-eyebrow"><span data-i="sparkle"></span> Weekly well-being adventures · Grades 4 to 9</span>
+        <h1>Play every week.<br><span class="hl">Grow every day.</span></h1>
+        <p class="lp-lead">MindQuest gives every child a fresh 20-minute quest each week: stories that pause to ask questions, chats with Coggy the robot, focus and memory games and calm-breath breaks. Teachers and parents get a clear dashboard and caring, practical suggestions.</p>
+        <div class="lp-cta">
+          <a class="btn btn-primary btn-lg" href="login.html#signup">Start my adventure <span data-i="rocket"></span></a>
+          <a class="btn btn-ghost btn-lg" href="login.html"><span data-i="school"></span> I'm a teacher or parent</a>
+        </div>
+        <div class="lp-trust">
+          <div><span data-i="calendar"></span>New quest every week</div>
+          <div><span data-i="mic"></span>Talks and listens</div>
+          <div><span data-i="shield"></span>Camera stays on device</div>
+        </div>
+      </div>
+      <div class="lp-orbit" aria-hidden="true">
+        <div class="lp-ring r1"></div><div class="lp-ring r2"></div>
+        <div class="lp-core" id="lpCore"></div>
+        <div class="lp-spin" id="lpSpin"></div>
+        <div class="lp-chip c1"><span class="fc-i" id="chipFace"></span><span>Feeling calm<small>Mood check</small></span></div>
+        <div class="lp-chip c2"><span class="fc-i" data-i="target"></span><span>Focus 91%<div class="fc-bar"><i></i></div></span></div>
+        <div class="lp-chip c3"><span class="fc-i" data-i="users"></span><span>Week 2 of 4<small>Friends &amp; Kindness</small></span></div>
+        <span class="sparkle" style="top:10%;right:14%;font-size:1.6rem" data-i="star"></span>
+        <span class="sparkle" style="bottom:24%;left:0;font-size:1.1rem;animation-delay:-1s" data-i="sparkle"></span>
+        <span class="sparkle" style="top:46%;right:-2%;font-size:1.3rem;animation-delay:-.5s" data-i="star"></span>
+      </div>
+    </div>
+    <div class="lp-stats">
+      <div class="lp-stat"><b data-count="22">22</b><span>minutes a week</span></div>
+      <div class="lp-stat"><b data-count="24">24</b><span>activities per quest</span></div>
+      <div class="lp-stat"><b data-count="12">12</b><span>well-being areas (CBSE-style)</span></div>
+      <div class="lp-stat"><b data-count="6">6</b><span>themed worlds</span></div>
+    </div>
+  </section>
+  <div class="lp-marquee" aria-hidden="true"><div class="lp-mq" id="lpMq"></div></div>
+
+  <section class="lp-section lp-wrap" id="how">
+    <div class="lp-head"><span class="lp-eyebrow"><span data-i="compass"></span> How it works</span><h2>Four simple steps, every week</h2><p>No boring forms and no tricky tests. Just a weekly adventure that helps grown-ups understand how a child feels, thinks and copes.</p></div>
+    <div class="lp-steps">
+      <div class="lp-step"><div class="s-ico" style="background:#FFF1DE" data-i="user"></div><h3>Make your profile</h3><p>Create a username and password, then tell Coggy your age, class, hobbies, favourite things and what feels scary.</p></div>
+      <div class="lp-step"><div class="s-ico" style="background:#E8F3FF" data-i="play"></div><h3>Play the weekly quest</h3><p>About 20 to 25 minutes of story videos, "What would you do?" moments, focus and memory games and calm breaths.</p></div>
+      <div class="lp-step"><div class="s-ico" style="background:#EAFBEF" data-i="chat"></div><h3>Talk with Coggy</h3><p>Coggy reads every question aloud and listens to spoken answers. Typing always works too.</p></div>
+      <div class="lp-step"><div class="s-ico" style="background:#FFEAF4" data-i="bulb"></div><h3>Grown-ups get guidance</h3><p>Teachers and parents see well-being, focus and time, compare marks, and get practical next steps.</p></div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-wrap" id="quests" style="padding-top:0">
+    <div class="lp-head"><span class="lp-eyebrow"><span data-i="calendar"></span> Weekly quests</span><h2>A new adventure every week</h2><p>Each quest is built on the areas of the CBSE-style Holistic Well-being Report Card, with the wording tuned to the child's stage.</p></div>
+    <div class="lp-weeks" id="lpWeeks"></div>
+  </section>
+
+  <section class="lp-section lp-wrap" id="worlds" style="padding-top:0">
+    <div class="lp-head"><span class="lp-eyebrow"><span data-i="globe"></span> Six worlds</span><h2>Every grade gets its own world</h2><p>The child's dashboard takes on the colours and doodles of their grade's world.</p></div>
+    <div class="lp-worlds" id="lpWorlds"></div>
+  </section>
+
+  <section class="lp-section lp-wrap" id="grownups" style="padding-top:0">
+    <div class="lp-head"><span class="lp-eyebrow"><span data-i="family"></span> For teachers &amp; parents</span><h2>What MindQuest shows you</h2><p>Children just play. You get a clear picture and kind, practical next steps: what to say, what to try at home, books to read and places to visit.</p></div>
+    <div class="lp-discover">
+      <div class="lp-panel"><h3><span data-i="heart"></span> 12 well-being areas</h3><p>Each area is scored on the familiar 4-step scale: Developing, Progressing, Consistent, Strength.</p><div class="lp-chips" id="lpAreas"></div></div>
+      <div class="lp-panel"><h3><span data-i="chart"></span> One clear dashboard</h3><p>Every number has an "i" that explains it. Flags show who needs a check-in first.</p>
+        <div class="mock-report">
+          <div class="mr-row"><span data-i="heart"></span><span>Well-being</span><div class="mr-bar"><i style="width:68%;background:#16A34A"></i></div><span>68</span></div>
+          <div class="mr-row"><span data-i="target"></span><span>Focus</span><div class="mr-bar"><i style="width:82%;background:#4D96FF;animation-delay:.15s"></i></div><span>82</span></div>
+          <div class="mr-row"><span data-i="leaf"></span><span>Calm &amp; coping</span><div class="mr-bar"><i style="width:44%;background:#F59E0B;animation-delay:.3s"></i></div><span>44</span></div>
+          <div class="mr-row"><span data-i="clock"></span><span>Minutes / week</span><div class="mr-bar"><i style="width:88%;background:#9B5DE5;animation-delay:.45s"></i></div><span>22</span></div>
+          <div class="mr-row"><span data-i="grad"></span><span>Marks</span><div class="mr-bar"><i style="width:74%;background:#F7941D;animation-delay:.6s"></i></div><span>74%</span></div>
+        </div>
+        <p class="lp-note"><span data-i="robot"></span> Suggestions are written by Google Gemini AI, or by MindQuest's built-in engine when AI is off.</p></div>
+    </div>
+  </section>
+
+  <div class="lp-wrap" id="privacy">
+    <div class="lp-privacy">
+      <div class="shield" data-i="shield"></div>
+      <div>
+        <h2>Safe, private and kind by design</h2>
+        <ul>
+          <li><span data-i="camera"></span><span><b>Video never leaves the device.</b> Facial expressions are read inside the browser; only counts are saved.</span></li>
+          <li><span data-i="lock"></span><span><b>Private accounts.</b> Each child sees only their own quests. Results are for their teacher and parents.</span></li>
+          <li><span data-i="mic"></span><span><b>Voice is optional.</b> Every answer can be typed instead.</span></li>
+          <li><span data-i="heart"></span><span><b>A screening picture, not a diagnosis.</b> Gentle flags help adults start a caring conversation.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-ctaband lp-wrap">
+    <h2>Ready for this week's quest?</h2>
+    <p>Make an account in a minute. Your first quest is waiting.</p>
+    <a class="btn btn-primary btn-lg" href="login.html#signup">Begin my MindQuest <span data-i="rocket"></span></a>
+  </div>
+</main>
+<footer class="credit">Designed &amp; developed by <b><span class="o">Cogno</span>Space</b> · <a href="https://www.cognospace.in" target="_blank" rel="noopener">www.cognospace.in</a></footer>
+<script src="js/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/content.js"></script>
+<script src="js/landing.js"></script>
+</body>
+</html>

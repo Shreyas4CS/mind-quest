@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7941D">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<title>MindQuest · Teacher &amp; Parent dashboard</title>
+</head>
+<body class="page-staff">
+<main class="wrap wide">
+  <!-- class overview -->
+  <section id="classView">
+    <div class="page-head"><div><p class="eyebrow" data-i="school">Teacher &amp; Parent dashboard</p><h1>My children</h1><p class="muted" id="classSub"></p></div>
+      <div class="filters"><label class="search"><span data-i="search"></span><input id="fSearch" placeholder="Search by name"></label><select id="fGrade"><option value="">All grades</option></select><select id="fSort"><option value="attention">Needs attention first</option><option value="name">Name A-Z</option><option value="wb">Well-being (low to high)</option><option value="recent">Recently active</option></select></div></div>
+    <div class="kpis big" id="classKpis"></div>
+    <div class="grid-2-1">
+      <div class="card"><h2 class="card-h" data-i="users">Children</h2><div id="childList" class="child-list"></div></div>
+      <div class="card"><h2 class="card-h" data-i="trend">Marks vs well-being <span class="info-slot" data-t="alignment"></span></h2><div id="classQuad"></div><p class="muted small">Each dot is a child with marks entered. Dots in the shaded band are "aligned".</p></div>
+    </div>
+  </section>
+
+  <!-- one child -->
+  <section id="childView" hidden>
+    <button class="btn btn-ghost back-btn" id="backBtn"></button>
+    <div class="card child-head" id="childHead"></div>
+    <nav class="tabs big" id="childTabs" role="tablist">
+      <button class="tab on" data-tab="overview">Overview</button><button class="tab" data-tab="wellbeing">Well-being</button><button class="tab" data-tab="time">Time &amp; focus</button><button class="tab" data-tab="marks">Marks</button><button class="tab" data-tab="notes">Notes &amp; plan</button>
+    </nav>
+    <div class="tabpane" data-pane="overview"></div>
+    <div class="tabpane" data-pane="wellbeing" hidden></div>
+    <div class="tabpane" data-pane="time" hidden></div>
+    <div class="tabpane" data-pane="marks" hidden></div>
+    <div class="tabpane" data-pane="notes" hidden></div>
+  </section>
+</main>
+<footer class="credit">Designed &amp; developed by <b><span class="o">Cogno</span>Space</b> · <a href="https://www.cognospace.in" target="_blank" rel="noopener">www.cognospace.in</a></footer>
+<script src="js/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/content.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/store.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/glossary.js"></script>
+<script src="js/insights.js"></script>
+<script src="js/staff.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7941D">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/arcade.css">
+<title>MindQuest · Weekly quest</title>
+</head>
+<body class="page-quest">
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<main class="quest">
+  <div class="q-main">
+    <div class="coggy" id="coggy"><div class="coggy-av"></div><div class="coggy-bub"><span id="coggyTxt"></span><button class="say-btn" id="coggyAgain" aria-label="Say it again"></button></div></div>
+    <section id="qIntro" class="card q-intro">
+      <p class="eyebrow" id="qWeek"></p><h1 id="qTitle"></h1><p id="qSub" class="lead"></p><p id="qMins" class="pill"></p>
+      <div class="q-dots" id="qDots"></div>
+      <div class="q-intro-tips"><div><span data-i="sound"></span><b>Turn your sound on</b><small>Coggy talks to you</small></div><div><span data-i="mic"></span><b>Talk or type</b><small>Answer in your own words</small></div><div><span data-i="pause"></span><b>Take breaks</b><small>Pause any time; progress is saved</small></div></div>
+      <button class="btn btn-primary btn-xl" id="qStartBtn"></button>
+    </section>
+    <section id="qSetup" class="card ck-card" hidden>
+      <div id="ckCam" class="ck-grid">
+        <div class="ck-stage-wrap">
+          <div class="ck-stage" id="ckStage">
+            <div class="ck-place" id="ckPlace"><div><span class="cp-ico" data-i="camera"></span><p>Your camera picture will appear here</p></div></div>
+            <div class="face-guide" id="faceGuide" hidden></div>
+            <div class="calib-star" id="calibStar" data-i="star"></div>
+            <div class="warm-cue" id="warmCue" hidden></div>
+            <div class="live-pill" id="setupPill" hidden><span class="rec-dot"></span><span id="setupPillTxt">Looking for your face…</span></div>
+          </div>
+        </div>
+        <div class="ck-info">
+          <span class="eyebrow"><span data-i="camera"></span> Get ready · Step 1 of 2</span>
+          <h2>Turn on the magic camera</h2>
+          <p class="sub">The camera notices your smiles and where you look while you play. <b>Nothing is recorded or sent anywhere.</b></p>
+          <ul class="checklist" id="camList">
+            <li data-k="perm"><span class="ck"></span><span class="ct">Allow the camera</span></li>
+            <li data-k="ai"><span class="ck"></span><span class="ct">Wake up the face reader</span></li>
+            <li data-k="face"><span class="ck"></span><span class="ct">Find your face in the circle</span></li>
+            <li data-k="calib"><span class="ck"></span><span class="ct">Look at the star for 3 seconds</span></li>
+            <li data-k="expr"><span class="ck"></span><span class="ct">Make three quick faces</span></li>
+          </ul>
+          <div class="ck-actions">
+            <button class="btn btn-ghost" id="camOn"><span data-i="camera"></span> Turn on camera</button>
+            <button class="btn btn-primary" id="camGo" disabled>Next: test the mic <span data-i="mic"></span></button>
+          </div>
+          <button class="link-btn ck-skip" id="camSkip">No camera? Continue without it</button>
+        </div>
+      </div>
+      <div id="ckMic" class="ck-grid" hidden>
+        <div class="ck-stage-wrap">
+          <div class="mic-stage" id="micStage">
+            <div class="mic-sky" aria-hidden="true"><span data-i="cloud"></span><span data-i="cloud"></span><span data-i="cloud"></span><span data-i="cloud"></span></div>
+            <div class="balloon-wrap" id="balloonWrap" aria-hidden="true">
+              <div class="balloon" id="balloon"><svg class="b-face" id="bFace" data-mood="sleep" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
+                  <g fill="none" stroke="#414042" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+                    <g class="bf-sleep"><path d="M13 18q6 5 12 0M39 18q6 5 12 0M27 34q5 3 10 0"/><path d="M50 2h7l-7 8h7" stroke-width="2.6"/></g>
+                    <g class="bf-smile"><circle cx="19" cy="16" r="3.6" fill="#414042" stroke="none"/><circle cx="45" cy="16" r="3.6" fill="#414042" stroke="none"/><path d="M21 28q11 10 22 0"/></g>
+                    <g class="bf-oh"><path d="M13 7q6-4 12 0M39 7q6-4 12 0"/><circle cx="19" cy="17" r="4.2" fill="#414042" stroke="none"/><circle cx="45" cy="17" r="4.2" fill="#414042" stroke="none"/><ellipse cx="32" cy="33" rx="5" ry="6"/></g>
+                    <g class="bf-wow"><path d="M11 4q8-5 15 0M38 4q8-5 15 0"/><circle cx="19" cy="16" r="6.5" fill="#fff"/><circle cx="45" cy="16" r="6.5" fill="#fff"/><circle cx="20" cy="17" r="2.8" fill="#414042" stroke="none"/><circle cx="44" cy="17" r="2.8" fill="#414042" stroke="none"/><ellipse cx="32" cy="35" rx="7" ry="8.5" fill="#414042"/></g>
+                    <g class="bf-puff"><path d="M14 11l9 9M23 11l-9 9M41 11l9 9M50 11l-9 9"/><path d="M20 35q3-5 6 0t6 0t6 0t6 0"/></g>
+                  </g>
+                  <circle cx="9" cy="27" r="4.5" fill="#FF8FA3" opacity=".7"/><circle cx="55" cy="27" r="4.5" fill="#FF8FA3" opacity=".7"/>
+                </svg></div>
+              <svg class="b-string" viewBox="0 0 20 90"><path d="M10 0 C 0 20, 20 40, 10 60 S 4 80, 10 90" fill="none" stroke="#8C8A93" stroke-width="2"/></svg>
+            </div>
+            <div class="b-fill" id="bFillWrap" hidden><i id="bFill"></i></div>
+            <div class="magic-card" id="magicCard" hidden><small id="magicLabel">Say the magic words</small><div class="magic-words" id="magicWords"></div><p class="mc-heard" id="micHeard">I’m listening…</p></div>
+            <div class="mic-bars" id="micBars" aria-hidden="true"></div>
+            <div class="live-pill" id="micPill" hidden><span class="rec-dot"></span><span id="micPillTxt">Listening…</span></div>
+          </div>
+        </div>
+        <div class="ck-info">
+          <span class="eyebrow"><span data-i="mic"></span> Get ready · Step 2 of 2</span>
+          <h2>Test your magic microphone</h2>
+          <p class="sub">Some activities let you answer out loud. Let’s make sure Coggy can hear you. <b>Your voice is not saved.</b></p>
+          <ul class="checklist" id="micList">
+            <li data-k="perm"><span class="ck"></span><span class="ct">Allow the microphone</span></li>
+            <li data-k="level"><span class="ck"></span><span class="ct">Talk, sing or clap to blow up the balloon</span></li>
+            <li data-k="words"><span class="ck"></span><span class="ct">Say the magic words</span></li>
+            <li data-k="hear"><span class="ck"></span><span class="ct">Hear your own voice</span></li>
+          </ul>
+          <div class="ck-actions">
+            <button class="btn btn-ghost" id="micOn"><span data-i="mic"></span> Turn on microphone</button>
+            <button class="btn btn-ghost" id="micPlay" hidden><span data-i="play"></span> Hear yourself</button>
+            <button class="btn btn-primary" id="micGo" disabled>Start my quest <span data-i="rocket"></span></button>
+          </div>
+          <button class="link-btn ck-skip" id="micSkip">No microphone? Continue without it</button>
+        </div>
+      </div>
+    </section>
+    <section id="qPlay" hidden>
+      <div class="q-top"><span class="q-type" id="qType"></span><div class="q-prog"><i id="qBar"></i></div><span class="q-count" id="qCount"></span>
+        <span class="q-hr" id="qHr" hidden><span data-i="heart"></span><b>--</b> bpm</span>
+        <span class="q-clock" title="Time on activities"><span data-i="timer"></span><span id="qClock">0:00</span></span>
+        <button class="tb-btn" id="qPause"><span data-i="pause"></span><span>Pause</span></button>
+        <button class="tb-btn" id="qExit"><span data-i="save"></span><span>Save &amp; exit</span></button></div>
+      <div class="idle-note" id="idleNote" hidden>Still there? Tap anywhere to keep going!</div>
+      <div class="q-stage" id="qStage"></div>
+    </section>
+  </div>
+  <aside class="q-side">
+    <div class="cam-box card">
+      <div class="cam-view" id="camView"><video id="camVideo" playsinline muted hidden></video><canvas id="camOverlay" hidden></canvas><button class="btn btn-ghost" id="camBtn"><span data-i="camera"></span> Turn on magic camera</button></div>
+      <div class="cam-state" id="camState"></div>
+      <small class="muted">Optional. Expressions are read on this device; no photos or video are saved.</small>
+    </div>
+    <div class="heart-box card" id="heartBox" data-state="off">
+      <div class="hb-head"><span class="hb-heart" id="hbHeart" data-i="heart"></span><div><b>Heart sensor</b><small id="bbStatus">Not connected</small></div><button class="link-btn" id="bbDisc" hidden>Disconnect</button></div>
+      <div id="bbOff"><p class="muted">Optional. Clip the HW-605 finger sensor on and connect it to see the heartbeat live.</p>
+        <button class="btn btn-primary" id="bbConnect"><span data-i="heart"></span> Connect sensor</button>
+        <p class="hb-nobt muted" id="bbNoBt">This browser has no Bluetooth. Use Chrome or Edge.</p></div>
+      <div id="bbOn" hidden>
+        <div class="hb-big"><div class="hb-bpm"><b id="bbHr">--</b><span>bpm</span></div><small id="bbHrSrc">waiting for the board</small></div>
+        <div class="hb-vals"><div><b id="bbSpo2">--</b><span>% oxygen</span></div><div><b id="bbHrv">--</b><span>ms HRV</span></div><div><b id="bbCalm">learning…</b><span>calm level</span></div></div>
+        <canvas id="bbWave" width="440" height="96"></canvas>
+        <div class="hb-stress" id="bbStressRow"><span>Stress</span><div class="hb-meter"><i id="bbMeter"></i></div><b id="bbStress">--</b></div>
+        <div class="hb-chips"><span id="bbFinger" class="na"></span><span id="bbSignal" class="na"></span></div>
+      </div>
+    </div>
+  </aside>
+</main>
+<div class="pause-veil" id="pauseVeil" hidden><div class="card"><h2>Paused</h2><p>Take a break. Press Resume when you are ready.</p></div></div>
+<script src="js/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/content.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/store.js"></script>
+<script src="js/camera.js"></script>
+<script src="js/heart.js"></script>
+<script src="js/story.js"></script>
+<script src="js/insights.js"></script>
+<script src="js/arcade.js"></script>
+<script src="js/checks.js"></script>
+<script src="js/quest.js"></script>
+</body>
+</html>

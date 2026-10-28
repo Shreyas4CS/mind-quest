@@ -1,0 +1,35 @@
+rules_version = '2';
+// MindQuest security rules. Deploy with: firebase deploy --only firestore:rules
+// STAFF: the Teacher & Parent accounts. Keep in sync with staffUsernames in js/config.js
+// (each username + "@users.mindquest.app").
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isStaff() {
+      return signedIn() && request.auth.token.email in [
+        'teacher.demo@users.mindquest.app'
+      ];
+    }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+
+    // account record: a child can only ever give itself the "child" role
+    match /users/{uid} {
+      allow read: if isSelf(uid) || isStaff();
+      allow create, update: if isSelf(uid) && (request.resource.data.role == 'child' || (request.resource.data.role == 'staff' && isStaff()));
+    }
+
+    match /children/{uid} {
+      allow read: if isSelf(uid) || isStaff();
+      allow create, update: if isSelf(uid);
+      // weekly quest answers: written by the child, read by the child and staff
+      match /weeks/{w} {
+        allow read: if isSelf(uid) || isStaff();
+        allow write: if isSelf(uid);
+      }
+      // marks, teacher / parent notes and AI suggestions: staff only
+      match /marks/{m} { allow read, write: if isStaff(); }
+      match /notes/{n} { allow read, write: if isStaff(); }
+      match /insights/{i} { allow read, write: if isStaff(); }
+    }
+  }
+}

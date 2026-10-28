@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7941D">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<title>MindQuest · Setup</title>
+</head>
+<body>
+<main class="wrap" style="max-width:760px">
+  <div class="card form">
+    <p class="eyebrow">One-time setup</p>
+    <h1>Mind<b style="color:var(--brand)">Quest</b> setup</h1>
+    <div id="status" class="ai-status"></div>
+    <div id="fbSteps" hidden>
+      <h2 class="card-h">Create the Teacher &amp; Parent account in your Firebase</h2>
+      <label>Username<input id="sUser" value="teacher.demo" readonly></label>
+      <label>Password<input id="sPass" value="CognoSpace@2026"></label>
+      <label style="flex-direction:row;align-items:center;gap:.6em"><input type="checkbox" id="sDemo" checked style="width:auto"> Also add 4 sample children with finished weeks (Riya, Aarav, Meera, Kabir) so the dashboard has data</label>
+      <button class="btn btn-primary btn-xl" id="sGo">Create accounts</button>
+      <pre id="log" class="small" style="white-space:pre-wrap;background:var(--soft);padding:12px;border-radius:12px;min-height:3em"></pre>
+    </div>
+    <p class="small muted">Full steps: SETUP.md in the MindQuest folder. You can delete setup.html after you have run it.</p>
+  </div>
+</main>
+<script src="js/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/content.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/store.js"></script>
+<script src="js/setup.js"></script>
+</body>
+</html>

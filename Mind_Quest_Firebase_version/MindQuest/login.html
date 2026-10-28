@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7941D">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<title>MindQuest · Log in</title>
+<meta name="description" content="MindQuest by CognoSpace: weekly game-based well-being quests for children, with dashboards for teachers and parents.">
+</head>
+<body class="page-auth">
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<main class="auth">
+  <section class="auth-hero">
+    <a href="index.html" class="auth-home" title="MindQuest home"><img class="auth-logo" src="assets/logo.png" alt="CognoSpace · Experiential Learning"></a>
+    <h1 class="brand-title">Mind<b>Quest</b></h1>
+    <p class="auth-tag">Weekly well-being adventures for Grades 4 to 9. Play, talk and grow, while teachers and parents get clear, caring guidance.</p>
+    <div class="auth-art" aria-hidden="true">
+      <div class="orbit"><span class="w1"></span><span class="w2"></span><span class="w3"></span><span class="w4"></span><span class="w5"></span><span class="w6"></span></div>
+      <div class="auth-mascot"></div>
+    </div>
+    <ul class="auth-points">
+      <li><span class="pt-ic" data-i="calendar"></span><b>New quest every week</b><small>20 to 25 minutes of stories, chats and games</small></li>
+      <li><span class="pt-ic" data-i="mic"></span><b>Talks with you</b><small>Coggy speaks and listens</small></li>
+      <li><span class="pt-ic" data-i="chart"></span><b>Clear dashboards</b><small>For children, teachers and parents</small></li>
+    </ul>
+  </section>
+  <section class="auth-card" aria-label="Log in or sign up">
+    <div class="tabs" role="tablist">
+      <button role="tab" class="tab on" data-tab="login" aria-selected="true">Log in</button>
+      <button role="tab" class="tab" data-tab="signup" aria-selected="false">New child account</button>
+    </div>
+    <form id="loginForm" class="form" autocomplete="on">
+      <h2>Welcome back!</h2>
+      <label>Username<input name="username" autocomplete="username" required placeholder="e.g. riya.k" autocapitalize="none" spellcheck="false"></label>
+      <label>Password<span class="pw"><input name="password" type="password" autocomplete="current-password" required placeholder="Your password"><button type="button" class="pw-eye" aria-label="Show password"></button></span></label>
+      <p class="form-err" role="alert"></p>
+      <button class="btn btn-primary btn-xl" type="submit"></button>
+      <p class="muted small">Teachers and parents: log in with the account your school gave you.</p>
+    </form>
+    <form id="signupForm" class="form" hidden autocomplete="off">
+      <h2>Create your MindQuest account</h2>
+      <p class="muted small">Ask a grown-up to help you. You will make your profile next.</p>
+      <label>Choose a username<input name="username" required placeholder="e.g. riya.k" autocapitalize="none" spellcheck="false" maxlength="20"></label>
+      <label>Choose a password<span class="pw"><input name="password" type="password" required minlength="6" placeholder="At least 6 letters or numbers" autocomplete="new-password"><button type="button" class="pw-eye" aria-label="Show password"></button></span></label>
+      <label>Type the password again<input name="password2" type="password" required minlength="6" autocomplete="new-password"></label>
+      <p class="form-err" role="alert"></p>
+      <button class="btn btn-primary btn-xl" type="submit"></button>
+    </form>
+    <div id="demoBox" class="demo-box" hidden></div>
+  </section>
+</main>
+<footer class="credit">Designed &amp; developed by <b><span class="o">Cogno</span>Space</b> · <a href="https://www.cognospace.in" target="_blank" rel="noopener">www.cognospace.in</a></footer>
+<script src="js/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/content.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/store.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

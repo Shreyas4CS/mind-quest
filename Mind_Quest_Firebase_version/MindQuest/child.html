@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7941D">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<title>MindQuest · My dashboard</title>
+</head>
+<body class="page-child">
+<div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<main class="wrap">
+  <!-- profile wizard (first time, or Edit profile) -->
+  <section id="profileView" class="card profile-card" hidden>
+    <div class="pw-head"><div class="pw-coggy"></div><div><h1 id="pwTitle">Let's make your profile!</h1><p id="pwSay" class="muted"></p></div></div>
+    <ol class="steps"><li class="on">About me</li><li>What I like</li><li>Feelings</li></ol>
+    <form id="profileForm" novalidate>
+      <div class="pstep" data-step="0">
+        <div class="grid2">
+          <label>My name<input name="name" required maxlength="40" placeholder="First and last name"></label>
+          <label>My age<select name="age" required></select></label>
+          <label>My class (grade)<select name="grade" required></select></label>
+          <label>Section<input name="section" maxlength="4" placeholder="e.g. A"></label>
+          <label class="span2">My school<input name="school" maxlength="80" placeholder="School name"></label>
+        </div>
+        <fieldset><legend>I am a</legend><div class="chips one" data-name="gender"><button type="button" data-v="boy">Boy</button><button type="button" data-v="girl">Girl</button><button type="button" data-v="">Prefer not to say</button></div></fieldset>
+        <fieldset><legend>Pick your buddy avatar</legend><div class="avatars" id="avatarRow"></div></fieldset>
+      </div>
+      <div class="pstep" data-step="1" hidden>
+        <fieldset><legend>Things I love (pick as many as you like)</legend><div class="chips" data-name="likes" id="likeChips"></div></fieldset>
+        <div class="grid2">
+          <label>My hobbies, in my words<input name="hobbies" maxlength="120" placeholder="e.g. I make paper planes and play cricket"></label>
+          <label>Favourite subject<select name="favSubject"><option value="">Choose…</option><option>Mathematics</option><option>Science</option><option>English</option><option>Hindi</option><option>Social Science</option><option>Computer</option><option>Art</option><option>Physical Education</option><option>Music</option></select></label>
+          <label class="span2">When I grow up I want to be…<input name="dream" maxlength="60" placeholder="e.g. a scientist, a cricketer, a vet"></label>
+        </div>
+      </div>
+      <div class="pstep" data-step="2" hidden>
+        <p class="lead">Everyone feels scared sometimes. Is anything here scary for you? <b>You can skip this.</b></p>
+        <div class="chips warm" data-name="scary" id="scaryChips"></div>
+        <label>Anything else that worries you? (optional)<input name="scaryOther" maxlength="100" placeholder="You can leave this empty"></label>
+      </div>
+      <p class="form-err" role="alert"></p>
+      <div class="pw-nav"><button type="button" class="btn btn-ghost" id="pwBack"></button><button type="submit" class="btn btn-primary btn-xl" id="pwNext"></button></div>
+    </form>
+  </section>
+
+  <!-- dashboard -->
+  <section id="dashView" hidden>
+    <div class="hero card">
+      <div class="hero-av" id="heroAv"></div>
+      <div class="hero-txt"><p class="eyebrow" id="heroWorld"></p><h1 id="heroHi"></h1><p id="heroSay" class="hero-say"></p></div>
+      <div class="hero-world" id="heroDoodle" aria-hidden="true"></div>
+    </div>
+    <div class="dash-grid">
+      <article class="card quest-card" id="questCard"></article>
+      <article class="card stats-card"><h2 class="card-h" data-i="timer">My time</h2><div class="kpis" id="kpis"></div><div id="timeChart"></div></article>
+      <article class="card journey-card span2"><h2 class="card-h" data-i="map">My journey</h2><div class="journey" id="journey"></div></article>
+      <article class="card"><h2 class="card-h" data-i="mood">My moods</h2><div id="moods" class="moods"></div></article>
+      <article class="card"><h2 class="card-h" data-i="user">About me</h2><div id="aboutMe"></div><button class="btn btn-ghost" id="editProfile"></button></article>
+    </div>
+  </section>
+</main>
+<footer class="credit">Designed &amp; developed by <b><span class="o">Cogno</span>Space</b> · <a href="https://www.cognospace.in" target="_blank" rel="noopener">www.cognospace.in</a></footer>
+<script src="js/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/content.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/store.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/child.js"></script>
+</body>
+</html>

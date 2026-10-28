@@ -1621,6 +1621,68 @@ body.fm-open { overflow: hidden; }
   .qtable td { white-space: normal; }
 }
 
+/* ---------- Gemini key button and AI recommendations ---------- */
+.ai-nav { display: inline-flex; align-items: center; gap: 7px; height: 42px; padding: 0 14px 0 6px; margin-right: 8px; border: 0; border-radius: 999px; cursor: pointer; font: 600 .9rem var(--font-b); color: #5B2BB5; background: #F3EDFF; box-shadow: inset 0 0 0 2px #D9C8FF; transition: transform .15s, background .15s; }
+.ai-nav:hover { background: #E9DEFF; transform: translateY(-1px); }
+.ai-nav .ai-ic { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #7C4DFF, #4D96FF); color: #fff; --dab: rgba(255,255,255,.3); flex: none; }
+.ai-nav .ai-ic svg.i { width: 18px; height: 18px; vertical-align: 0; }
+.ai-nav[data-on="1"] { background: #EAFBEF; box-shadow: inset 0 0 0 2px #86E0A5; color: #166534; }
+.ai-nav[data-on="1"] .ai-ic { background: linear-gradient(135deg, #22C55E, #2EC4B6); }
+@media (max-width: 900px) { .ai-nav { padding: 0 4px; height: 38px; } .ai-nav .ai-t { display: none; } }
+@media print { .ai-nav, .ai-tools, .ai-err { display: none !important; } }
+
+.ai-dialog { text-align: left; }
+.ai-dialog .mb-e, .ai-dialog h3 { text-align: center; display: block; }
+.ai-dialog > p { text-align: center; }
+.ai-label { display: block; font-weight: 700; font-size: .85rem; margin: 4px 0 6px; color: var(--char); }
+.ai-row { display: flex; gap: 8px; align-items: center; }
+.ai-input { flex: 1; width: 100%; min-width: 0; height: 46px; padding: 0 14px; border-radius: 14px; border: 2px solid var(--line); font: 500 .95rem var(--font-b); color: var(--ink); background: #fff; }
+.ai-input:focus { outline: none; border-color: #7C4DFF; box-shadow: 0 0 0 4px rgba(124,77,255,.15); }
+.ai-adv { margin: 12px 0 0; font-size: .85rem; color: var(--ink-2); }
+.ai-adv summary { cursor: pointer; font-weight: 600; }
+.ai-adv .ai-input { margin: 8px 0 4px; height: 40px; }
+.ai-msg { min-height: 1.4em; margin: 12px 0 4px !important; font-weight: 600; font-size: .9rem; text-align: left !important; color: var(--ink-2); }
+.ai-msg.ok { color: var(--ok); } .ai-msg.bad { color: var(--bad); }
+.ai-dialog .ai-note { font-size: .8rem; text-align: left !important; color: var(--muted); }
+.ai-dialog .ai-note a { color: #5B2BB5; font-weight: 600; }
+.ai-layer { position: fixed; inset: 0; z-index: 140; display: grid; place-items: center; padding: 16px; background: rgba(30,28,40,.45); }
+
+.ai-card { border-top: 6px solid #7C4DFF; background: linear-gradient(160deg, #F7F3FF, #FFFFFF 55%); }
+.ai-card h4 .i { color: #7C4DFF; }
+.ai-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; margin-right: 6px; border-radius: 999px; font-weight: 700; font-size: .75rem; background: var(--soft); color: var(--ink-2); }
+.ai-badge.on { background: #EDE5FF; color: #5B2BB5; }
+.ai-badge.wait { background: #FFF6DB; color: #8A5A00; animation: bbBlink 1.2s infinite; }
+.ai-over { margin: 10px 0 4px; font-size: 1.02rem; line-height: 1.6; color: var(--ink); }
+.ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 12px; }
+.ai-sec { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.ai-sec h5 { margin: 0 0 8px; font: 700 1rem var(--font-h); color: var(--char); display: flex; align-items: center; gap: 7px; }
+.ai-sec h5 .i { color: #7C4DFF; width: 1.3em; height: 1.3em; }
+.ai-sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.ai-sec li { padding-left: 14px; border-left: 3px solid #D9C8FF; line-height: 1.45; font-size: .9rem; }
+.ai-sec li b { display: inline; color: var(--char-d); }
+.ai-sec li em { font-style: normal; color: var(--muted); font-size: .85em; }
+.ai-sec li span { display: block; color: var(--ink-2); }
+.ai-school { border-top: 4px solid var(--sky); } .ai-home { border-top: 4px solid var(--brand); } .ai-feelings { border-top: 4px solid var(--pink); }
+.ai-places { border-top: 4px solid var(--leaf); } .ai-books { border-top: 4px solid var(--grape); }
+.ai-school h5 .i { color: var(--sky); } .ai-home h5 .i { color: var(--brand); } .ai-feelings h5 .i { color: var(--pink); } .ai-places h5 .i { color: var(--leaf); } .ai-books h5 .i { color: var(--grape); }
+.ai-watch { margin: 14px 0 0; padding: 10px 14px; border-radius: 12px; background: #FFF6EC; font-size: .9rem; color: var(--ink); display: flex; gap: 8px; align-items: flex-start; }
+.ai-err { margin: 10px 0 0; font-size: .82rem; color: var(--bad); }
+.ai-tools { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+.ai-card.busy .ai-grid { opacity: .55; }
+@media (max-width: 700px) { .ai-grid { grid-template-columns: 1fr; } }
+.pdf-sheet .ai-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ai-books { grid-column: 1 / -1; }
+.ai-books ul { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.nav > a { white-space: nowrap; }
+.ai-nav { white-space: nowrap; }
+@media (max-width: 1380px) { .ai-nav { padding: 0 4px; } .ai-nav .ai-t { display: none; } }
+@media (min-width: 901px) { .brand { flex: none; } }
+@media (max-width: 1220px) and (min-width: 901px) {
+  .nav > a[href="#privacy"], .nav > a[href="#discover"] { display: none; }
+  .session-bar .bt-nav:not(.has-hr) .bt-t { display: none; }
+  .session-bar .bt-nav:not(.has-hr) { padding: 0 4px; }
+}
+
 </style>
 </head>
 <body>
@@ -1727,10 +1789,12 @@ body.fm-open { overflow: hidden; }
     <a href="#how">How it works</a>
     <a href="#discover">For parents</a>
     <a href="#privacy">Privacy</a>
+    <button class="ai-nav" type="button" data-ai-nav title="Add your Gemini API key for AI recommendations"><span class="ai-ic"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-sparkle"/></svg></span><span class="ai-t">Gemini key</span></button>
     <button class="bt-nav" type="button" data-bt-nav data-state="off" title="Connect the heart sensor over Bluetooth" aria-haspopup="menu"><span class="bt-ic bt-ic-bt"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-bt"/></svg></span><span class="bt-ic bt-ic-hr"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg></span><span class="bt-t">Connect sensor</span><span class="bt-u">bpm</span><i class="bt-dot" aria-hidden="true"></i></button>
     <button class="btn btn-primary btn-sm" data-action="start">Start Adventure <svg class="i" aria-hidden="true" focusable="false"><use href="#i-rocket"/></svg></button>
   </nav>
   <div class="session-bar" id="sessionBar" hidden>
+    <button class="ai-nav" type="button" data-ai-nav title="Add your Gemini API key for AI recommendations"><span class="ai-ic"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-sparkle"/></svg></span><span class="ai-t">Gemini key</span></button>
     <button class="bt-nav" type="button" data-bt-nav data-state="off" title="Connect the heart sensor over Bluetooth" aria-haspopup="menu"><span class="bt-ic bt-ic-bt"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-bt"/></svg></span><span class="bt-ic bt-ic-hr"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg></span><span class="bt-t">Connect sensor</span><span class="bt-u">bpm</span><i class="bt-dot" aria-hidden="true"></i></button>
     <button class="icon-btn" id="fsToggle" title="Full screen" aria-label="Full screen on or off" hidden><svg class="i" aria-hidden="true" focusable="false"><use href="#i-expand"/></svg></button>
     <button class="icon-btn" id="soundToggle" title="Sound on / off" aria-label="Sound on or off"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-sound"/></svg></button>
@@ -6262,7 +6326,7 @@ $('#fsToggle').addEventListener('click', () => { if (FS.on()) { FS.optOut = true
 FS.sync();
 
 /* ================================================================
-   Heart sensor: Arduino UNO R4 WiFi over Bluetooth (Web Bluetooth, Chrome/Edge)
+   Heart sensor: ESP32 board over Bluetooth (Web Bluetooth, Chrome/Edge)
    HW-605 finger sensor (MAX30102, or a MAX30100): the board finds each heartbeat and works out
    the heart rate, the beat-to-beat gaps and the blood oxygen; this page records and shows them.
    Board sketch: arduino/MindQuestSensors/MindQuestSensors.ino (UUIDs and packets must match).
@@ -6381,7 +6445,7 @@ const Bio = {
     if (this.state !== 'on' || !S) return;
     const d = this.data(), L = this.live, fresh = performance.now() - L.t < 2500, hr = fresh ? L.hr : 0;
     d.s.push([Math.round(this.rel()), hr, hr && L.spo2 ? L.spo2 : 0, this.mi(), this.act()]);
-    // breathing guide on the LED matrix if the heart stays far above this child's calm level during a mission
+    // breathing guide on the board (LED matrix on an UNO R4; the ESP32 blinks its LED) if the heart stays far above this child's calm level during a mission
     const calm = this.calm();
     if (hr && calm && G.active && hr - calm >= 25) this.highFor++; else this.highFor = 0;
     if (this.highFor >= 30 && performance.now() - this.calmAt > 180000) { this.calmAt = performance.now(); this.highFor = 0; this.send([BIO_CMD.calm, 20]); }
@@ -6392,7 +6456,7 @@ const Bio = {
     if (this._calmN !== d.s.length && d.s.length % 10 === 0) { const h = d.s.map(x => x[1]).filter(Boolean).sort((a, b) => a - b); this._calm = h.length >= 60 ? h[Math.floor(h.length * .2)] : null; this._calmN = d.s.length; }
     return this._calm;
   },
-  watch() {   // LED matrix follows the game: mission number, Face Mirror
+  watch() {   // the board follows the game: mission number, Face Mirror
     if (this.state !== 'on') { this.lastQ = G.q; return; }
     if (G.q && G.q !== this.lastQ && G.active) { this.lastQ = G.q; this.send([BIO_CMD.mission, G.q.i + 1]); }
     const fm = typeof FaceMirror !== 'undefined' && FaceMirror.active;
@@ -6536,14 +6600,13 @@ const Bio = {
     const zones = []; let z = null; S0.forEach(x => { if (x[3] >= 0 && (!z || z.i !== x[3])) { z = { i: x[3], a: x[0], b: x[0] }; zones.push(z); } else if (z && x[3] === z.i) z.b = x[0]; else if (x[3] < 0) z = null; });
     const dots = B.ev.filter(e => e[2] === 0 && e[0] >= t0 && e[0] <= t1).map(e => { const near = S0.reduce((m, x) => Math.abs(x[0] - e[0]) < Math.abs(m[0] - e[0]) ? x : m, S0[0]); return `<circle cx="${X(e[0])}" cy="${Y(near[1])}" r="4.5" fill="#E5484D" stroke="#fff" stroke-width="1.5"><title>Wrong answer, mission ${e[1] + 1}</title></circle>`; }).join('');
     const chart = `<svg class="bio-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Heart rate during the session">${zones.map((q, k) => `<rect x="${X(q.a)}" y="0" width="${Math.max(1, X(q.b) - X(q.a))}" height="${H}" fill="${k % 2 ? '#FFF1DF' : '#FFF8EF'}"><title>Mission ${q.i + 1}${B.missions[q.i] ? ': ' + B.missions[q.i] + ' bpm' : ''}</title></rect>`).join('')}<line x1="0" x2="${W}" y1="${Y(B.calm)}" y2="${Y(B.calm)}" stroke="#16A34A" stroke-dasharray="5 5" stroke-width="1.5"/><polyline points="${pts}" fill="none" stroke="#E5484D" stroke-width="2.2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${dots}</svg>`;
-    const strip = B.strip ? (() => { const v = B.strip.v, l2 = Math.min(...v), h2 = Math.max(...v); return `<div class="bio-strip"><h5>${ico('heart')} Pulse wave (5 seconds)</h5><svg viewBox="0 0 500 90" preserveAspectRatio="none" role="img" aria-label="Five seconds of ${esc(name)}'s pulse wave"><polyline points="${v.map((y, k) => `${k},${(84 - (y - l2) / Math.max(1, h2 - l2) * 78).toFixed(1)}`).join(' ')}" fill="none" stroke="#D9730A" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>`; })() : '';
     return `<div class="rp-card bio-card"><h4>${ico('heart')} Heart & body signals</h4><p class="rc-sub">From the fingertip sensor (${B.ppg === 'max30100' ? 'MAX30100' : 'HW-605, MAX30102'}) · ${B.minutes} min recorded · heartbeat found ${pct(B.coverage)}% of the time</p>
       <div class="bio-kpis">${kpi('Calm level', B.calm + '<small> bpm</small>', `${esc(name)}'s own resting rate in this session`)}${kpi('While playing', B.avgPlay != null ? B.avgPlay + '<small> bpm</small>' : '—', B.avgPlay != null ? `${B.rise >= 0 ? '+' : ''}${B.rise} over calm · ${B.level}` : 'No missions recorded')}${kpi('Busiest mission', B.top[0] ? B.top[0].hr + '<small> bpm</small>' : '—', B.top[0] ? `#${B.top[0].i + 1} ${esc(B.top[0].game)}` : '—')}${kpi('Heart rate variability', B.hrv.all != null ? B.hrv.all + '<small> ms</small>' : '—', hrvTxt)}${B.spo2 ? kpi('Blood oxygen', B.spo2.avg + '<small>%</small>', `lowest ${B.spo2.low}%`) : kpi('Highest', B.peak + '<small> bpm</small>', 'peak heart rate this session')}</div>
       <h5 class="bio-h">Heart rate through the session</h5>${chart}<div class="bio-legend"><span><i style="background:#E5484D"></i>Heart rate</span><span><i class="dash"></i>Calm level ${B.calm} bpm</span><span><i style="background:#FFE2C4"></i>Missions</span>${B.ev.some(e => e[2] === 0) ? '<span><i class="dot"></i>Wrong answer</span>' : ''}</div>
       <div class="bio-split"><div><h5 class="bio-h">Heart rate by activity</h5><div class="bars">${rows}</div></div>
       <div><h5 class="bio-h">Reaction to answers</h5><p class="bio-react">${B.react.wrong != null ? `After a <b>wrong</b> answer: <b class="${B.react.wrong >= 5 ? 'up' : ''}">${B.react.wrong >= 0 ? '+' : ''}${B.react.wrong} bpm</b> (${B.react.nW} times)<br>` : ''}${B.react.right != null ? `After a <b>right</b> answer: <b>${B.react.right >= 0 ? '+' : ''}${B.react.right} bpm</b> (${B.react.nR} times)` : ''}${B.react.wrong == null && B.react.right == null ? 'Not enough answers with a heart signal yet.' : ''}</p>
-      ${B.top.length > 1 ? `<h5 class="bio-h">Highest heart rate</h5><ol class="bio-top">${B.top.map(m => `<li>#${m.i + 1} ${esc(m.game)} <b>${m.hr} bpm</b></li>`).join('')}</ol>` : ''}${strip}</div></div>
-      <p class="rc-sub bio-note">Heart rate rises with excitement as well as with stress, so read it together with the expressions and mood answers. Variability (HRV) is the RMSSD of beat-to-beat intervals. Blood oxygen from a fingertip is a rough guide: a cold hand or a moving finger can lower it. This is a classroom sensor, not a medical device.</p></div>`;
+      </div></div>
+      <p class="rc-sub bio-note">Heart rate rises with excitement as well as stress, so read it with the expressions and mood. A classroom sensor, not a medical device.</p></div>`;
   }
 };
 
@@ -6610,7 +6673,7 @@ const ReportPDF = (() => {
     d.close();
     const sheet = d.querySelector('.pdf-sheet');
     sheet.innerHTML = root.querySelector('.rp-cover').outerHTML + root.querySelector('.rp-body').outerHTML;
-    sheet.querySelectorAll('audio, .rp-close').forEach(n => n.remove());
+    sheet.querySelectorAll('audio, .rp-close, .ai-tools, .ai-err').forEach(n => n.remove());
     sheet.querySelectorAll('details').forEach(n => { n.open = true; });
     // html2canvas paints one box for a highlighted phrase that wraps onto two lines, so highlight word by word
     sheet.querySelectorAll('.rp-summary p b').forEach(b => { if (!b.children.length) b.replaceWith(...(b.textContent.match(/\S+\s*/g) || []).map(w => el('b', {}, w))); });
@@ -6750,6 +6813,272 @@ const ReportPDF = (() => {
     } finally { setRich(btn, label); btn.disabled = false; btn.classList.remove('busy'); busy = false; }
   }
   return { save };
+})();
+
+/* ================================================================
+   AI recommendations for teachers and parents (Google Gemini)
+   The Gemini API key is pasted in the top bar ("Gemini key") and kept only in this
+   browser's localStorage. With a key, Gemini writes the advice from all the session data:
+   game results, story choices, mood check-ins, facial expressions, gaze and the heart sensor.
+   Without a key (or offline), built-in rules write the same sections from the same data.
+   The child's name is never sent: Gemini writes "CHILD" and the page puts the name back.
+   ================================================================ */
+const AI_KEY = 'mindquest.geminiKey', AI_MODEL_KEY = 'mindquest.geminiModel', AI_MODEL = 'gemini-2.5-flash';
+const AI_SECTIONS = [
+  ['school', 'school', 'What the teacher can do at school'],
+  ['home', 'home', 'Habits for parents at home'],
+  ['feelings', 'heart', 'Helping with fears, worries and stress'],
+  ['places', 'map', 'Places to visit together'],
+  ['books', 'book', 'Books to read together']
+];
+const Ai = {
+  key() { try { return localStorage.getItem(AI_KEY) || ''; } catch (e) { return ''; } },
+  model() { try { return localStorage.getItem(AI_MODEL_KEY) || AI_MODEL; } catch (e) { return AI_MODEL; } },
+  save(k, m) {
+    try { k ? localStorage.setItem(AI_KEY, k) : localStorage.removeItem(AI_KEY); m && m !== AI_MODEL ? localStorage.setItem(AI_MODEL_KEY, m) : localStorage.removeItem(AI_MODEL_KEY); } catch (e) { /* ignore */ }
+    if (S && S.ai) { delete S.ai; save(); }
+    this.paint();
+  },
+  paint() { for (const b of $$('[data-ai-nav]')) { const on = !!this.key(); b.dataset.on = on ? '1' : ''; b.title = on ? 'Gemini key saved: AI recommendations are on' : 'Add your Gemini API key for AI recommendations'; b.querySelector('.ai-t').textContent = on ? 'Gemini on' : 'Gemini key'; } },
+
+  /* ---------- the key dialog ---------- */
+  dialog() {
+    const has = this.key(), stacked = !$('#modalRoot').hidden;   // opened from inside the report: show it above the report
+    let layer = null; const done = () => layer ? layer.remove() : closeModal(false);
+    const inp = el('input', { type: 'password', class: 'ai-input', placeholder: 'Paste your key (starts with AIza…)', autocomplete: 'off', spellcheck: 'false', value: has });
+    const mod = el('input', { type: 'text', class: 'ai-input ai-model', value: this.model(), spellcheck: 'false' });
+    const msg = el('p', { class: 'ai-msg' });
+    const eye = el('button', { type: 'button', class: 'icon-btn ai-eye', title: 'Show or hide the key', onclick: () => { inp.type = inp.type === 'password' ? 'text' : 'password'; } }, ico('eye'));
+    const saveBtn = el('button', { class: 'btn btn-primary', onclick: async () => {
+      const k = inp.value.trim(), m = mod.value.trim() || AI_MODEL;
+      if (!k) { msg.className = 'ai-msg bad'; msg.textContent = 'Paste a key first.'; return; }
+      saveBtn.disabled = true; msg.className = 'ai-msg'; msg.textContent = 'Checking the key with Gemini…';
+      try {
+        await this.call(k, m, 'Reply with the single word OK.', null); this.save(k, m);
+        msg.className = 'ai-msg ok'; msg.textContent = 'Key works and is saved on this device.'; toast(ico('sparkle') + ' Gemini is on: reports will get AI recommendations.');
+        setTimeout(() => { done(); const c = $('#aiCard'); if (c && c._redo) c._redo(); }, 800);
+      } catch (e) { msg.className = 'ai-msg bad'; msg.textContent = e.message; saveBtn.disabled = false; }
+    } }, ico('check') + ' Save & test');
+    const box = el('div', { class: 'modal-body ai-dialog' },
+      el('div', { class: 'mb-e' }, ico('sparkle')), el('h3', {}, 'Gemini AI recommendations'),
+      el('p', {}, 'Paste a Google Gemini API key and every report gets fresh, personal advice for the teacher and the parents, written from the games, answers, expressions and heart readings. Without a key, MindQuest uses its built-in suggestions.'),
+      el('label', { class: 'ai-label' }, 'Gemini API key'), el('div', { class: 'ai-row' }, inp, eye),
+      el('details', { class: 'ai-adv' }, el('summary', {}, 'Model (advanced)'), mod, el('small', {}, `Default ${AI_MODEL}. Change it only if Google retires this model.`)),
+      msg,
+      el('p', { class: 'ai-note' }, 'Get a free key at ', el('a', { href: 'https://aistudio.google.com/apikey', target: '_blank', rel: 'noopener' }, 'aistudio.google.com/apikey'), '. The key is saved only in this browser on this device, which is fine on your own computer (remove it before handing the device to others). The report data goes to Google without the child\'s name.'),
+      el('div', { class: 'modal-actions' },
+        has ? el('button', { class: 'btn btn-end', onclick: () => { this.save('', ''); toast(ico('broom') + ' Gemini key removed from this device.'); done(); const c = $('#aiCard'); if (c && c._redo) c._redo(); } }, ico('close') + ' Remove key') : null,
+        el('button', { class: 'btn btn-ghost', onclick: () => done() }, 'Cancel'), saveBtn));
+    if (!stacked) openModal(box);
+    else { layer = el('div', { class: 'ai-layer', onclick: e => { if (e.target === layer) done(); } }, el('div', { class: 'modal ai-pop' }, box)); document.body.append(layer); }
+    setTimeout(() => inp.focus(), 60);
+  },
+
+  /* ---------- talking to Gemini ---------- */
+  async call(key, model, prompt, schema) {
+    let r;
+    try {
+      r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+        body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          generationConfig: Object.assign({ temperature: schema ? 0.8 : 0, maxOutputTokens: schema ? 4096 : 16 }, /flash/.test(model) && /2\.5/.test(model) ? { thinkingConfig: { thinkingBudget: 0 } } : {}, schema ? { responseMimeType: 'application/json', responseSchema: schema } : {}) })
+      });
+    } catch (e) { throw new Error('Could not reach Gemini. Check the internet connection.'); }
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      const m = (j.error && j.error.message) || r.statusText;
+      if (r.status === 400 && /api key/i.test(m)) throw new Error('Google did not accept this key. Copy it again from AI Studio.');
+      if (r.status === 403) throw new Error('This key is not allowed to use the Gemini API (403). Check the key in AI Studio.');
+      if (r.status === 404) throw new Error(`The model "${model}" was not found. Try another model under "Model (advanced)".`);
+      if (r.status === 429) throw new Error('Gemini says the free limit is used up for now (429). Try again in a minute.');
+      throw new Error(`Gemini error ${r.status}: ${m}`);
+    }
+    const txt = (((j.candidates || [])[0] || {}).content || { parts: [] }).parts.map(p => p.text || '').join('');
+    if (!txt) throw new Error('Gemini sent an empty answer. Try again.');
+    return txt;
+  },
+  schema() {
+    const S_ = { type: 'STRING' }, tip = { type: 'ARRAY', items: { type: 'OBJECT', properties: { title: S_, detail: S_ }, required: ['title', 'detail'] } };
+    return { type: 'OBJECT', properties: {
+      overview: S_, school: tip, home: tip, feelings: tip,
+      places: { type: 'ARRAY', items: { type: 'OBJECT', properties: { title: S_, detail: S_ }, required: ['title', 'detail'] } },
+      books: { type: 'ARRAY', items: { type: 'OBJECT', properties: { title: S_, author: S_, detail: S_ }, required: ['title', 'author', 'detail'] } },
+      watch: S_
+    }, required: ['overview', 'school', 'home', 'feelings', 'places', 'books', 'watch'] };
+  },
+  /* everything the report knows, in plain numbers (no name) */
+  facts(R, Sm) {
+    const P = S.profile, M = S.mood, mood = v => v ? MOODS[v - 1].l : null, r1 = v => v == null ? null : Math.round(v * 10) / 10;
+    const strip = h => String(h).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').split(P.name).join('CHILD');
+    const f = {
+      child: { age: +P.age || P.age, grade: P.grade, country: 'India (CBSE-style school)', gamesPlayed: R.A.length, gamesInWorld: TOTAL, starsCollected: S.stars || 0 },
+      thinkingSkills_outOf100: Object.fromEntries(Object.entries(R.abil).filter(([, v]) => v).map(([k, v]) => [ABILITIES[k].label, v.v])),
+      personality_BigFive_0to100: Object.fromEntries(Object.entries(R.b5).filter(([, v]) => v).map(([k, v]) => [BIG5[k].label, `${v.v} (${traitBand(k, v.v)})`])),
+      emotionalIntelligence_0to100: R.ei ? { understandingFeelings: R.ei.u, managingFeelings: R.ei.m } : 'not played',
+      moodCheckins_childSaid: { start: mood(M.start), halfway: mood(M.mid), end: mood(M.end) },
+      puzzles: { solved: R.correctN, scored: R.scored.length, avgSecondsPerPuzzle: R.avgRt ? r1(R.avgRt / 1000) : null },
+      camera: R.hasCam ? {
+        facialExpressionShare_pct: Object.fromEntries(EMOTIONS.map(k => [k, pct(R.emo[k])])),
+        eyesOnScreen_pct: R.focus != null ? pct(R.focus) : null, mostLookedAway: R.offDir, blinksPerMinute: R.blinkRate ? Math.round(R.blinkRate) : null,
+        upsetFaceAfterWrongAnswers: (() => { const w = R.scored.filter(a => !a.correct && a.ansEmo); return w.length >= 2 ? `${w.filter(a => NEG.includes(a.ansEmo)).length} of ${w.length}` : null; })()
+      } : 'camera off',
+      listening: R.listen ? { correct_pct: pct(R.listen.acc), avgListens: R.listen.heard ? r1(R.listen.plays) : null } : null,
+      reading: R.reading ? { correct_pct: pct(R.reading.acc), wordsPerMinute: R.reading.wpm ? Math.round(R.reading.wpm) : null } : null,
+      pictureTalk: R.talk ? { avgWords: Math.round(R.talk.words), avgDetails: Math.round(R.talk.hits), whatChildSaid: R.talk.items.slice(0, 3).map(a => (a.extra.transcript || '').slice(0, 240)) } : null,
+      fastestFinger: R.quick ? { correct_pct: pct(R.quick.acc), avgSeconds: r1(R.quick.rt / 1000) } : null,
+      ruleBasedSummary: strip(Sm.text),
+      ruleBasedInsights: R.ins.map(([, t]) => strip(t)).slice(0, 14)
+    };
+    const B = R.bio;
+    f.heartSensor = B ? {
+      sensor: 'fingertip MAX30102 (classroom sensor, not medical)', minutesRecorded: B.minutes,
+      calmBpm: B.calm, avgBpmWhilePlaying: B.avgPlay, riseOverCalm: B.rise, level: B.level, peakBpm: B.peak,
+      hrv_rmssd_ms: B.hrv, bloodOxygen_pct: B.spo2, bpmChangeAfterWrongAnswer: B.react.wrong, bpmChangeAfterRightAnswer: B.react.right,
+      byActivity: B.acts.map(a => ({ activity: BIO_ACT[a.k][0], bpm: a.hr, hrv: a.hrv })), busiestMissions: B.top.map(m => `${m.game}: ${m.hr} bpm`)
+    } : 'not connected';
+    f.missions = R.A.map(a => [a.i + 1, a.game, measureTxt(a.type, a.key), a.type === 'mood' ? `said ${a.choice || ''}` : a.type === 'path' ? 'story choice' : a.correct === true ? 'correct' : a.correct === false ? 'not yet' : 'done', Math.round(a.rt / 1000) + 's', a.emo || '-', R.bio && R.bio.missions[a.i] ? R.bio.missions[a.i] + 'bpm' : '-'].join(' | '));
+    return f;
+  },
+  prompt(R, Sm) {
+    const g = S.profile.grade;
+    return `You are a warm, practical child psychologist and school counsellor in India. A child in Grade ${g} played MindQuest, a game-based screening (not a diagnosis). Below is ALL the data from the session: game scores, story-choice personality, mood check-ins, facial expressions and gaze from the camera, and heart rate / heart rate variability (HRV) / blood oxygen from a fingertip sensor.
+
+Write personal, specific recommendations based on THIS data. Point to the evidence briefly (for example "heart rate rose 12 bpm after mistakes", "looked worried in 30% of the games", "strong at visual puzzles"). Never diagnose, never use labels like ADHD or anxiety disorder, never alarm the parents. Heart rate also rises with excitement, so read it together with the faces and mood.
+
+Rules:
+- Always call the child exactly CHILD (capitals), never a made-up name. Use they/them for CHILD.
+- Simple English for Indian parents and teachers, short sentences, no jargon.
+- overview: 2 sentences on what stands out most.
+- school: 4 or 5 things the class teacher can do at school (seating, praise, roles, pacing, group work, building on strengths).
+- home: 5 or 6 daily habits for parents (one-to-one time together, routines, sleep, screens, play, talking about the day, family activities).
+- feelings: 3 or 4 ways to help with fears, worries or stress shown in the data (if there is little stress, how to keep CHILD emotionally strong).
+- places: 3 or 4 kinds of places to visit together in India and why they suit CHILD (science centre, planetarium, museum, nature park, library, heritage site, sports ground, etc.).
+- books: 3 or 4 real, well-known books that fit a Grade ${g} child and these needs (worries, confidence, kindness, curiosity or reading); give the real author. Prefer books easy to find in India.
+- watch: one sentence on when to talk to the school counsellor.
+- title fields: up to 7 words. detail fields: 1 or 2 sentences.
+
+SESSION DATA (JSON):
+${JSON.stringify(this.facts(R, Sm))}`;
+  },
+  sig(R) { return [R.A.length, S.stars || 0, R.bio ? R.bio.series.length : 0, S.mood.start, S.mood.mid, S.mood.end].join('.'); },
+  clean(o) {
+    const s = v => String(v == null ? '' : v).trim(), list = (a, n) => (Array.isArray(a) ? a : []).filter(x => x && (x.title || x.detail)).slice(0, n).map(x => ({ title: s(x.title), author: s(x.author), detail: s(x.detail) }));
+    const r = { overview: s(o.overview), school: list(o.school, 6), home: list(o.home, 7), feelings: list(o.feelings, 5), places: list(o.places, 5), books: list(o.books, 5), watch: s(o.watch) };
+    if (!r.school.length && !r.home.length) throw new Error('Gemini answer was incomplete.');
+    return r;
+  },
+
+  /* ---------- built-in suggestions (no key, or Gemini failed) ---------- */
+  builtIn(R) {
+    const g = +S.profile.grade, A = R.abil, b5 = R.b5, B = R.bio, M = S.mood;
+    const neg = R.hasCam ? NEG.reduce((s, k) => s + R.emo[k], 0) : 0;
+    const wrongE = R.scored.filter(a => !a.correct && a.ansEmo), upsetWrong = wrongE.length >= 2 && wrongE.filter(a => NEG.includes(a.ansEmo)).length / wrongE.length >= .5;
+    const last = M.end || M.mid || M.start, worried = (b5.S && b5.S.v <= 33) || neg >= .18 || (last && last <= 2) || (B && (B.rise >= 15 || (B.react.wrong != null && B.react.wrong >= 6)));
+    const ab = Object.entries(A).filter(([, v]) => v).sort((a, b) => b[1].v - a[1].v), best = ab[0], weak = ab.length > 1 ? ab[ab.length - 1] : null;
+    const focusLow = R.hasCam && R.focus != null && R.focus < .6, tired = M.start && M.mid && M.end && M.mid < M.start && M.end < M.mid;
+    const T = (title, detail) => ({ title, detail });
+    const school = [], home = [], feelings = [], places = [], books = [];
+    const practice = { Gf: 'pattern and logic puzzles, "what comes next?" warm-ups', Gc: 'new-word games and retelling stories in their own words', Gq: 'number talks and real-life maths (shopping, cooking, cricket scores)', Gwm: 'short memory games and step-by-step instructions written on the board', Gv: 'drawing, maps, tangrams and building with blocks', Ga: 'listening games, rhymes and reading aloud', Gs: 'short timed challenges with accuracy before speed', EF: '"Simon says" style games and one task at a time', Grw: 'reading short passages with a question before reading', Gr: 'quick idea games like "name 5 things that…"' };
+    if (best && best[1].v >= 60) school.push(T(`Build on ${ABILITIES[best[0]].label.toLowerCase()}`, `CHILD did best at ${ABILITIES[best[0]].desc} (${best[1].v}/100). Give a class role that uses it, such as helper or group leader for these tasks.`));
+    if (weak && best && best[1].v - weak[1].v >= 15) school.push(T(`Gentle practice: ${ABILITIES[weak[0]].label}`, `This was the hardest area (${weak[1].v}/100). Five-minute playful practice helps: ${practice[weak[0]] || 'short games'}.`));
+    if (worried || upsetWrong) school.push(T('Praise effort, not just answers', `CHILD ${upsetWrong ? 'looked upset after mistakes' : 'showed some signs of worry'}${B && B.react.wrong >= 5 ? ` and the heart rate rose about ${B.react.wrong} bpm after wrong answers` : ''}. Say "good try, let's see how" and keep tests low-pressure.`));
+    if (focusLow) school.push(T('Seat near the front, short tasks', `Eyes were on the screen only ${pct(R.focus)}% of the time. Break work into 10-minute chunks with a short movement break.`));
+    if (R.ei && R.ei.u + R.ei.m < 100) school.push(T('Feelings circle time', 'Short class talks about how story characters feel and what they could do help CHILD name and handle feelings.'));
+    if (b5.E && b5.E.v <= 33) school.push(T('Pair work before speaking up', 'CHILD seems quiet and reflective. Let them share in pairs first, then with the class.'));
+    else if (b5.E && b5.E.v >= 67) school.push(T('Give their energy a job', 'CHILD is outgoing: group tasks, presenting and team roles keep them engaged.'));
+    if (R.listen && R.listen.heard && R.listen.acc < .6) school.push(T('Say it and show it', 'Listening-only stories were harder. Write key instructions on the board as well as saying them.'));
+    school.push(T('A quick weekly check-in', 'Two minutes once a week to ask "how are things?" helps CHILD feel seen and lets you spot changes early.'));
+
+    home.push(T('20 minutes of one-to-one time daily', 'No phones, CHILD picks the activity (a game, a walk, cooking). Regular time together builds trust and calm.'));
+    home.push(T('Talk about the day at dinner', 'Ask "what was the best part and the hardest part of today?" and listen without fixing.'));
+    if (tired || (R.blinkRate && R.blinkRate > 28)) home.push(T('Protect sleep', `CHILD ${tired ? 'tired as the session went on' : 'blinked a lot (a sign of tiredness)'}. Aim for 9 to 10 hours with a fixed bedtime and no screens for an hour before.`));
+    else home.push(T('Fixed bedtime routine', 'Same sleep time every night, screens off an hour before; good sleep helps mood and focus.'));
+    if (focusLow || (A.EF && A.EF.v < 50)) home.push(T('Homework in short blocks', 'Work for 15 minutes with a timer, then a 3-minute break. Keep the desk clear of phones and toys.'));
+    if (B && B.rise >= 10 || worried) home.push(T('Daily outdoor play', 'An hour of running, cycling or sports burns off stress and helps the heart settle.'));
+    else home.push(T('Daily outdoor play', 'An hour of active play keeps energy, mood and sleep healthy.'));
+    if ((A.Grw && A.Grw.v < 60) || (A.Gc && A.Gc.v < 60) || (R.talk && R.talk.hits < 7)) home.push(T('Read and describe together', 'Read 15 minutes together and ask "what else can you see?" about pictures and scenes to grow words and ideas.'));
+    home.push(T('Praise the effort', 'Say "you worked hard on that" more than "you are clever". It makes mistakes feel safe.'));
+
+    if (worried) {
+      feelings.push(T('Name it to tame it', 'When CHILD looks tense, help them name the feeling ("you look worried") and say it is okay to feel that way.'));
+      feelings.push(T('Belly breathing together', 'Breathe in for 4, hold for 4, out for 4, five times. Practise when calm so it works when worried.'));
+      feelings.push(T('Small brave steps', 'If CHILD fears something, break it into tiny steps and celebrate each brave try, not only success.'));
+      feelings.push(T('Share your own mistakes', 'Tell CHILD about times you got things wrong and what you did next. It shows mistakes are normal.'));
+    } else {
+      feelings.push(T('Keep the feelings talk open', 'CHILD seemed mostly calm. A daily "how are you feeling?" keeps it easy to talk when worries come.'));
+      feelings.push(T('Calm-down toolbox', 'Make a list together of things that help when upset: a walk, music, drawing or a hug.'));
+      feelings.push(T('Notice and praise kindness', 'Point out when CHILD handles a hard moment well; it builds confidence for the next one.'));
+    }
+
+    const P_ = (k, title, detail) => places.push(Object.assign(T(title, detail), { k }));
+    if (best && ['Gf', 'Gq'].includes(best[0]) || (b5.O && b5.O.v >= 67)) P_('sci', 'Science centre or planetarium', 'Hands-on exhibits feed CHILD\'s curiosity and reasoning (for example a regional science centre or Nehru Planetarium).');
+    if (best && best[0] === 'Gv') P_('art', 'Art gallery or craft museum', 'CHILD is strong with pictures and shapes; galleries and craft fairs give ideas to draw and build.');
+    if (best && best[0] === 'Ga') P_('music', 'A music concert or class', 'CHILD did well with sounds; a live concert or a trial music class builds on that.');
+    if (worried || focusLow) P_('nature', 'Nature park or botanical garden', 'Quiet green places lower stress and rest the eyes and mind. Walk slowly and spot birds and trees together.');
+    P_('library', 'Your local library', 'Let CHILD choose books on topics they love; it grows reading for fun.');
+    P_('heritage', 'A heritage site or museum', 'Forts, museums and old temples turn history into stories and spark questions.');
+    if (B && B.rise >= 10 || (b5.E && b5.E.v >= 67)) P_('sport', 'Sports ground or swimming pool', 'Active play is a healthy outlet for energy and stress.');
+
+    const band = g <= 5 ? 0 : g <= 7 ? 1 : 2;
+    const pickB = list => list[Math.min(band, list.length - 1)];
+    if (worried) books.push(pickB([['What to Do When You Worry Too Much', 'Dawn Huebner', 'A friendly workbook that teaches simple ways to shrink worries.'], ['Hey Warrior', 'Karen Young', 'Explains what worry does in the body and how to calm it.'], ['The Boy, the Mole, the Fox and the Horse', 'Charlie Mackesy', 'Short, gentle pages about courage, kindness and asking for help.']]));
+    if (upsetWrong || (weak && weak[1].v < 50)) books.push(pickB([['The Girl Who Never Made Mistakes', 'Mark Pett and Gary Rubinstein', 'A funny story that shows mistakes are part of learning.'], ['Your Fantastic Elastic Brain', 'JoAnn Deak', 'Shows how the brain grows stronger with practice and mistakes.'], ['Wings of Fire', 'A. P. J. Abdul Kalam', 'A true story of hard work and not giving up.']]));
+    if (R.ei && R.ei.u + R.ei.m < 150) books.push(pickB([['Grandma\'s Bag of Stories', 'Sudha Murty', 'Short stories with kindness and values, good for talking about feelings.'], ['Wonder', 'R. J. Palacio', 'A story about kindness, courage and seeing others\' feelings.'], ['Wonder', 'R. J. Palacio', 'A story about kindness, courage and seeing others\' feelings.']]));
+    books.push(pickB([['The Blue Umbrella', 'Ruskin Bond', 'A short, gentle story that is easy to enjoy together.'], ['The Phantom Tollbooth', 'Norton Juster', 'A playful adventure full of word and number puzzles.'], ['Swami and Friends', 'R. K. Narayan', 'Funny, familiar school life that makes reading a pleasure.']]));
+    books.push(pickB([['Matilda', 'Roald Dahl', 'A clever, funny story about a girl who loves books.'], ['Matilda', 'Roald Dahl', 'A clever, funny story about a girl who loves books.'], ['Holes', 'Louis Sachar', 'A gripping story about friendship and luck.']]));
+    const seen = new Set();
+    const bk = books.filter(b => !seen.has(b[0]) && seen.add(b[0])).slice(0, 3).map(([title, author, detail]) => ({ title, author, detail }));
+    return {
+      overview: worried ? 'CHILD showed some signs of worry or stress in this session, so the tips focus on calm, praise and time together.' : 'CHILD seemed mostly settled; these tips build on strengths and keep things balanced.',
+      school: school.slice(0, 5), home: home.slice(0, 6), feelings: feelings.slice(0, 4), places: places.slice(0, 3), books: bk,
+      watch: 'If worries, sleep problems, tummy aches or low mood last more than two weeks, talk to the school counsellor.'
+    };
+  },
+
+  /* ---------- the report card ---------- */
+  card() { return `<div class="rp-card ai-card" id="aiCard"></div>`; },
+  render(card, res, src, note) {
+    const name = esc(S.profile.name), fill = t => esc(t).replace(/\bCHILD('s)?\b/g, (m, s) => name + (s || ''));
+    const sec = ([k, icon, label]) => {
+      const l = res[k] || []; if (!l.length) return '';
+      return `<div class="ai-sec ai-${k}"><h5>${ico(icon)} ${label}</h5><ul>${l.map(x => `<li><b>${fill(x.title)}</b>${x.author ? ` <em>by ${esc(x.author)}</em>` : ''}<span>${fill(x.detail)}</span></li>`).join('')}</ul></div>`;
+    };
+    const badge = src === 'gemini' ? `<span class="ai-badge on">${ico('sparkle')} Written by Gemini AI</span>` : src === 'loading' ? `<span class="ai-badge wait">${ico('sparkle')} Gemini is writing…</span>` : `<span class="ai-badge">${ico('bulb')} Built-in suggestions</span>`;
+    card.innerHTML = `<h4>${ico('sparkle')} Recommendations for teachers & parents</h4>
+      <p class="rc-sub">${badge} From the games, answers, facial expressions${S.bio ? ' and heart readings' : ''} in this session</p>
+      ${res.overview ? `<p class="ai-over">${fill(res.overview)}</p>` : ''}
+      <div class="ai-grid">${AI_SECTIONS.map(sec).join('')}</div>
+      ${res.watch ? `<p class="ai-watch">${ico('info')} ${fill(res.watch)}</p>` : ''}
+      ${note ? `<p class="ai-err">${esc(note)}</p>` : ''}
+      <div class="ai-tools">${this.key() ? `<button class="btn btn-ghost btn-sm" data-ai-redo>${ico('replay')} New ideas from Gemini</button>` : `<button class="btn btn-primary btn-sm" data-ai-add>${ico('sparkle')} Add Gemini key for AI recommendations</button>`}</div>`;
+    card.classList.toggle('busy', src === 'loading');
+  },
+  async mount(card, R, Sm, force) {
+    if (!card || !S) return;
+    const local = this.builtIn(R), key = this.key(), sig = this.sig(R);
+    card._redo = () => this.mount(card, R, Sm, true);
+    const wire = () => {
+      const redo = card.querySelector('[data-ai-redo]'); if (redo) redo.onclick = () => this.mount(card, R, Sm, true);
+      const add = card.querySelector('[data-ai-add]'); if (add) add.onclick = () => this.dialog();
+    };
+    if (!key || !R.A.length) { this.render(card, local, 'local'); wire(); return; }
+    if (!force && S.ai && S.ai.sig === sig) { this.render(card, S.ai.res, 'gemini'); wire(); return; }
+    this.render(card, local, 'loading'); wire();
+    try {
+      const res = this.clean(JSON.parse(await this.call(key, this.model(), this.prompt(R, Sm), this.schema())));
+      if (!card.isConnected) return;
+      S.ai = { sig, res, at: Date.now() }; save();
+      this.render(card, res, 'gemini');
+    } catch (e) {
+      console.warn('Gemini failed', e);
+      if (card.isConnected) this.render(card, local, 'local', `Gemini could not write the advice this time (${e.message}) Showing the built-in suggestions.`);
+    }
+    wire();
+  }
+};
+(function aiInit() {
+  for (const b of $$('[data-ai-nav]')) b.addEventListener('click', e => { e.stopPropagation(); if (typeof sfx !== 'undefined' && sfx.click) sfx.click(); Ai.dialog(); });
+  Ai.paint();
 })();
 
 /* ================================================================
@@ -6947,22 +7276,7 @@ function showReport(mode) {
       <div class="b5-scale"><span>${t.lo}</span><div class="b5-track">${b ? `<i style="left:${b.v}%"></i>` : ''}</div><span>${t.hi}</span></div></div>`;
   }).join('');
   const eiHTML = R.ei ? [[ico('search'), 'Understanding feelings', R.ei.u, 'Reading what a character really feels (Mayer–Salovey branch 3)'], [ico('shield'), 'Managing feelings', R.ei.m, 'Choosing a helpful way to handle a feeling (branch 4)']].map(([i, l, v, tip]) => barRow(i, l, v, '#E64980', tip)).join('').replace(/>(\d+)%<\/span><\/div>/g, '>$1</span></div>') : '<p class="rc-sub">Play the Feelings Detective mission to see this.</p>';
-  const mt = (S.mirror && S.mirror.tries) || [], mirrorHTML = mt.length ? `<div class="fm-rep"><b>Face Mirror bonus</b> <small>(copying faces for fun, not part of any score)</small><div>${mt.map(t => `<span class="chip">${(MIRROR_FACES.find(f => f.k === t.k) || {}).e || ''} ${t.pct}%</span>`).join('')}</div></div>` : '';
   const emoHTML = R.hasCam ? EMOTIONS.map(k => barRow(EMO_META[k].e, EMO_META[k].label, pct(R.emo[k]), EMO_META[k].c, `${EMO_META[k].label}: ${pct(R.emo[k])}% of the time`)).join('') : '<p class="rc-sub">No camera data for this session.</p>';
-  const gz = R.gaze, cell = (k, x, y) => { const v = pct(gz[k]); const base = k === 'center' ? '22,163,74' : '59,130,246'; return `<div class="gc-cell" data-tip="${GAZE_META[k].label}: ${v}%" style="left:${x}px;top:${y}px;background:rgba(${base},${(0.1 + gz[k] * 0.9).toFixed(2)});${gz[k] > .5 ? 'color:#fff' : ''}">${GAZE_META[k].e}<br>${v}%</div>`; };
-  const gazeHTML = R.hasCam ? `<div class="gaze-wrap"><div class="gaze-compass">${cell('up', 57, 0)}${cell('left', 0, 57)}${cell('center', 57, 57)}${cell('right', 114, 57)}${cell('down', 57, 114)}</div><div class="bars">${['center', 'left', 'right', 'up', 'down', 'away'].map(k => barRow(GAZE_META[k].e, GAZE_META[k].label, pct(gz[k]), k === 'center' ? '#16A34A' : k === 'away' ? '#94A3B8' : '#3B82F6', '')).join('')}</div></div>` : '<p class="rc-sub">No camera data for this session.</p>';
-  const tl = Array.from({ length: TOTAL }, (_, i) => {
-    const a = R.A.find(x => x.i === i); if (!a) return `<div class="tl"><i style="background:#F4EFE8;color:#C9C2B8">·</i>${i + 1}</div>`;
-    const e = a.emo || null, res = a.correct === true ? '✓ correct' : a.correct === false ? '✗ not yet' : 'choice';
-    return `<div class="tl" data-tip="${esc(`#${i + 1} ${a.game} · ${res} · ${fmtSec(a.rt)}${e ? ' · mostly ' + EMO_META[e].label : ''}${R.bio && R.bio.missions[i] ? ` · ${R.bio.missions[i]} bpm` : ''}`)}"><i style="background:${e ? EMO_META[e].c + '2E' : '#F4EFE8'}">${e ? EMO_META[e].e : (a.correct === true ? '✓' : a.correct === false ? '✗' : '•')}</i>${i + 1}</div>`;
-  }).join('');
-  const rows = R.A.map(a => {
-    const res = a.type === 'path' ? `<td>${ico('compass')} ${(a.big5 || []).map(x => BIG5[x.t].icon + ' ' + ['Low', 'Mid-low', 'Mid-high', 'High'][x.v]).join(' · ')}</td>` : a.type === 'mood' ? `<td>${(MOODS[a.mood - 1]?.e || '') + ' ' + esc(a.choice || '')}</td>`
-      : ['describe', 'speak', 'quick', 'fingers', 'reading', 'audio'].includes(a.type) && a.choice ? `<td class="${a.correct ? 'res-ok' : 'res-no'}">${a.correct ? '✓' : '✗'} ${esc(a.choice)}${a.type === 'audio' && a.extra && a.extra.plays ? ` · ${a.extra.plays} listen${a.extra.plays > 1 ? 's' : ''}` : ''}${a.extra && a.extra.mode ? ` · ${a.extra.mode === 'voice' ? ico('mic') : ico('keyboard')}` : ''}</td>`
-      : a.type === 'emotion' && a.ei ? `<td class="${a.correct ? 'res-ok' : 'res-no'}">${a.ei.u ? '✓' : '✗'} understand · ${a.ei.m ? '✓' : '✗'} manage</td>`
-      : a.correct === true ? `<td class="res-ok">✓ Correct${a.score != null && a.score < 1 ? ` (${pct(a.score)})` : ''}</td>` : `<td class="res-no">✗ Not yet${a.score ? ` (${pct(a.score)})` : ''}</td>`;
-    return `<tr><td>${a.i + 1}</td><td>${GAME_INFO[a.type].icon} ${esc(a.game)}</td><td class="q-meas">${esc(measureTxt(a.type, a.key))}${a.extra && a.extra.replays ? ` <small>(replayed ${a.extra.replays}×)</small>` : ''}</td>${res}<td>${fmtSec(a.rt)}</td><td>${a.emo ? EMO_META[a.emo].e + ' ' + EMO_META[a.emo].label : '—'}</td><td>${a.gaze ? GAZE_META[a.gaze].e + ' ' + GAZE_META[a.gaze].label : '—'}</td>${R.bio ? `<td>${R.bio.missions[a.i] ? R.bio.missions[a.i] + ' bpm' : '—'}</td>` : ''}</tr>`;
-  }).join('');
   const mj = (v, l) => `<div class="mj"><span>${v ? MOODS[v - 1].e : ico('dots')}</span>${l}${v ? ': ' + MOODS[v - 1].l : ' (not reached)'}</div>`;
   const moodHTML = `<div class="mood-journey">${mj(S.mood.start, 'Start')}<div class="arrow">➜</div>${mj(S.mood.mid, 'Halfway')}<div class="arrow">➜</div>${mj(S.mood.end, 'End')}</div>`;
   // listening, reading and voice card
@@ -6975,7 +7289,6 @@ function showReport(mode) {
     R.quick ? li(ico('timer'), 'Fastest Finger', `${(R.quick.rt / 1000).toFixed(2)}s`, `${pct(R.quick.acc)}% right · best streak ${R.quick.best}`) : '',
     R.fingers ? li(ico('hand'), 'Finger Math', pct(R.fingers.acc) + '%', `${R.fingers.hand} of ${R.fingers.total} answers shown with fingers`) : ''
   ].join('');
-  const talkHTML = R.talk ? R.talk.items.map(a => `<details class="talk-log"><summary>${ico('image')} ${esc(a.level)} · ${a.extra.words || 0} words · ${(a.extra.hits || []).length} details</summary>${CLIPS[a.i] ? `<audio controls src="${CLIPS[a.i]}"></audio>` : ''}<p>${esc(a.extra.transcript || '(nothing heard)')}</p><small>Details noticed: ${(a.extra.hits || []).map(esc).join(', ') || 'none'}</small></details>`).join('') : '';
   const abVals = Object.values(R.abil).filter(Boolean).map(a => a.v);
   const root = el('div', { class: 'report' });
   root.innerHTML = `
@@ -6997,25 +7310,19 @@ function showReport(mode) {
         ${kpi('Puzzles solved', R.scored.length ? `${R.correctN}/${R.scored.length}` : '—', R.avgRt != null ? `About ${fmtSec(R.avgRt)} per puzzle` : 'Right answers')}
         ${kpi('Focus', R.hasCam && R.focus != null ? pct(R.focus) + '%' : '—', R.hasCam ? 'Eyes on the screen' : 'Camera was off')}
       </div>
-      <div class="rp-card"><h4>${ico('sparkle')} Key insights</h4><p class="rc-sub">What the games, choices, expressions and eye movements suggest</p><ul class="insights">${R.ins.map(([e, t]) => `<li><span>${e}</span><div>${t}</div></li>`).join('')}</ul></div>
+      ${Ai.card()}
+      <div class="rp-card"><h4>${ico('sparkle')} Key insights</h4><p class="rc-sub">What the games, choices, expressions and eye movements suggest</p><ul class="insights">${R.ins.slice(0, 6).map(([e, t]) => `<li><span>${e}</span><div>${t}</div></li>`).join('')}</ul></div>
       <div class="rp-grid">
         <div class="rp-card"><h4>${ico('brain')} Thinking skills</h4><p class="rc-sub">CHC model of cognitive abilities · score out of 100 at this grade's level · hover a skill to see which games measured it</p><div class="bars">${abilHTML}</div></div>
         <div class="rp-card"><h4>${ico('compass')} Personality (Big Five)</h4><p class="rc-sub">From ${BIG5_ALL.length} Choose Your Path choices, ${Math.round(BIG5_ALL.length / 5)} per trait · neither end is better</p><div class="b5">${b5HTML}</div></div>
       </div>
       <div class="rp-grid">
-        <div class="rp-card"><h4>${ico('heart')} Emotional intelligence</h4><p class="rc-sub">Mayer–Salovey model · from the Feelings Detective mission</p><div class="bars">${eiHTML}</div></div>
-        <div class="rp-card"><h4>${ico('mood')} Mood journey</h4><p class="rc-sub">How ${esc(P.name)} said they felt</p>${moodHTML}</div>
+        <div class="rp-card"><h4>${ico('heart')} Feelings & mood</h4><p class="rc-sub">Emotional intelligence (Mayer–Salovey) from Feelings Detective, and how ${esc(P.name)} said they felt</p><div class="bars">${eiHTML}</div>${moodHTML}</div>
+        <div class="rp-card"><h4>${ico('smile')} Expressions while playing</h4><p class="rc-sub">Share of time each facial expression was seen${R.hasCam && R.focus != null ? ` · eyes on screen ${pct(R.focus)}%` : ''}${R.blinkRate ? ` · ${Math.round(R.blinkRate)} blinks/min` : ''}</p><div class="bars">${emoHTML}</div></div>
       </div>
-      ${skills || talkHTML ? `<div class="rp-card"><h4>${ico('headphones')} Listening, reading & voice</h4><p class="rc-sub">From the audio-only stories, reading passages, Picture Talk, Say It!, Fastest Finger and Finger Math missions</p><div class="sk-list">${skills}</div>${talkHTML ? `<h5 class="talk-h">What ${esc(P.name)} said about the pictures</h5>${talkHTML}<p class="rc-sub">Recordings play only during this visit and are never uploaded by MindQuest.</p>` : ''}</div>` : ''}
-      <div class="rp-grid">
-        <div class="rp-card"><h4>${ico('smile')} Feelings while playing</h4><p class="rc-sub">Share of time each facial expression was seen${R.blinkRate ? ` · Blink rate ${Math.round(R.blinkRate)}/min` : ''}</p><div class="bars">${emoHTML}</div>${mirrorHTML}</div>
-        <div class="rp-card"><h4>${ico('eye')} Where the eyes looked</h4><p class="rc-sub">Gaze and head direction during the missions</p>${gazeHTML}</div>
-      </div>
+      ${skills ? `<div class="rp-card"><h4>${ico('headphones')} Listening, reading & voice</h4><p class="rc-sub">From the audio stories, reading passages, Picture Talk, Say It!, Fastest Finger and Finger Math</p><div class="sk-list">${skills}</div></div>` : ''}
       ${typeof Bio !== 'undefined' ? Bio.card(R, P.name) : ''}
-      <div class="rp-card"><h4>${ico('map')} Mission-by-mission expressions</h4><p class="rc-sub">Main expression seen during each mission (hover for details)</p><div class="timeline">${tl}</div></div>
-      <div class="rp-card"><h4>${ico('cards')} Mission details</h4><p class="rc-sub">What each mission measures, the result, timing, expression and gaze</p><div class="qtable-wrap"><table class="qtable"><thead><tr><th>#</th><th>Game</th><th>Measures</th><th>Result</th><th>Time</th><th>Expression</th><th>Gaze</th>${R.bio ? '<th>Heart</th>' : ''}</tr></thead><tbody>${rows || '<tr><td colspan="8">No missions played yet.</td></tr>'}</tbody></table></div></div>
-      <div class="rp-card about"><h4>${ico('info')} How MindQuest measures</h4><p><b>Thinking skills</b> follow the Cattell–Horn–Carroll (CHC) model used by tests such as WISC-V. Each game is linked to one main ability and sometimes a supporting one, and each ability is measured by at least two games. <b>Personality</b> uses the Big Five model with five situational choices per trait, scored from low to high on that trait. <b>Emotional intelligence</b> follows the Mayer–Salovey model (understanding and managing feelings). <b>Reading</b> (Grw) uses short passages with literal, inference and vocabulary questions, timed for reading speed. <b>Listening keenness</b> uses audio-only stories that can be heard at most twice: the score, the number of listens and how steadily the eyes stayed on the screen are all recorded. <b>Idea fluency</b> (Gr) counts the words and details given in Picture Talk and Say It!, transcribed by the browser's speech service. <b>Finger Math</b> counts raised fingers with an on-device hand tracker. <b>Expressions</b> are read on the device from facial muscle movements (FACS action units) combined with a neural-network classifier, measured against the child's own relaxed face.</p></div>
-      <div class="disclaimer">${ico('info')} MindQuest is a playful screening tool, not a clinical diagnosis. Scores compare the child with the difficulty of their grade's missions, not with national age norms, and personality answers are self-reported choices. Expression, gaze and finger readings are estimates and can be affected by lighting, glasses or camera position. Spoken answers are turned into text by the browser's own speech service (in Chrome this sends audio to Google), so accents and background noise can lower voice scores. Please discuss any concerns with a qualified counsellor or psychologist.</div>
+      <div class="disclaimer">${ico('info')} MindQuest is a playful screening tool, not a diagnosis. Scores compare the child with their grade's missions, not national norms. Expression, gaze and heart readings are estimates. Please discuss any concerns with a qualified counsellor.</div>
       <div class="rp-credit"><img class="rcr-icon" src="${($('link[rel="icon"]') || {}).href || ''}" alt=""><div class="rcr-text"><small>Designed &amp; developed by</small><b><span>Cogno</span>Space</b><em>Experiential Learning</em></div><a class="rcr-web" href="https://www.cognospace.in" target="_blank" rel="noopener">${ico('globe')} www.cognospace.in</a></div>
     </div>
     <div class="rp-foot"></div>`;
@@ -7028,6 +7335,7 @@ function showReport(mode) {
     root.prepend(el('button', { class: 'icon-btn rp-close', 'aria-label': 'Close report', onclick: () => closeModal() }, '✕'));
   }
   openModal(root, { wide: true, dismissable: mode !== 'end', onClose: mode === 'end' ? finishSession : null });
+  Ai.mount(root.querySelector('#aiCard'), R, Sm);
 }
 
 /* ================================================================
